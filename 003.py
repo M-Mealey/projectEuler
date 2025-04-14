@@ -25,4 +25,4 @@ def largest_prime_factor(x):
         largest_factor = x
     return largest_factor
 
-print(largest_prime_factor(11))
+print(largest_prime_factor(600851475143))
