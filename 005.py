@@ -1,0 +1,50 @@
+"""
+Project Euler Problem 5
+=======================
+
+2520 is the smallest number that can be divided by each of the numbers
+from 1 to 10 without any remainder.
+
+What is the smallest number that is evenly divisible by all of the numbers
+from 1 to 20?
+"""
+
+import math
+
+# copied from problem 3 solution, checks if x is prime
+def is_prime(x):
+    result = True
+    for i in range(2, int(math.sqrt(x))):
+        if x%i == 0:
+            result = False
+            break
+    return result
+
+primes = [2, 3, 5, 7, 11, 13, 17, 19]
+def prime_factors(x):
+    index = 0
+    factors = []
+    while x>1 and index <8:
+        if x%primes[index]==0:
+            factors.append(primes[index])
+            x /= primes[index]
+        else:
+            index += 1
+    return factors
+
+
+def lcm(x):
+    powers = [0,0,0,0,0,0,0,0]
+    for i in x:
+        factors = prime_factors(i)
+        for n in range(len(primes)):
+            powers[n] = max(powers[n], factors.count(primes[n]))
+    lcm = 1
+    for n in range(len(primes)):
+        lcm *= (primes[n]**powers[n])
+    return lcm
+
+
+
+print(lcm(range(20)))
+
