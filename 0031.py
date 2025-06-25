@@ -29,3 +29,6 @@ def solve(coins, x):
     return ways
 
 print(solve(p_amounts, 200))
+
+# TODO: Try with dynamic programming? https://www.geeksforgeeks.org/understanding-the-coin-change-problem-with-dynamic-programming/
+
