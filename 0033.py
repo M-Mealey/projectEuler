@@ -15,7 +15,7 @@ denominator.
 If the product of these four fractions is given in its lowest common
 terms, find the value of the denominator.
 """
-import itertools
+import math
 answers = []
 
 for x in range(10, 100):
@@ -28,10 +28,26 @@ for x in range(10, 100):
         # possible solutions are where to/ti == o/i, to/it == o/i, to/oi == t/i, to/io == t/i
         possible_solutions = [(tens_digit*10 + i, ones_digit), (i*10 + tens_digit,ones_digit), (ones_digit*10 + i, tens_digit), (i*10 + ones_digit, tens_digit)]
         for d in possible_solutions:
-            if d[0]<=x:
+            if d[0]<=x: # fraction must be < 1
                 continue
             if x/d[0] == d[1]/i:
                 answers.append((x,d[0]))
 
-print(answers)
 
+numerator = 1
+denominator = 1
+for a in answers:
+    numerator *= a[0]
+    denominator *= a[1]
+
+# Find GCD of 2 integers using Euclidean algorithm
+def gcd(n1, n2):
+    a, b = max(n1, n2), min(n1, n2)
+    r = a%b
+    while r!=0:
+        a, b = b, r
+        r = a%b
+    return b
+
+solution = int(denominator / gcd(numerator, denominator))
+print(solution)
