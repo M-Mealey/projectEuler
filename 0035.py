@@ -43,6 +43,3 @@ for i in range(101, 1000000, 2):
             circular_primes += 1
 
 print(circular_primes)
-
-
-
