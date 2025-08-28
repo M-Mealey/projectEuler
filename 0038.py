@@ -22,8 +22,6 @@ the concatenated product of an integer with (1,2, ... , n) where n > 1?
 # for a given int, check if a list "(1,2, ... , n) where n > 1" can be created to satisfy the problem
 # Returns the pandigital 9-digit number found, or -1 if none can be created
 def check_pandigital(x):
-    if len(str(x)) > 5:
-        return -1
     digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     n = 0
     pandigital_string = ""
@@ -38,9 +36,7 @@ def check_pandigital(x):
             return -1
     return int(pandigital_string)
 
-
-max_pand_int = 0
-for i in range(10000):
-    max_pand_int = max(max_pand_int, check_pandigital(i))
-
-print(max_pand_int)
+# only need to check up to 4-digit numbers because n > 1, so concatenated product of 5-digit (or larger)
+# number with (1, 2) would have 10-digits (or more),
+solution = max([check_pandigital(i) for i in range(10000)])
+print(solution)
