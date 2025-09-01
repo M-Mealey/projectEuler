@@ -15,8 +15,7 @@ What 12-digit number do you form by concatenating the three terms in this
 sequence?
 """
 import itertools
-import math
-
+from helpers import is_prime
 # find all combinations of 4 one-digit numbers
 # for each:
 #   if sum is multiple of 3, pass
@@ -29,14 +28,6 @@ def tuple_to_int(tup):
         total = total * 10
         total += d
     return total
-
-def is_prime(x):
-    if not isinstance(x, int) or x<=1:
-        return False
-    for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
-            return False
-    return True
 
 # get all combinations of 4 digits
 digits = [0,1,2,3,4,5,6,7,8,9]
