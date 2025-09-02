@@ -9,17 +9,6 @@ What is the smallest number that is evenly divisible by all of the numbers
 from 1 to 20?
 """
 
-import math
-
-# copied from problem 3 solution, checks if x is prime
-def is_prime(x):
-    result = True
-    for i in range(2, int(math.sqrt(x))):
-        if x%i == 0:
-            result = False
-            break
-    return result
-
 primes = [2, 3, 5, 7, 11, 13, 17, 19]
 def prime_factors(x):
     index = 0
