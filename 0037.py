@@ -12,15 +12,7 @@ to right and right to left.
 
 NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 """
-import math
-
-def is_prime(x):
-    if not isinstance(x, int) or x<=1:
-        return False
-    for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
-            return False
-    return True
+from helpers import is_prime
 
 # for given int x, checks if all left and right truncations are prime. Returns True or False.
 def check_truncs(x):

@@ -8,16 +8,7 @@ that the 6th prime is 13.
 What is the 10001st prime number?
 """
 import math
-
-# copied from problem 3 solution, checks if x is prime
-def is_prime(x):
-    result = True
-    for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
-            result = False
-            break
-    return result
-
+from local_helpers import is_prime
 
 def find_prime(x):
     i = 0

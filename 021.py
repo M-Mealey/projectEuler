@@ -13,21 +13,7 @@ For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22,
 
 Evaluate the sum of all the amicable numbers under 10000.
 """
-import math
-
-"""
-Input integer x, returns list of positive integer divisors of x
-O(root(x)) time
-"""
-def find_divisors(x):
-    divisors = [1]
-    for i in range(2, int(math.sqrt(x)+1)):
-        if x%i==0:
-            divisors.append(i)
-            if x/i != i:
-                divisors.append(int(x/i))
-    return divisors
-
+from helpers import find_divisors
 
 amicable_numbers = []
 for i in range(10000):

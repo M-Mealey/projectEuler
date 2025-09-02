@@ -16,11 +16,6 @@ sequence?
 """
 import itertools
 from helpers import is_prime
-# find all combinations of 4 one-digit numbers
-# for each:
-#   if sum is multiple of 3, pass
-#   find permutations, eliminate any with 1st digit 0, last digit 0,2,4,5,6,8
-#   sort permutations (small to large), iterate over set
 
 def tuple_to_int(tup):
     total = 0

@@ -22,21 +22,7 @@ two abundant numbers is less than this limit.
 Find the sum of all the positive integers which cannot be written as the
 sum of two abundant numbers.
 """
-import math
-
-"""
-Copied from problem 21
-Input integer x, returns list of positive integer divisors of x
-O(root(x)) time
-"""
-def find_divisors(x):
-    divisors = [1]
-    for i in range(2, int(math.sqrt(x)+1)):
-        if x%i==0:
-            divisors.append(i)
-            if x/i != i:
-                divisors.append(int(x/i))
-    return divisors
+from helpers import find_divisors
 
 """
 Checks if integer x can be created by adding 2 numbers in iterable l
@@ -56,7 +42,6 @@ for i in range(1, 28124):
         abundant_numbers.add(i)
     if not can_make_sum(i, abundant_numbers):
         number_sum += i
-
 
 print(number_sum)
 
