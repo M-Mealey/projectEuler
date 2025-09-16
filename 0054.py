@@ -52,7 +52,9 @@ is a clear winner.
 How many hands does Player 1 win?
 """
 
-card_order = ['2', '3', '4', '5', '6', '7', '8', '9','T', 'J', 'Q', 'K', 'A']
+# Ace can also be 1, but the only situation in this problem where you would count it as 1 is if it's in a straight
+# so that special case can be handled separately
+card_values = {'2':2, '3':3, '4': 4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10, 'J':11, 'Q':12, 'K':13, 'A':14}
 
 hands = []
 with open("resources/poker.txt") as f:
@@ -63,38 +65,73 @@ p1_win_count = 0
 def check_flush(hand):
     return hand[0][1]==hand[1][1] and hand[0][1]==hand[2][1] and hand[0][1]==hand[3][1] and hand[0][1]==hand[4][1]
 
-def check_royal_straight(hand):
-    return hand[0][0] == 'A' and hand[1][0] == 'J' and hand[2][0] == 'K' and hand[3][0] == 'Q' and hand[4][0] == 'T'
-
 def check_straight(hand):
-    return False #@TODO
+    if hand == [2, 3, 4, 5, 14]: # special case, A can be 1 in a straight
+        return True
+    if [c - hand[0] for c in hand] == [0,1,2,3,4]:
+        return True
+    return False
 
+# returns
+def count_multiples(hand):
+    cards = {}
+    for c in hand:
+        cards[c] = cards.get(c, 0) + 1
+    return dict(sorted(cards.items(), key = lambda item: item[1], reverse=True))
+
+# returns 2 values: score and tiebreaker info
 def grade_hand(hand):
+    card_int_values = [card_values[c[0]] for c in hand]
+    card_int_values.sort()
+    # suit only matters for flush, so check for 3 flush types together
+    # for straights: ties are broken on simple high card, tiebreaker is max card
+    # for simple flush: tiebreaker is list of card values, descending
     if check_flush(hand):
-        if check_royal_straight(hand):
-            return 9 # royal flush
-        elif check_straight(hand):
-            return 8
+        if card_int_values == [10, 11, 12, 13, 14]:
+            # for royal straight and all other straights, tiebreaker is simple highest card.
+            return 9, [max(card_int_values)] # royal flush
+        elif check_straight(card_int_values):
+            return 8, [max(card_int_values)] # straight flush
         else:
-            return 5
-    elif check_straight(hand):
-        return 4
+            return 5, sorted(card_int_values, reverse=True) # simple flush
+    elif check_straight(card_int_values):
+        return 4, [max(card_int_values)] # simple straight
     else:
-        # check for multiples
-        # four of a kind => 7
-        # full house => 6
-        # three of a kind => 3
-        # two pairs => 2
-        # one pair => 1
-        return 0
+        # for other hands, tiebreaker is list of card values by frequency they occur, cards with the same frequency
+        # are sorted by descending values
+        card_int_values = list(sorted(card_int_values, reverse=True))
+        card_counts = count_multiples(card_int_values)
+        tiebreaker = list(card_counts.keys())
+        vals = sorted(list(card_counts.values()), reverse=True)
+        if 4 in vals:
+            return 7 , tiebreaker # 4 of a kind
+        elif 3 in vals:
+            if 2 in vals:
+                return 6, tiebreaker # full house
+            return 3, tiebreaker # 3 of a kind
+        elif 2 in vals:
+            if vals  == [2,2,1]:
+                return 2, tiebreaker # 2 pairs
+            return 1, tiebreaker # 1 pair
+        return 0, tiebreaker # high card
+
+def resolve_tiebreaker(t1, t2):
+    if t1[0] == t2[0]:
+        return resolve_tiebreaker(t1[1:], t2[1:])
+    else:
+        return t1[0] > t2[0]
 
 for h in hands:
     p1_cards, p2_cards = h.split()[:5], h.split()[5:]
     p1_cards.sort()
     p2_cards.sort()
-    # check for flush first
-    # if flush: check for royal flush, straight flush
-    # else check for straight
-    # if no straight, then check for multiple of a kind
-    # if no multiple of a kind, then it's high card
+    score1, tie1 = grade_hand(p1_cards)
+    score2, tie2 = grade_hand(p2_cards)
+    if score1 > score2:
+        p1_win_count += 1
+    elif score1 == score2:
+        if resolve_tiebreaker(tie1, tie2):
+            p1_win_count += 1
 
+
+print(p1_win_count)
