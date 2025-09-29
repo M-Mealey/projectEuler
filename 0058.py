@@ -25,27 +25,21 @@ along both diagonals first falls below 10%?
 from helpers import is_prime
 # like problem 28
 # ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
-# a 1001 by 1001 grid has 501 "rings" (inc ring 0), ring 500 is 1001x1001
-# ring x is (2x+1)x(2x+1), contains 8x numbers
 prime_count = 0
 count = 1
 end_of_ring = 1 # tracks end of previous ring
 side_len = 1
-for r in range(1,400):
+for r in range(1,100000):
+    side_len = 2 * r + 1
     # each corner is 2r steps up from the last corner, where r is the ring # the corner is in
-    if is_prime(end_of_ring + 2*r):
-        prime_count += 1
-    if is_prime(end_of_ring + 4*r):
-        prime_count += 1
-    if is_prime(end_of_ring + 6*r):
-        prime_count += 1
-    if is_prime(end_of_ring + 8*r):
-        prime_count += 1
-    count += 4
-    side_len = 2*r + 1
-    if prime_count / count <= 0.1:
+    corners = [end_of_ring + 2*r*x for x in range(1,5)]
+    for c in corners:
+        if is_prime(c):
+            prime_count += 1
+        count += 1
+    if (prime_count / count) < 0.1:
         break
     end_of_ring = end_of_ring + 8*r
-print(f"{prime_count}/{count}")
+
 print(side_len)
 
