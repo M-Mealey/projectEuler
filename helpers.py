@@ -1,5 +1,7 @@
 import math
+from functools import lru_cache
 
+@lru_cache(maxsize=None)
 def is_prime(x):
     if not isinstance(x, int) or x<=1:
         return False

@@ -45,13 +45,12 @@ bytes_by_key = {1: [], 2: [], 3: []}
 for x in range(len(bytes)):
     bytes_by_key[x%3 + 1].append(bytes[x])
 
-
 # given a byte list where all bytes are encrypted by the same key,
 # find the most common byte and return list of potential keys that would
-# be used to encode this byte @TODO write this better lol
+# correspond to this byte being one of the most common characters
 def get_likely_keys(b_list):
     byte_count = Counter(b_list)
-    most_common_byte = byte_count.most_common(1)[0][0] # ties could be an issue, but are unlikely
+    most_common_byte = byte_count.most_common(1)[0][0]
     # problem states valid cipher chars are lowercase letters
     likely_keys = [ord(c) ^ most_common_byte for c in most_common_chars if ord('z') >= (ord(c)^most_common_byte) >= ord('a')]
     return likely_keys
@@ -59,8 +58,8 @@ def get_likely_keys(b_list):
 k1 = get_likely_keys(bytes_by_key[1])
 k2 = get_likely_keys(bytes_by_key[2])
 k3 = get_likely_keys(bytes_by_key[3])
+# in practice there's only one possible key for each list, but if there were more this would generate all combinations
 possible_key_combos = list(product(k1, k2, k3))
-
 
 # validate the plaintext by checking if at least 9 of first 10 words are common English words
 # using the word list from https://public.websites.umich.edu/~jlawler/wordlist.html
@@ -74,7 +73,8 @@ def validate_message(txt):
         return True
     return False
 
-
+# trys to decrypt the plaintext with the given keys. Returns plaintext if it passes validation,
+# or None if it doesn't
 def try_decrypt(keys):
     decrypted_bytes = [bytes[x] ^ keys[x%3] for x in range(len(bytes))]
     decoded_string = ''.join([chr(x) for x in decrypted_bytes])
@@ -88,7 +88,6 @@ def try_keys(key_combos):
         if try_decrypt(k):
             return try_decrypt(k)
     return None
-
 
 plaintext = try_keys(possible_key_combos)
 if not plaintext:
