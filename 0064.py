@@ -66,44 +66,34 @@ How many continued fractions for N 10000 have an odd period?
 """
 from math import sqrt, floor
 
-# @TODO: add comment explaining math and rename function to something better
+# n = the original number being square-rooted, a = the integer part being removed from the remainder
+# r = the current remainder part represented as list of 2 integers, [r0, r1]
+#     remainder corresponding with previous a-value was rationalized as (root(n) + r0) / r1
+# This function returns the new remainder fraction by rationalizing 1 / [ ((root(n) + r0) / r1) - a) ]
+# new remainder is returned as list of 2 numbers like input r
 def rationalize_remainder(n, r, a):
     x, y = r[0], r[1]
     z = y*a - x
     return [z, int((n-z**2)/y)]
 
-def get_a_values(n, x):
-    if x < 1:
-        return []
+# Find a-values for fractional expansion of square root of int n
+# returns a list of integers
+def get_a_values(n):
     a0 = floor(sqrt(n))
     r = [a0, n-(a0**2)]
     a_values = [a0]
-    cycles = 0
-    while cycles < x:
+    while len(a_values) < 1000: # condition is just to stop infinite loop, shouldn't be false
         a_next = floor((sqrt(n)+r[0]) /r[1])
         a_values.append(a_next)
-        if r[1] == 1:
-            cycles += 1
+        if r[1] == 1: # cycle ends where denominator is 1
+            break
         r = rationalize_remainder(n, r, a_next)
-    #print(f"a_vals: {a_values}")
     return a_values
 
-def get_period(n):
-    vals = get_a_values(n, 2)
-    #print(vals)
-    return int((len(vals) - 1)/2)
-
-
+# main loop
 total = 0
-#for n in range(2,14):
 for n in range(2,10001):
-    #print(f"n={n}")
-    if sqrt(n) == floor(sqrt(n)):
-        continue # skip squares
-    #print(f"p_len = {get_period(n)}")
-    if get_period(n) % 2 == 1:
+    if not sqrt(n) == floor(sqrt(n)) and int(len(get_a_values(n))-1) % 2 == 1:
         total += 1
-
+# answer
 print(total)
-
-get_period(19)
