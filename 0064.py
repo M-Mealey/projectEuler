@@ -78,25 +78,31 @@ def get_a_values(n, x):
     a0 = floor(sqrt(n))
     r = [a0, n-(a0**2)]
     a_values = [a0]
-    while len(a_values) < x:
+    cycles = 0
+    while cycles < x:
         a_next = floor((sqrt(n)+r[0]) /r[1])
         a_values.append(a_next)
+        if r[1] == 1:
+            cycles += 1
         r = rationalize_remainder(n, r, a_next)
+    #print(f"a_vals: {a_values}")
     return a_values
 
 def get_period(n):
-    vals = get_a_values(n, 10)
-    print(vals)
-    return 2
+    vals = get_a_values(n, 2)
+    #print(vals)
+    return int((len(vals) - 1)/2)
 
-#for n in range(2,10001):
+
 total = 0
 #for n in range(2,14):
-#    print(f"n={n}")
-#    if sqrt(n) == floor(sqrt(n)):
-#        continue # skip squares
-#    if get_period(n) % 2 == 1:
-#        total += 1
+for n in range(2,10001):
+    #print(f"n={n}")
+    if sqrt(n) == floor(sqrt(n)):
+        continue # skip squares
+    #print(f"p_len = {get_period(n)}")
+    if get_period(n) % 2 == 1:
+        total += 1
 
 print(total)
 
