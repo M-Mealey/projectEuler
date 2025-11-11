@@ -1,4 +1,4 @@
-65"""
+"""
 Project Euler Problem 77
 ========================
 
@@ -15,24 +15,24 @@ What is the first value which can be written as the sum of primes in over
 five thousand different ways?
 """
 from helpers import is_prime
-# copied coin solving logic from problem 31, but it's inefficient
-p_amounts = [x for x in range(2,1000) if is_prime(x)]
 
-def solve(coins, x):
-    if len(coins) == 1: # base case 2
-        return x%coins[0] == 0
-    next_coin = coins[-1]
-    remaining_coins = coins[:-1]
-    ways = 0
-    remaining_amt = x
-    while remaining_amt >= 0:
-        ways += solve(remaining_coins, remaining_amt)
-        remaining_amt -= next_coin
-    return ways
+# highest number to search
+max_number = 1000
+primes = [p for p in range(2, max_number) if is_prime(p)]
 
-# need to do dynamic programming approach: start with 10, calculate how many ways to write 11, etc
-for x in range(11, 10000):
-    # increase set by 1
-    # check if len is at least 5000
+# keep list of how many prime combos there are for each number
+prime_combos = [0 for _ in range(max_number + 1)]
 
+# for each prime, iterate over indexes in solution list
+# solutions for index i += solutions for index i - (prime), like appending the prime to the sum
+# no risk of double-counting because this goes in ascending order
+for p in primes:
+    prime_combos[p] += 1 # counting prime number itself as one way to write sum
+    for i in range(p, max_number):
+        prime_combos[i] += prime_combos[i-p]
 
+# print first index with more than 5000 combos
+for pc in prime_combos:
+    if pc>5000:
+        print(prime_combos.index(pc))
+        break
