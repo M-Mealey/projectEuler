@@ -21,4 +21,21 @@ def find_divisors(x):
             divisors.append(i)
             if x/i != i:
                 divisors.append(int(x/i))
+    divisors.sort()
     return divisors
+
+"""
+Sieve of Eratosthenes - Generate primes up to (exclusive) a given number by iterating over list from low to high,
+for each entry in list remove all multiples of it
+"""
+def prime_sieve(limit):
+    is_prime_list = [True] * limit
+    is_prime_list[0] = False
+    is_prime_list[1] = False
+    current_i = 2
+    while current_i <= math.ceil(math.sqrt(limit)):
+        if is_prime_list[current_i]:
+            for j in range(2*current_i, limit, current_i):
+                is_prime_list[j] = False
+        current_i += 1
+    return [x for x,prime in enumerate(is_prime_list) if prime]
