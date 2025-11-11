@@ -17,6 +17,7 @@ By listing the set of reduced proper fractions for d 1,000,000 in
 ascending order of size, find the numerator of the fraction immediately to
 the left of 3/7.
 """
+# @TODO: check if fractions are reduced?
 
 # immediately to left = closest to 3/7 without going over
 # for denominator d, solve x = (3/7)*d to get numerator that makes fraction equal to 3/7
