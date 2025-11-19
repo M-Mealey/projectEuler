@@ -24,7 +24,7 @@ import bisect
 #     the pop shortest path, add to shortest path matrix, add paths to each neighbor above/below,
 #     repeat until every square filled in column
 
-with open("resources/matrix_82.txt") as f:
+with open("resources/matrix.txt") as f:
     rows = f.read().strip().split("\n")
     data = [r.split(",") for r in rows]
     data = [[int(x) for x in r] for r in data]
