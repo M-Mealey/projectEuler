@@ -77,38 +77,9 @@ If, instead of using two 6-sided dice, two 4-sided dice are used, find the
 six-digit modal string.
 """
 import numpy as np
-import random
+import itertools
+
 # Can solve with Markov chains, each square is a state, 40 x 40 state space
-
-
-# Started by solving for regular monopoly dice to make sure I'm doing it right:
-
-# 36 outcomes for dice:
-#         DIE 2
-#        |  1   2   3   4   5   6
-#      --+-------------------------
-# D   1  |  2   3   4   5   6   7
-# I   2  |  3   4   5   6   7   8
-# E   3  |  4   5   6   7   8   9
-#     4  |  5   6   7   8   9  10
-# 1   5  |  6   7   8   9  10  11
-#     6  |  7   8   9  10  11  12
-#
-# each row has [0, 1/36, 2/36, 3/36, 4/36, 5/36, 6/36, 5/36, 4/36, 3/36, 2/36, 1/36] probabilities after current space
-# chance of rolling 3 doubles in a row is 1/216, so multiply each "regular" roll outcome by 215/216
-# and add 1/216 to the column that results in going to jail
-d6_rolls = {2: 1/36, 3: 2/36, 4: 3/36, 5: 4/36, 6: 5/36, 7: 6/36, 8: 5/36, 9: 4/36, 10: 3/36, 11: 2/36, 12: 1/36}
-# column is starting state, row is end state
-def create_transition_matrix_d6():
-    transition_matrix = np.zeros((40, 40))
-    for c in range(40):
-        for r in d6_rolls:
-            transition_matrix[(r+c)%40][c] = d6_rolls[r] * (215/216)
-        transition_matrix[10][c] += 1/216
-    go_to_jail_transition(transition_matrix)
-    chance_transition(transition_matrix)
-    cc_transition(transition_matrix)
-    return transition_matrix
 
 # go to jail: if landing on 30, go to 10
 # so for each column take value in row 30 and add it to row 10, set row 30 to 0
@@ -145,48 +116,52 @@ def cc_transition(tm):
 #    if sum_of_column != 1.0:
 #        print(f"ERROR: sum of column {c} is {sum_of_column}")
 
-trans_mtx = create_transition_matrix_d6()
-# multiply by itself a bunch of times, first column is steady state vector
-# (you can also do this with eigenvalues)
-T = np.array(trans_mtx)
-for i in range(1000):
-    T = T @ trans_mtx
 
-def get_top_3(tm):
-    states = list(tm[:,0])
-    top_3 = sorted(states)[-3:]
-    return [states.index(top_3[x]) for x in [2,1,0]]
+# a generic create transition matrix, input is d1 and d2, each is a list that represents
+# possible rolls for a die
+def create_transition_matrix(d1, d2):
+    outcomes = list(itertools.product(d1, d2))
+    doubles = len([x for x in outcomes if x[0]==x[1]])
+    p_3_doubles = (doubles/len(outcomes))**3 # probability of rolling 3 doubles
+    max_roll = max([x[0]+x[1] for x in outcomes])
+    rolls = [0 for _ in range(max_roll+1)]
+    for r in outcomes:
+        roll = r[0]+r[1]
+        rolls[roll] += 1
+    rolls = [x/len(outcomes) for x in rolls]
 
-
-top_3 = get_top_3(T)
-#print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
-
-
-### NOW WITH D4 ###
-d4_rolls = {2: 1/16, 3: 2/16, 4: 3/16, 5: 4/16, 6: 3/16, 7: 2/16, 8: 1/16}
-# column is starting state, row is end state
-def create_transition_matrix_d4():
     transition_matrix = np.zeros((40, 40))
     for c in range(40):
-        for r in d4_rolls:
-            transition_matrix[(r+c)%40][c] = d4_rolls[r] * (63/64)
-        transition_matrix[10][c] += 1/64
+        for i in range(len(rolls)):
+            transition_matrix[(i+c)%40][c] = rolls[i] * (1-p_3_doubles)
+        transition_matrix[10][c] += p_3_doubles
     go_to_jail_transition(transition_matrix)
     chance_transition(transition_matrix)
     cc_transition(transition_matrix)
     return transition_matrix
 
-trans_mtx = create_transition_matrix_d4()
-# multiply by itself a bunch of times, first column is steady state vector
-# (you can also do this with eigenvalues)
-T = np.array(trans_mtx)
-for i in range(1000):
-    T = T @ trans_mtx
 
+
+# finds steady state of a transitino matrix
+# input: tm, a transition matrix
+# returns: np.array
+def find_steady_state(tm):
+    T = np.array(tm)
+    for i in range(1000):
+        T = T @ tm
+    return T
+
+# returns index of top 3 most common states based on steady state matrix
+# input: tm, a transition matrix
+# returns: list with 3 indices
 def get_top_3(tm):
     states = list(tm[:,0])
-    t3 = sorted(states)[-3:]
-    return [states.index(t3[x]) for x in [2,1,0]]
+    top_3 = sorted(states)[-3:]
+    return [states.index(top_3[x]) for x in [2,1,0]]
 
-top_3 = get_top_3(T)
+d4 = [1,2,3,4]
+trans_mtx = create_transition_matrix(d4,d4)
+steady_state = find_steady_state(trans_mtx)
+
+top_3 = get_top_3(steady_state)
 print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
