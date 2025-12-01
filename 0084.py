@@ -142,7 +142,7 @@ def create_transition_matrix(d1, d2):
 
 
 
-# finds steady state of a transitino matrix
+# finds steady state of a transition matrix
 # input: tm, a transition matrix
 # returns: np.array
 def find_steady_state(tm):
@@ -159,9 +159,12 @@ def get_top_3(tm):
     top_3 = sorted(states)[-3:]
     return [states.index(top_3[x]) for x in [2,1,0]]
 
-d4 = [1,2,3,4]
-trans_mtx = create_transition_matrix(d4,d4)
-steady_state = find_steady_state(trans_mtx)
 
-top_3 = get_top_3(steady_state)
-print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
+if __name__ == "__main__":
+    d4 = [1, 2, 3, 4]
+    trans_mtx = create_transition_matrix(d4, d4)
+    steady_state = find_steady_state(trans_mtx)
+
+    top_3 = get_top_3(steady_state)
+    print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
+
