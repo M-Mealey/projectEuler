@@ -69,13 +69,33 @@ def find_shortest_cuboid_path(x,y,z):
     return min(path1, path2)
 
 
-M = 1000
+M = 10
 int_lengths = 0
 for x in range(1,M+1):
-    print(x)
     for y in range(1,x+1):
         for z in range(1,y+1):
             path = find_shortest_cuboid_path(x,y,z)
             if path == math.floor(path):
                 int_lengths += 1
-print(int_lengths)
+#print(int_lengths)
+
+# does restriction to x>=y>=z mean that the shortest path will always be (path2) d = root( x**2 + (y+z)**2 )
+# probably b/c x is always greatest
+
+# generalize by
+solutions = 0
+M = 1
+max_M = 1000000
+while M<max_M:
+    for opp in range(1, 2*M): # opp = y + z
+        hyp = math.sqrt(M**2 + opp**2)
+        if hyp == math.floor(hyp):
+            if opp > M+1:
+                solutions += (M+M+2-opp)//2
+            else: # side M must be the longest (x), opposite side is x+y
+                solutions += opp//2
+    if solutions > 1000000:
+        break
+    M += 1
+
+print(M)
