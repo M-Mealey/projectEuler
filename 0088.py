@@ -27,43 +27,46 @@ In fact, as the complete set of minimal product-sum numbers for 2k12 is
 
 What is the sum of all the minimal product-sum numbers for 2k12000?
 """
-from helpers import find_divisors
-import math
-
+from helpers import find_divisors, prime_sieve
 
 # for integer n, finds the unique lengths of all ps sets that can be made for that number
 # writes the values to ps_sizes
-# @TODO: make this more efficient. maybe look at factors from largest to smallest, and compute when adding a bunch of 1s
-#  will complete the list without needing to do the recursion
-def find_ps_set_sizes(n, ps_sizes, ps_set=[]):
-    if sum(ps_set) > n or math.prod(ps_set) > n:
-        return None
-    if sum(ps_set) == n and math.prod(ps_set) == n:
-        print(f"SET FOR {n}: {ps_set}")
+def find_ps_set_sizes(n, ps_sizes, ps_set=[], the_sum=0, the_prod=1):
+    if the_sum > n or the_prod > n:
+        return
+    if the_sum == n and the_prod == n:
         ps_sizes.add(len(ps_set))
-    divisors = find_divisors(n)
+        return
+    if the_prod == n and n > the_sum: # product is correct, sum < n, so add a bunch of 1s
+        ps_sizes.add(len(ps_set) + n-the_sum)
+        return
+    divisors = sorted(find_divisors(n//the_prod)[1:], reverse=True)
+    if the_prod > 1:
+        divisors.insert(0, n//the_prod)
     for div in divisors:
-        if len(ps_set) > 0 and div < ps_set[-1]:
+        if len(ps_set) > 0 and div > ps_set[-1]:
             continue
         new_set = ps_set.copy()
         new_set.append(div)
-        find_ps_set_sizes(n, ps_sizes, new_set)
+        find_ps_set_sizes(n, ps_sizes, new_set, the_sum+div, the_prod*div)
 
 
 ps_minimums = [ 0 for _ in range(12001)]
-ps_minimums[2] = 4
-ps_minimums[3] = 6
 
-ps_sizes = set()
-find_ps_set_sizes(5, ps_sizes)
-print(list(ps_sizes))
+# no set is possible for primes because only factors are 1 and self, so sum of factors is always greater than the number
+primes_to_24k = set(prime_sieve(24001))
 
 for x in range(2, 24001):
+    if x in primes_to_24k:
+        continue
     ps_sizes = set()
-    print(x)
     find_ps_set_sizes(x, ps_sizes)
     for s in ps_sizes:
+        if s > 12000:
+            continue
         if ps_minimums[s] == 0:
             ps_minimums[s] = x
-print(sum(ps_minimums))
+print(sum(set(ps_minimums)))
+
+
 
