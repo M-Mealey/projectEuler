@@ -50,6 +50,9 @@ FAQ Link: http://projecteuler.net/about=roman_numerals
 # M, C, and X cannot be equalled or exceeded by smaller denominations.
 # D, L, and V can each only appear once.
 
+numeral_values = {"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
+subtractive_pairs = {"CM": 900, "CD": 400, "XC": 90, "XL": 40, "IX": 9, "IV": 4}
+
 # given an integer, returns string of roman numeral in minimal form
 def int_to_roman(n):
     str = ""
@@ -81,8 +84,9 @@ def int_to_roman(n):
         str += "I" + int_to_roman(n-1)
     return str
 
-print(int_to_roman(5))
 
+### BEGIN TEST CASES ###
+### @TODO: move to test file :)
 # test cases from https://www.cuemath.com/numbers/roman-numerals-1-to-1000/
 test_numerals = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "VIII", 9: "IX", 10: "X", 11: "XI", 12: "XII",
     13: "XIII", 14: "XIV", 15: "XV", 16: "XVI", 17: "XVII", 18: "XVIII", 19: "XIX", 20: "XX", 21: "XXI", 22: "XXII",
@@ -104,3 +108,43 @@ for k in test_numerals:
         print(s1)
         print(s2)
         print()
+
+def get_subtractive_pair_values(num):
+    value = 0
+    for pair in subtractive_pairs:
+        if pair in num:
+            value += subtractive_pairs[pair]
+            num = num.replace(pair,"")
+    return value, num
+
+def get_int_value(num):
+    if len(num) == 0:
+        return 0
+    val, n = get_subtractive_pair_values(num)
+    for ch in n:
+        val += numeral_values[ch]
+    return val
+
+for x in test_numerals:
+    test_str = test_numerals[x]
+    test_int_val = get_int_value(test_str)
+    if test_int_val != x:
+        print(f"ERROR: {x}")
+        print(test_int_val)
+        print()
+### END TESTS ###
+
+with open("resources/roman.txt") as f:
+    data = f.read().split("\n")
+    characters_saved = 0
+    for num in data:
+        num_as_int = get_int_value(num)
+        minimal_num = int_to_roman(num_as_int)
+        diff = len(num) - len(minimal_num)
+        if diff<0:
+            print("THIS SHOULDN'T HAPPEN")
+            print(num)
+        characters_saved += diff
+    print(characters_saved)
+
+
