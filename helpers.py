@@ -39,3 +39,13 @@ def prime_sieve(limit):
                 is_prime_list[j] = False
         current_i += 1
     return [x for x,prime in enumerate(is_prime_list) if prime]
+
+# from problem 33
+# Find GCD of 2 integers using Euclidean algorithm
+def gcd(n1, n2):
+    a, b = max(n1, n2), min(n1, n2)
+    r = a%b
+    while r!=0:
+        a, b = b, r
+        r = a%b
+    return b
