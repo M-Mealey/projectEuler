@@ -54,27 +54,29 @@ for i in range(2, 1000000):
     while next_num > 1 and next_num < 1000000 and next_num not in numbers_this_cycle and next_num not in all_numbers_checked:
         numbers_this_cycle.add(next_num)
         next_num = divisor_sums[next_num]
-    if next_num <= 1 or next_num >= 1000000: # this path leads to a dead end
-        for n in numbers_this_cycle:
-            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
-        all_numbers_checked.update(numbers_this_cycle)
-    elif next_num in all_numbers_checked: # i think this also means its bad, leads to path we've already checked
-        for n in numbers_this_cycle:
-            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
-        all_numbers_checked.update(numbers_this_cycle)
-    elif next_num in numbers_this_cycle: #cycle found, starts/ends at next_num
+    if 1 < next_num < 1000000 and next_num not in all_numbers_checked and next_num in numbers_this_cycle: #cycle found, starts/ends at next_num
         # make a set with ONLY numbers in the cycle
-        the_cycle = set()
-        the_cycle.add(next_num)
-        next = divisor_sums[next_num]
-        while next != next_num:
-            the_cycle.add(next)
-            next = divisor_sums[next]
-        if len(the_cycle) > longest_cycle_found:
-            longest_cycle_found = len(the_cycle)
-            smallest_cycle_member = min(the_cycle)
-        for n in numbers_this_cycle:
-            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
+        cycle_start = next_num
+        cycle_len = 1
+        min_elem = cycle_start
+        next_num = divisor_sums[cycle_start]
+        while next_num != cycle_start:
+            cycle_len += 1
+            min_elem = min(min_elem, next_num)
+            next_num = divisor_sums[next_num]
+        if cycle_len > longest_cycle_found:
+            longest_cycle_found = cycle_len
+            smallest_cycle_member = min_elem
+        #the_cycle = set()
+        #the_cycle.add(next_num)
+        #next = divisor_sums[next_num]
+        #while next != next_num:
+        #    the_cycle.add(next)
+        #    next = divisor_sums[next]
+        #if len(the_cycle) > longest_cycle_found:
+        #    longest_cycle_found = len(the_cycle)
+        #    smallest_cycle_member = min(the_cycle)
+        # @TODO: is set or iteration faster?
         all_numbers_checked.update(numbers_this_cycle)
 print(smallest_cycle_member)
 
