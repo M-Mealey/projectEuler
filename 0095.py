@@ -18,16 +18,6 @@ Perhaps less well known are longer chains. For example, starting with
 Find the smallest member of the longest amicable chain with no element
 exceeding one million.
 """
-from helpers import find_divisors
-
-# from problem 21
-amicable_numbers = []
-for i in range(1000000):
-    divisor_sum = sum(find_divisors(i))
-    if divisor_sum != i and sum(find_divisors(divisor_sum)) == i:
-        amicable_numbers.append(i)
-
-print(sum(amicable_numbers))
 
 # probably better to make array of 1M elements, iterate 1 to 1M, for each number add it to the element at
 # each of its multiples' indexes
@@ -38,5 +28,56 @@ print(sum(amicable_numbers))
 # 3
 # [0, 1, 1, 1, 2, 1, 5, 1, 2, 4 ...]
 # then find loops using Floyd's cycle detection algorithm: https://en.wikipedia.org/wiki/Cycle_detection
-#
+
+max_value = 1000000
+
+divisor_sums = [1 for _ in range(max_value)]
+divisor_sums[0] = 0
+divisor_sums[1] = 0
+for i in range(2, max_value//2 + 1):
+    next_multiple = i + i
+    while next_multiple < 1000000:
+        divisor_sums[next_multiple] += i
+        next_multiple += i
+
+# iterate over array in order looking for cycles
+# if value of 0 or >1M is encountered, stop there, no cycle
+longest_cycle_found = 0
+smallest_cycle_member = 0
+all_numbers_checked = set()
+for i in range(2, 1000000):
+    if i in all_numbers_checked:
+        continue
+    numbers_this_cycle = set()
+    numbers_this_cycle.add(i)
+    next_num = divisor_sums[i]
+    while next_num > 1 and next_num < 1000000 and next_num not in numbers_this_cycle and next_num not in all_numbers_checked:
+        numbers_this_cycle.add(next_num)
+        next_num = divisor_sums[next_num]
+    if next_num <= 1 or next_num >= 1000000: # this path leads to a dead end
+        for n in numbers_this_cycle:
+            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
+        all_numbers_checked.update(numbers_this_cycle)
+    elif next_num in all_numbers_checked: # i think this also means its bad, leads to path we've already checked
+        for n in numbers_this_cycle:
+            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
+        all_numbers_checked.update(numbers_this_cycle)
+    elif next_num in numbers_this_cycle: #cycle found, starts/ends at next_num
+        # make a set with ONLY numbers in the cycle
+        the_cycle = set()
+        the_cycle.add(next_num)
+        next = divisor_sums[next_num]
+        while next != next_num:
+            the_cycle.add(next)
+            next = divisor_sums[next]
+        if len(the_cycle) > longest_cycle_found:
+            longest_cycle_found = len(the_cycle)
+            smallest_cycle_member = min(the_cycle)
+        for n in numbers_this_cycle:
+            divisor_sums[n] = 0 # this number is not part of a cycle, so its divisor sum isn't needed
+        all_numbers_checked.update(numbers_this_cycle)
+print(smallest_cycle_member)
+
+
+
 
