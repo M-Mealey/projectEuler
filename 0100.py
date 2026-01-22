@@ -17,37 +17,14 @@ contain.
 """
 import math
 
-def is_square(x):
-    rt = math.isqrt(x)
-    return rt*rt == x
 
+t_min = 1000000000000
+# solve with pell equations
+c,d =5,7
+t = (2 + math.sqrt(8*c*c - 4))//4
+while t<t_min:
+    c,d = 2*d + 3*c, 3*d + 4*c
+    t = (2 + math.sqrt(8 * c * c - 4)) // 4
+b = (1+math.sqrt(1+2*t*t-2*t))//2
+print(int(b))
 
-
-tol = 0
-y_min = 1000000000000
-#y_min = 1070379110497
-i = 1414213562372
-for y0 in range(100000000000):
-    if y0 % 1000000 == 0:
-        print(y0/100000000000)
-    y = y_min + y0
-    z = (y * (y-1))//2
-    discriminant = 1 + 4*z
-    # @TODO: try values of discriminant or something? idk this is too slow
-    while i*i < discriminant:
-        i += 1
-    if i*i == discriminant:
-    #if is_square(discriminant):
-        x = int((1+math.isqrt(discriminant))/2)
-        #print(f"x={x}, y={y}")
-        num = x * (x-1)
-        den = y * (y-1)
-        print(num/den)
-        if abs(num/den - 0.5) <= tol:
-            print("sol?")
-            print(x)
-
-
-
-# solution: x=756872327473
-# y = 1070379110497
