@@ -16,7 +16,7 @@ What is the total of all the name scores in the file?
 
 name_list = []
 
-with open("0022.txt") as f:
+with open("resources/names.txt") as f:
     data = f.read().split(',')
     data = [x[1:-1] for x in data]
     data.sort()
