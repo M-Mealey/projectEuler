@@ -16,7 +16,7 @@ Find the value of n, 1 < n < 10^7, for which f(n) is a permutation of n
 and the ratio n/f(n) produces a minimum.
 """
 import math
-from helpers import is_prime
+from local_helpers import is_prime
 
 # Copied from problem 47
 def find_next_factor(x):

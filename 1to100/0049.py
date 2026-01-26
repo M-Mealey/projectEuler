@@ -15,7 +15,7 @@ What 12-digit number do you form by concatenating the three terms in this
 sequence?
 """
 import itertools
-from helpers import is_prime
+from local_helpers import is_prime
 
 def tuple_to_int(tup):
     total = 0

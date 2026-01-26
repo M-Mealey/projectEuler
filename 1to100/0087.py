@@ -15,7 +15,7 @@ How many numbers below fifty million can be expressed as the sum of a
 prime square, prime cube, and prime fourth power?
 """
 import math
-from helpers import prime_sieve
+from local_helpers import prime_sieve
 
 max_sum = 50000000
 prime_squares = prime_sieve(math.ceil(max_sum**0.5))

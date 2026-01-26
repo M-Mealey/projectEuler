@@ -10,7 +10,7 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37,
 
 How many circular primes are there below one million?
 """
-from helpers import is_prime
+from local_helpers import is_prime
 
 # for input int x, returns list of ints containing "rotations" of x
 def get_rotations(x):

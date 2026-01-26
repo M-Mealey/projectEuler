@@ -27,7 +27,7 @@ In fact, as the complete set of minimal product-sum numbers for 2k12 is
 
 What is the sum of all the minimal product-sum numbers for 2k12000?
 """
-from helpers import find_divisors, prime_sieve
+from local_helpers import find_divisors, prime_sieve
 
 # for integer n, finds the unique lengths of all ps sets that can be made for that number
 # writes the values to ps_sizes

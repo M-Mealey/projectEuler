@@ -22,7 +22,7 @@ two abundant numbers is less than this limit.
 Find the sum of all the positive integers which cannot be written as the
 sum of two abundant numbers.
 """
-from helpers import find_divisors
+from local_helpers import find_divisors
 
 """
 Checks if integer x can be created by adding 2 numbers in iterable l

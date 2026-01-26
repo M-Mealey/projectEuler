@@ -12,7 +12,7 @@ to right and right to left.
 
 NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 """
-from helpers import is_prime
+from local_helpers import is_prime
 
 # for given int x, checks if all left and right truncations are prime. Returns True or False.
 def check_truncs(x):

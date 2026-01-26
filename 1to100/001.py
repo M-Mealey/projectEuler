@@ -23,4 +23,8 @@ def sum_3_5(x):
     total = arith_sum(x-1, 3) + arith_sum(x-1, 5) - arith_sum (x-1, 15)
     return int(total)
 
-print(sum_3_5(1000))
+def euler_problem_1():
+    print(sum_3_5(1000))
+
+if __name__ == "__main__":
+    euler_problem_1()

@@ -14,7 +14,7 @@ ways:
 What is the first value which can be written as the sum of primes in over
 five thousand different ways?
 """
-from helpers import is_prime
+from local_helpers import is_prime
 
 # highest number to search
 max_number = 1000

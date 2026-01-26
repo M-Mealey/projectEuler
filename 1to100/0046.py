@@ -17,7 +17,7 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as the sum of a
 prime and twice a square?
 """
-from helpers import is_prime
+from local_helpers import is_prime
 
 twice_squares = [2*x*x for x in range(1,1000)]
 

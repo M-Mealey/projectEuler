@@ -34,7 +34,7 @@ It can be seen that n=6 produces a maximum n/f(n) for n 10.
 Find the value of n 1,000,000 for which n/f(n) is a maximum.
 """
 import math
-from helpers import is_prime
+from local_helpers import is_prime
 
 # Copied from problem 47
 def find_next_factor(x):

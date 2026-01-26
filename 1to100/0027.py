@@ -26,7 +26,7 @@ Find the product of the coefficients, a and b, for the quadratic
 expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
-from helpers import is_prime
+from local_helpers import is_prime
 
 # for a given generator g, find how many sequential primes it yields starting from the first element
 # returns int, the number of sequential primes

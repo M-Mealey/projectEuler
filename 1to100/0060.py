@@ -12,7 +12,7 @@ Find the lowest sum for a set of five primes for which any two primes
 concatenate to produce another prime.
 """
 
-from helpers import is_prime
+from local_helpers import is_prime
 
 max_prime = 20000
 primes = [x for x in range(3, max_prime, 2) if is_prime(x)]

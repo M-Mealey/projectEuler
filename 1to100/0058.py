@@ -22,7 +22,7 @@ spiral with side length 9 will be formed. If this process is continued,
 what is the side length of the square spiral for which the ratio of primes
 along both diagonals first falls below 10%?
 """
-from helpers import is_prime
+from local_helpers import is_prime
 # like problem 28
 # ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
 prime_count = 0
