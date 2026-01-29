@@ -43,7 +43,7 @@ Consider the following tenth degree polynomial generating function:
 
 Find the sum of FITs for the BOPs.
 """
-
+import math
 # first 15 terms: 1, 1, 683, 44287, 838861, 8138021, 51828151, 247165843, 954437177, 3138105961, 9090909091, 23775972551, 57154490053, 128011456717, 269971011311
 
 def u(n):
@@ -59,10 +59,16 @@ def find_fit(op):
 
 def find_op_k(k):
     def op_k(n):
-        # LAGRANGE INTERPOLATION? need to read about it
-        return 1
+        total = 0
+        for i in range(1, k+1):
+            lagrange_prod = 1
+            for j in range(1, k+1):
+                if i==j:
+                    continue
+                lagrange_prod *= (n - j) / (i - j)
+            total += u_vals[i] * lagrange_prod
+        return total
     return op_k
-
 
 fit_sum = 0
 for i in range(1, 11):
