@@ -106,5 +106,6 @@ def find_set(x):
                     if validate_set(try_set):
                         return try_set
 
-s = find_set(7)
-print("".join([str(c) for c in s]))
+if __name__ == "__main__":
+    s = find_set(7)
+    print("".join([str(c) for c in s]))
