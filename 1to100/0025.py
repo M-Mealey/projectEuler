@@ -26,14 +26,20 @@ The 12th term, F[12], is the first term to contain three digits.
 What is the first term in the Fibonacci sequence to contain 1000 digits?
 """
 
-f1, f2 = 1, 1
-fnext = f1 + f2
-count = 2
 
-while len(str(fnext)) < 1000:
+
+def euler_problem_25():
+    f1, f2 = 1, 1
     fnext = f1 + f2
-    count += 1
-    f1 = f2
-    f2 = fnext
+    count = 2
 
-print(count)
+    while len(str(fnext)) < 1000:
+        fnext = f1 + f2
+        count += 1
+        f1 = f2
+        f2 = fnext
+
+    print(count)
+
+if __name__ == "__main__":
+    euler_problem_25()

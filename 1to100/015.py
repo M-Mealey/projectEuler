@@ -25,4 +25,8 @@ It's equivalent to figuring out how many ways you can flip a coin 40 times and e
 20 heads and 20 tails
 Mathematically, this can be calculated as nCr, where n=40 and r=20
 """
-print(ncr(40,20))
+def euler_problem_15():
+    print(ncr(40,20))
+
+if __name__ == "__main__":
+    euler_problem_15()

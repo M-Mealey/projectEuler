@@ -33,17 +33,20 @@ def can_make_sum(x, l):
             return True
     return False
 
+def euler_problem_23():
+    abundant_numbers = set([])
+    number_sum = 0
+    for i in range(1, 28124):
+        divisor_sum = sum(find_divisors(i))
+        if divisor_sum > i:
+            abundant_numbers.add(i)
+        if not can_make_sum(i, abundant_numbers):
+            number_sum += i
 
-abundant_numbers = set([])
-number_sum = 0
-for i in range(1, 28124):
-    divisor_sum = sum(find_divisors(i))
-    if divisor_sum > i:
-        abundant_numbers.add(i)
-    if not can_make_sum(i, abundant_numbers):
-        number_sum += i
+    print(number_sum)
 
-print(number_sum)
+if __name__ == "__main__":
+    euler_problem_23()
 
 
 

@@ -20,5 +20,10 @@ def find_prime(x):
             num += 1
     return num
 
-print(find_prime(10001))
+
+def euler_problem_7():
+    print(find_prime(10001))
+
+if __name__ == "__main__":
+    euler_problem_7()
 

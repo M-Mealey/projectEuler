@@ -28,9 +28,14 @@ def score_name(n):
         letter_sum += ord(ch) - 64
     return letter_sum
 
-name_score_sum = 0
-for i in range(len(name_list)):
-    name = name_list[i]
-    name_score_sum += (i+1) * score_name(name)
 
-print(name_score_sum)
+def euler_problem_22():
+    name_score_sum = 0
+    for i in range(len(name_list)):
+        name = name_list[i]
+        name_score_sum += (i + 1) * score_name(name)
+
+    print(name_score_sum)
+
+if __name__ == "__main__":
+    euler_problem_22()

@@ -15,11 +15,15 @@ Evaluate the sum of all the amicable numbers under 10000.
 """
 from local_helpers import find_divisors
 
-amicable_numbers = []
-for i in range(10000):
-    divisor_sum = sum(find_divisors(i))
-    if divisor_sum != i and sum(find_divisors(divisor_sum)) == i:
-        amicable_numbers.append(i)
+def euler_problem_21():
+    amicable_numbers = []
+    for i in range(10000):
+        divisor_sum = sum(find_divisors(i))
+        if divisor_sum != i and sum(find_divisors(divisor_sum)) == i:
+            amicable_numbers.append(i)
 
-print(sum(amicable_numbers))
+    print(sum(amicable_numbers))
+
+if __name__ == "__main__":
+    euler_problem_21()
 

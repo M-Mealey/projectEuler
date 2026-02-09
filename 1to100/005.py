@@ -34,6 +34,9 @@ def lcm(x):
     return lcm
 
 
+def euler_problem_5():
+    print(lcm(range(20)))
 
-print(lcm(range(20)))
+if __name__ == "__main__":
+    euler_problem_5()
 

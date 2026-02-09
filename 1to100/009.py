@@ -39,4 +39,9 @@ def solve():
         if b:
             return a*b*(1000-a-b)
 
-print(solve())
+
+def euler_problem_9():
+    print(solve())
+
+if __name__ == "__main__":
+    euler_problem_9()

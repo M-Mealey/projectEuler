@@ -58,20 +58,28 @@ grid = """
 # convert string to array of ints
 intgrid = [[int(x) for x in row.strip().split()] for row in grid.strip().splitlines()]
 
-max_product = 1
-for i in range(20):
-    for j in range(20):
-        if i<=16 and j<=16: #check diagonal down/right
-            r_diagonal_product = intgrid[i][j] * intgrid[i+1][j+1] * intgrid[i+2][j+2] * intgrid[i+3][j+3]
-            max_product = max(max_product, r_diagonal_product)
-        if i<=16 and j>=3: #check diagonal down/left
-            l_diagonal_product = intgrid[i][j] * intgrid[i+1][j-1] * intgrid[i+2][j-2] * intgrid[i+3][j-3]
-            max_product = max(max_product, l_diagonal_product)
-        if i<=16: #check vertical
-            vertical_product = intgrid[i][j] * intgrid[i+1][j] * intgrid[i+2][j] * intgrid[i+3][j]
-            max_product = max(max_product, vertical_product)
-        if j<=16: #check horizontal
-            horizontal_product = intgrid[i][j] * intgrid[i][j+1] * intgrid[i][j+2] * intgrid[i][j+3]
-            max_product = max(max_product, horizontal_product)
 
-print(max_product)
+
+def euler_problem_11():
+    max_product = 1
+    for i in range(20):
+        for j in range(20):
+            if i <= 16 and j <= 16:  # check diagonal down/right
+                r_diagonal_product = intgrid[i][j] * intgrid[i + 1][j + 1] * intgrid[i + 2][j + 2] * intgrid[i + 3][
+                    j + 3]
+                max_product = max(max_product, r_diagonal_product)
+            if i <= 16 and j >= 3:  # check diagonal down/left
+                l_diagonal_product = intgrid[i][j] * intgrid[i + 1][j - 1] * intgrid[i + 2][j - 2] * intgrid[i + 3][
+                    j - 3]
+                max_product = max(max_product, l_diagonal_product)
+            if i <= 16:  # check vertical
+                vertical_product = intgrid[i][j] * intgrid[i + 1][j] * intgrid[i + 2][j] * intgrid[i + 3][j]
+                max_product = max(max_product, vertical_product)
+            if j <= 16:  # check horizontal
+                horizontal_product = intgrid[i][j] * intgrid[i][j + 1] * intgrid[i][j + 2] * intgrid[i][j + 3]
+                max_product = max(max_product, horizontal_product)
+
+    print(max_product)
+
+if __name__ == "__main__":
+    euler_problem_11()

@@ -39,9 +39,15 @@ def find_factors(x):
             result.append(i)
     return result
 
-num_factors = 1
-x = 1
-while num_factors < 250:
-    x += 1
-    num_factors = len(find_factors(triangle_num_n(x)))
-print(triangle_num_n(x))
+
+
+def euler_problem_12():
+    num_factors = 1
+    x = 1
+    while num_factors < 250:
+        x += 1
+        num_factors = len(find_factors(triangle_num_n(x)))
+    print(triangle_num_n(x))
+
+if __name__ == "__main__":
+    euler_problem_12()

@@ -53,5 +53,11 @@ def comp(n):
 for n in range(2,MAX_N):
     comp(n)
 
-max_chain = max(list[:MAX_N])
-print(list.index(max_chain))
+
+def euler_problem_14():
+    max_chain = max(list[:MAX_N])
+    print(list.index(max_chain))
+
+
+if __name__ == "__main__":
+    euler_problem_14()
