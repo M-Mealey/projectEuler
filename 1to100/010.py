@@ -8,14 +8,11 @@ Find the sum of all the primes below two million.
 """
 
 import math
-from local_helpers import is_prime
+from local_helpers import prime_sieve
 
 def euler_problem_10():
-    sum = 0
-    for i in range(2000000):
-        if is_prime(i):
-            sum += i
-    print(sum)
+    primes = prime_sieve(2000000)
+    print(sum(primes))
 
 if __name__ == "__main__":
     euler_problem_10()
