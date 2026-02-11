@@ -33,4 +33,8 @@ for j in range(1,len(pentagonal_numbers)-1):
             if is_pentagonal(pentagonal_numbers[k] - pentagonal_numbers[j]):
                 solutions.append(pentagonal_numbers[k] - pentagonal_numbers[j])
 
-print(min(solutions))
+def euler_problem_44():
+    print(min(solutions))
+
+if __name__ == "__main__":
+    euler_problem_44()

@@ -37,12 +37,16 @@ def find_prime_factors(x):
         f = find_next_factor(x)
     return factors
 
-counter = 0
-for i in range(1,1000000):
-    if len(find_prime_factors(i))==4:
-        counter += 1
-    else:
-        counter = 0
-    if counter == 4:
-        print(i-3)
-        break
+def euler_problem_47():
+    counter = 0
+    for i in range(1, 1000000):
+        if len(find_prime_factors(i)) == 4:
+            counter += 1
+        else:
+            counter = 0
+        if counter == 4:
+            print(i - 3)
+            break
+
+if __name__ == "__main__":
+    euler_problem_47()

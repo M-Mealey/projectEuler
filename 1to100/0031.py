@@ -28,7 +28,10 @@ def solve(coins, x):
         remaining_amt -= next_coin
     return ways
 
-print(solve(p_amounts, 200))
-
 # TODO: Try with dynamic programming? https://www.geeksforgeeks.org/understanding-the-coin-change-problem-with-dynamic-programming/
 
+def euler_problem_31():
+    print(solve(p_amounts, 200))
+
+if __name__ == "__main__":
+    euler_problem_31()

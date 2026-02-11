@@ -34,4 +34,8 @@ for i in range(len(prime_list)):
             longest_sequence = j-i+1
         j += 1
 
-print(best_prime)
+def euler_problem_50():
+    print(best_prime)
+
+if __name__ == "__main__":
+    euler_problem_50()

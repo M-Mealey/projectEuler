@@ -54,4 +54,8 @@ for f1 in range(1, 100):
         if len(diff_list) == 0: #if true, equation f1 * f2 = product is pandigital
             pandigital_products.add(product)
 
-print(sum(pandigital_products))
+def euler_problem_32():
+    print(sum(pandigital_products))
+
+if __name__ == "__main__":
+    euler_problem_32()

@@ -39,4 +39,9 @@ def check_pandigital(x):
 # only need to check up to 4-digit numbers because n > 1, so concatenated product of 5-digit (or larger)
 # number with (1, 2) would have 10-digits (or more),
 solution = max([check_pandigital(i) for i in range(10000)])
-print(solution)
+
+def euler_problem_38():
+    print(solution)
+
+if __name__ == "__main__":
+    euler_problem_38()

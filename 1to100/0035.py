@@ -33,4 +33,8 @@ for i in range(101, 1000000, 2):
         if False not in prime_rotations:
             circular_primes += 1
 
-print(circular_primes)
+def euler_problem_35():
+    print(circular_primes)
+
+if __name__ == "__main__":
+    euler_problem_35()

@@ -59,3 +59,9 @@ for a in range(1000):
 #print(f"best pair: a={best_pair[0]}, b={best_pair[1]}")
 #print(f"max sequence: {max_sequence}")
 print(best_pair[0] * best_pair[1])
+
+def euler_problem_27():
+    print(index_found)
+
+if __name__ == "__main__":
+    euler_problem_27()

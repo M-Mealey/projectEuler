@@ -30,4 +30,8 @@ for i in range(10, 1000000):
     if is_prime(i) and check_truncs(i):
         answers.append(i)
 
-print(sum(answers))
+def euler_problem_37():
+    print(sum(answers))
+
+if __name__ == "__main__":
+    euler_problem_37()

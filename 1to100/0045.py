@@ -36,5 +36,8 @@ next_num = next(triangle_gen)
 while not (is_pentagonal(next_num) and is_hexagonal(next_num)):
     next_num = next(triangle_gen)
 
-print(next_num)
+def euler_problem_45():
+    print(next_num)
 
+if __name__ == "__main__":
+    euler_problem_45()

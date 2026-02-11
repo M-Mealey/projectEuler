@@ -29,18 +29,20 @@ digits = [0,1,2,3,4,5,6,7,8,9]
 combos = list(itertools.combinations_with_replacement(digits, 4))
 combos.remove((1,4,7,8)) # remove solution we already know
 
+def euler_problem_49():
+    for c in combos:
+        # get all prime numbers 4-digit numbers that can be made from these digits
+        numbers = set(filter(lambda x: x > 1000 and is_prime(x), [tuple_to_int(p) for p in itertools.permutations(c)]))
+        # take one from set, get difference between each other element of set, and check for 3rd in arithmetic sequence
+        while len(numbers) > 2:
+            next_num = numbers.pop()
+            for n in numbers:
+                g, l = max(next_num, n), min(next_num, n)
+                diff = g - l
+                if g + diff in numbers:
+                    print(str(l) + str(g) + str(g + diff))
+                if l - diff in numbers:
+                    print(str(l - diff) + str(l) + str(g))
 
-for c in combos:
-    # get all prime numbers 4-digit numbers that can be made from these digits
-    numbers = set(filter(lambda x: x>1000 and is_prime(x), [tuple_to_int(p) for p in itertools.permutations(c)]))
-    # take one from set, get difference between each other element of set, and check for 3rd in arithmetic sequence
-    while len(numbers) > 2:
-        next_num = numbers.pop()
-        for n in numbers:
-            g, l = max(next_num, n), min(next_num,n)
-            diff = g - l
-            if g+diff in numbers:
-                print(str(l)+str(g)+str(g+diff))
-            if l-diff in numbers:
-                print(str(l-diff)+str(l)+str(g))
-
+if __name__ == "__main__":
+    euler_problem_49()

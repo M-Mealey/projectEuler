@@ -29,4 +29,9 @@ for r in range(1,501):
     diagonal_sum += end_of_ring + 6*r
     diagonal_sum += end_of_ring + 8*r
     end_of_ring = end_of_ring + 8*r
-print(diagonal_sum)
+
+def euler_problem_28():
+    print(diagonal_sum)
+
+if __name__ == "__main__":
+    euler_problem_28()

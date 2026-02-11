@@ -50,4 +50,9 @@ def gcd(n1, n2):
     return b
 
 solution = int(denominator / gcd(numerator, denominator))
-print(solution)
+
+def euler_problem_33():
+    print(solution)
+
+if __name__ == "__main__":
+    euler_problem_33()

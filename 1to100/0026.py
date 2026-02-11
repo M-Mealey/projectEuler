@@ -46,5 +46,8 @@ for i in range(2, 1000):
         max_len = len(str(nines))
         index_found = i
 
-print(index_found)
+def euler_problem_26():
+    print(index_found)
 
+if __name__ == "__main__":
+    euler_problem_26()

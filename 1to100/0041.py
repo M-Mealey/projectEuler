@@ -20,4 +20,8 @@ for n in range(4,10):
         if is_prime(x):
             largest = max(largest, x)
 
-print(largest)
+def euler_problem_41():
+    print(largest)
+
+if __name__ == "__main__":
+    euler_problem_41()

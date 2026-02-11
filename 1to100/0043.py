@@ -49,4 +49,8 @@ for p in perms:
         x = sum(list(k * (10**(10-p.index(k)-1)) for k in p))
         total += x
 
-print(total)
+def euler_problem_43():
+    print(total)
+
+if __name__ == "__main__":
+    euler_problem_43()

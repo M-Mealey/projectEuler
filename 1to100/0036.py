@@ -32,7 +32,7 @@ sum = 0
 for i in range(1000000):
     if is_palindrome_b10(i) and is_palindrome_b2(i):
         sum += i
-print(sum)
+#print(sum)
 
 # More efficient way: use math to generate all binary palindromes, then check if their
 # base 10 representation is a palindrome
@@ -60,3 +60,9 @@ for i in range(1, 977):
 
 #print(sum)
 # @TODO: measure speed of each
+
+def euler_problem_36():
+    print(sum)
+
+if __name__ == "__main__":
+    euler_problem_36()

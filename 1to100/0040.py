@@ -35,4 +35,8 @@ while digit_pointer < 1000000:
         d_list.pop(0)
     x += 1
 
-print(product)
+def euler_problem_40():
+    print(product)
+
+if __name__ == "__main__":
+    euler_problem_40()

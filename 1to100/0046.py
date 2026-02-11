@@ -21,15 +21,18 @@ from local_helpers import is_prime
 
 twice_squares = [2*x*x for x in range(1,1000)]
 
-for i in range(3, 10001, 2):
-    if not is_prime(i):
-        sum_found = False
-        for s in twice_squares:
-            if s>i:
+def euler_problem_46():
+    for i in range(3, 10001, 2):
+        if not is_prime(i):
+            sum_found = False
+            for s in twice_squares:
+                if s > i:
+                    break
+                if is_prime(i - s):
+                    sum_found = True
+            if not sum_found:
+                print(i)
                 break
-            if is_prime(i-s):
-                sum_found = True
-        if not sum_found:
-            print(i)
-            break
 
+if __name__ == "__main__":
+    euler_problem_46()

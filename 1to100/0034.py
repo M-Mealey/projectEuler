@@ -44,4 +44,10 @@ for i in range(10, 10000000):
     if sum==i:
         answer += i
 
-print(answer)
+
+
+def euler_problem_34():
+    print(answer)
+
+if __name__ == "__main__":
+    euler_problem_34()
