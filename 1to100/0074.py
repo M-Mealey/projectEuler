@@ -44,5 +44,9 @@ for x in range(2,1000000):
         next = digit_factorial_sum(next)
     if len(seen) == 60 and next in seen:
         total += 1
-print(total)
 
+def euler_problem_74():
+    print(total)
+
+if __name__ == "__main__":
+    euler_problem_74()

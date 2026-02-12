@@ -44,6 +44,9 @@ while len(primes) > 0:
                 quints = [x for x in quads if check_prime_pair(pq, x)]
                 if len(quints) > 0:
                     p_sum = min(p_sum, p + pj + pt + pq + quints[0])
-print(p_sum)
 
+def euler_problem_60():
+    print(p_sum)
 
+if __name__ == "__main__":
+    euler_problem_60()

@@ -44,6 +44,11 @@ for r in pyramid[1:]:
     sums = new_sums
 # end with row of sums representing the maximum sum for a path ending at each index in bottom row
 # print the largest sum
-print(max(sums))
 
+
+def euler_problem_67():
+    print(max(sums))
+
+if __name__ == "__main__":
+    euler_problem_67()
 

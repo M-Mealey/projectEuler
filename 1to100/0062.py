@@ -11,18 +11,23 @@ Find the smallest cube for which exactly five permutations of its digits
 are cube.
 """
 
-sorted_cubes = {}
-smallest_cube = {}
 
-for x in range(10, 10000):
-    c = x**3
-    # rearrange the digits in descending order. This forms a fingerprint that is the same for all permutations
-    digits_sorted = int("".join(sorted([ch for ch in str(c)], reverse=True)))
-    matches = sorted_cubes.get(digits_sorted, 0)
-    if matches == 0: # if there are no matching entries, this is the smallest cube with these digits.
-        smallest_cube[digits_sorted] = c
-    if matches == 4: # if this is the 5th match, search is over, return smallest cube for these digits
-        print(smallest_cube[digits_sorted])
-        break
-    sorted_cubes[digits_sorted] = matches + 1
+def euler_problem_62():
+    sorted_cubes = {}
+    smallest_cube = {}
 
+    for x in range(10, 10000):
+        c = x ** 3
+        # rearrange the digits in descending order. This forms a fingerprint that is the same for all permutations
+        digits_sorted = int("".join(sorted([ch for ch in str(c)], reverse=True)))
+        matches = sorted_cubes.get(digits_sorted, 0)
+        if matches == 0:  # if there are no matching entries, this is the smallest cube with these digits.
+            smallest_cube[digits_sorted] = c
+        if matches == 4:  # if this is the 5th match, search is over, return smallest cube for these digits
+            print(smallest_cube[digits_sorted])
+            break
+        sorted_cubes[digits_sorted] = matches + 1
+
+
+if __name__ == "__main__":
+    euler_problem_62()

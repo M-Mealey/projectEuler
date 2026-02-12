@@ -67,6 +67,11 @@ for r in inner_rings:
         if len(solution_str) > 16:
             continue
         solution_max = max(solution_max, int(solution_str))
-print(solution_max)
 
 # correct answer, but inefficient
+
+def euler_problem_68():
+    print(solution_max)
+
+if __name__ == "__main__":
+    euler_problem_68()

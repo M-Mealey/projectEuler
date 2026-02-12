@@ -71,4 +71,9 @@ for n in range(7, 1000001):
     if ratio > max_ratio:
         max_ratio = ratio
         best_n = n
-print(best_n)
+
+def euler_problem_69():
+    print(best_n)
+
+if __name__ == "__main__":
+    euler_problem_69()

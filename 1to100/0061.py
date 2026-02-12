@@ -78,6 +78,10 @@ for t in number_sets[0]:
         break
 
 solution = sum([x[0] for x in solution_list])
-print(solution)
 
+def euler_problem_61():
+    print(solution)
+
+if __name__ == "__main__":
+    euler_problem_61()
 

@@ -95,5 +95,9 @@ total = 0
 for n in range(2,10001):
     if not sqrt(n) == floor(sqrt(n)) and int(len(get_a_values(n))-1) % 2 == 1:
         total += 1
-# answer
-print(total)
+
+def euler_problem_64():
+    print(total)
+
+if __name__ == "__main__":
+    euler_problem_64()

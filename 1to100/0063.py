@@ -20,4 +20,8 @@ match_count = 0
 for x in range(1, 100):
     match_count += check_powers(x)
 
-print(match_count)
+def euler_problem_63():
+    print(match_count)
+
+if __name__ == "__main__":
+    euler_problem_63()

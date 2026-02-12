@@ -28,13 +28,18 @@ def check_row_digits(arr):
             return False
     return True
 
-for x in range(1, 1000000):
-    x_mult = [int_to_digit_list(x*m) for m in multiples]
-    for r in x_mult:
-        r.sort()
-    if not check_row_len(x_mult):
-        continue
-    if check_row_digits(x_mult):
-        print(x)
-        break
 
+
+def euler_problem_52():
+    for x in range(1, 1000000):
+        x_mult = [int_to_digit_list(x * m) for m in multiples]
+        for r in x_mult:
+            r.sort()
+        if not check_row_len(x_mult):
+            continue
+        if check_row_digits(x_mult):
+            print(x)
+            break
+
+if __name__ == "__main__":
+    euler_problem_52()

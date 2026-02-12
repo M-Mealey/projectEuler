@@ -77,4 +77,9 @@ def calculate_convergent(cf_list):
 
 num, den = calculate_convergent(gen_e_cf_list(100))
 total = sum([int(x) for x in str(num)])
-print(total)
+
+def euler_problem_65():
+    print(total)
+
+if __name__ == "__main__":
+    euler_problem_65()

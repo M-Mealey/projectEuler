@@ -133,5 +133,8 @@ for h in hands:
         if resolve_tiebreaker(tie1, tie2):
             p1_win_count += 1
 
+def euler_problem_54():
+    print(p1_win_count)
 
-print(p1_win_count)
+if __name__ == "__main__":
+    euler_problem_54()

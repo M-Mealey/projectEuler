@@ -42,4 +42,9 @@ for n in range(1,1000):
     fraction = get_expansion_fraction(n)
     if len(str(fraction[0])) > len(str(fraction[1])):
         count += 1
-print(count)
+
+def euler_problem_57():
+    print(count)
+
+if __name__ == "__main__":
+    euler_problem_57()

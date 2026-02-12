@@ -109,5 +109,10 @@ for d in range(2, 1000):
         if x**2 - d*(y**2) == 1 and x>max_x:
             max_x = x
             d_index = d
-print(d_index)
 # @TODO: clean
+
+def euler_problem_66():
+    print(d_index)
+
+if __name__ == "__main__":
+    euler_problem_66()

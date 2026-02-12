@@ -53,4 +53,8 @@ for i in range(1, 10000):
     if not is_palindrome(str(current_number)):
         lychrel_numbers += 1
 
-print(lychrel_numbers)
+def euler_problem_55():
+    print(lychrel_numbers)
+
+if __name__ == "__main__":
+    euler_problem_55()

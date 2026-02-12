@@ -52,9 +52,9 @@ for k in solutions_found:
     solution_set = solutions_found[k]
     if len(solution_set)==1:
         total += 1
-print(total)
 
+def euler_problem_75():
+    print(total)
 
-
-
-
+if __name__ == "__main__":
+    euler_problem_75()

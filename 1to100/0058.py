@@ -41,5 +41,8 @@ for r in range(1,100000):
         break
     end_of_ring = end_of_ring + 8*r
 
-print(side_len)
+def euler_problem_58():
+    print(side_len)
 
+if __name__ == "__main__":
+    euler_problem_58()

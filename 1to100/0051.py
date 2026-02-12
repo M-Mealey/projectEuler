@@ -63,4 +63,9 @@ for i in prime_list:
             break
     if solution:
         break
-print(solution)
+
+def euler_problem_51():
+    print(solution)
+
+if __name__ == "__main__":
+    euler_problem_51()

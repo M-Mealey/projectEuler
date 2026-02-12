@@ -28,5 +28,8 @@ for x in range(23, 101):
         if comb(x, y) > 1000000:
             count += 1
 
-print(count)
+def euler_problem_53():
+    print(count)
 
+if __name__ == "__main__":
+    euler_problem_53()

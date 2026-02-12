@@ -93,5 +93,9 @@ plaintext = try_keys(possible_key_combos)
 if not plaintext:
     print("ERROR: COULD NOT DECRYPT")
 ascii_sum = sum([ord(c) for c in plaintext])
-print(ascii_sum)
 
+def euler_problem_59():
+    print(ascii_sum)
+
+if __name__ == "__main__":
+    euler_problem_59()

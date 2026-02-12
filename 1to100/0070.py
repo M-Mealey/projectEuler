@@ -65,5 +65,9 @@ for n in range(7, 10000001):
     if is_permutation(n, totient) and n/totient < min_ratio:
         min_ratio = n/totient
         best_n = n
-print(best_n)
 
+def euler_problem_70():
+    print(best_n)
+
+if __name__ == "__main__":
+    euler_problem_70()
