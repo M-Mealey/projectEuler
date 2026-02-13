@@ -100,4 +100,8 @@ def simple_build_dice():
                 add_dice_pair_to_set(d0, d1, dice_pairs)
     print(len(dice_pairs))
 
-simple_build_dice()
+def euler_problem_90():
+    simple_build_dice()
+
+if __name__ == "__main__":
+    euler_problem_90()

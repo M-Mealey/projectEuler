@@ -159,8 +159,7 @@ def get_top_3(tm):
     top_3 = sorted(states)[-3:]
     return [states.index(top_3[x]) for x in [2,1,0]]
 
-
-if __name__ == "__main__":
+def euler_problem_84():
     d4 = [1, 2, 3, 4]
     trans_mtx = create_transition_matrix(d4, d4)
     steady_state = find_steady_state(trans_mtx)
@@ -168,3 +167,5 @@ if __name__ == "__main__":
     top_3 = get_top_3(steady_state)
     print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
 
+if __name__ == "__main__":
+    euler_problem_84()

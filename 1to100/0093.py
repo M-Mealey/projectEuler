@@ -88,8 +88,9 @@ for c in combos:
     if s_len > longest_sequence:
         longest_sequence = s_len
         best_combo = c
-#print(f"best combo: {best_combo}")
-#print(f"seq len: {longest_sequence}")
-#res = get_possible_targets(best_combo)
-#print(list(res))
-print(f"{best_combo[0]}{best_combo[1]}{best_combo[2]}{best_combo[3]}")
+
+def euler_problem_93():
+    print(f"{best_combo[0]}{best_combo[1]}{best_combo[2]}{best_combo[3]}")
+
+if __name__ == "__main__":
+    euler_problem_93()

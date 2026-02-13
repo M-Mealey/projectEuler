@@ -49,6 +49,10 @@ while len(data) > 0:
     next_char = get_first(data)
     pw += next_char
     data = remove_char(data, next_char)
-print(pw)
 
+def euler_problem_79():
+    print(pw)
+
+if __name__ == "__main__":
+    euler_problem_79()
 

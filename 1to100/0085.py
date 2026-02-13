@@ -31,4 +31,9 @@ for x in range(1, 100):
         if abs(closest_rectangle_count - 2000000) > abs(rec_count - 2000000):
             closest_rectangle_count = rec_count
             best_solution = [x,y]
-print(best_solution[0] * best_solution[1])
+
+def euler_problem_85():
+    print(best_solution[0] * best_solution[1])
+
+if __name__ == "__main__":
+    euler_problem_85()

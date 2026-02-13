@@ -50,4 +50,8 @@ for i in range(1, upper_bound):
                 goes_to_1.update(chain)
                 end = True
 
-print(count)
+def euler_problem_92():
+    print(count)
+
+if __name__ == "__main__":
+    euler_problem_92()

@@ -93,4 +93,9 @@ total = 0
 for g in grids:
     g_solved = try_solve(g)
     total += int(g_solved[0][:3])
-print(total)
+
+def euler_problem_96():
+    print(total)
+
+if __name__ == "__main__":
+    euler_problem_96()

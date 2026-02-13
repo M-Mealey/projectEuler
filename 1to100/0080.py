@@ -27,4 +27,8 @@ for x in range(1, 101):
     decimal_digits = str(s).replace(".","")[:100]
     digit_sum += sum([int(x) for x in decimal_digits])
 
-print(digit_sum)
+def euler_problem_80():
+    print(digit_sum)
+
+if __name__ == "__main__":
+    euler_problem_80()

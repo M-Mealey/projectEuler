@@ -66,7 +66,11 @@ for x in range(2, 24001):
             continue
         if ps_minimums[s] == 0:
             ps_minimums[s] = x
-print(sum(set(ps_minimums)))
 
+def euler_problem_88():
+    print(sum(set(ps_minimums)))
+
+if __name__ == "__main__":
+    euler_problem_88()
 
 

@@ -78,8 +78,11 @@ for i in range(2, 1000000):
         #    smallest_cycle_member = min(the_cycle)
         # @TODO: is set or iteration faster?
         all_numbers_checked.update(numbers_this_cycle)
-print(smallest_cycle_member)
 
+def euler_problem_95():
+    print(smallest_cycle_member)
 
+if __name__ == "__main__":
+    euler_problem_95()
 
 

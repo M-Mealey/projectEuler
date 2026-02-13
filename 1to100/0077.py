@@ -31,8 +31,12 @@ for p in primes:
     for i in range(p, max_number):
         prime_combos[i] += prime_combos[i-p]
 
-# print first index with more than 5000 combos
-for pc in prime_combos:
-    if pc>5000:
-        print(prime_combos.index(pc))
-        break
+def euler_problem_77():
+    # print first index with more than 5000 combos
+    for pc in prime_combos:
+        if pc > 5000:
+            print(prime_combos.index(pc))
+            break
+
+if __name__ == "__main__":
+    euler_problem_77()

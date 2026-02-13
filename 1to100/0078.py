@@ -39,7 +39,11 @@ for n in range(1,max_number+1):
             break
         perms[n] += (-1)**(k//2) * perms[n-pent_numbers[k]]
 
-for p in perms:
-    if p%1000000==0:
-        print(perms.index(p))
-        break
+def euler_problem_78():
+    for p in perms:
+        if p % 1000000 == 0:
+            print(perms.index(p))
+            break
+
+if __name__ == "__main__":
+    euler_problem_78()

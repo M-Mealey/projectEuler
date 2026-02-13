@@ -25,3 +25,4 @@ def euler_problem_41():
 
 if __name__ == "__main__":
     euler_problem_41()
+

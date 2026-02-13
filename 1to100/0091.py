@@ -55,6 +55,8 @@ for i in range(len(points)):
             if -1-tol <= s0 * s1 <= -1+tol or -1-tol<=s1*s2 <= -1+tol or -1-tol <= s0 * s2 <= -1+tol:
                 count += 1
 
-print(count)
+def euler_problem_91():
+    print(count)
 
-
+if __name__ == "__main__":
+    euler_problem_91()

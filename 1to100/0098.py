@@ -75,4 +75,9 @@ largest_square = 0
 for k in anagrams:
     if len(anagrams[k]) > 1:
         largest_square = max(largest_square, find_largest_anagram_square(k, anagrams[k]))
-print(largest_square)
+
+def euler_problem_98():
+    print(largest_square)
+
+if __name__ == "__main__":
+    euler_problem_98()

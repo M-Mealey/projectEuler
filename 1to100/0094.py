@@ -37,14 +37,16 @@ def calculate_tri_area_from_sides(a, b, c):
 # a==b so A = sqrt(s(s-a)(s-a)(s-c)) = (s-a) * sqrt(s(s-c)), is int if sqrt(s(s-c)) is int
 # c must be even
 
-perimeter_sum = 0
-for c in range(2,max_perimeter//3+2,2):
-    if c%1000000==0:
-        print(c)
-    for a in (c-1,c+1):
-        A_sq = (4*a*a - c*c)//4
-        A_rt = isqrt(A_sq)
-        if A_rt*A_rt == A_sq:
-            perimeter_sum += a+a+c
-print(perimeter_sum)
 
+def euler_problem_94():
+    perimeter_sum = 0
+    for c in range(4, max_perimeter // 3 + 2, 2):
+        for a in (c - 1, c + 1):
+            A_sq = (4 * a * a - c * c) // 4
+            A_rt = isqrt(A_sq)
+            if A_rt * A_rt == A_sq:
+                perimeter_sum += a + a + c
+    print(perimeter_sum)
+
+if __name__ == "__main__":
+    euler_problem_94()

@@ -134,17 +134,21 @@ for x in test_numerals:
         print()
 ### END TESTS ###
 
-with open("resources/roman.txt") as f:
-    data = f.read().split("\n")
-    characters_saved = 0
-    for num in data:
-        num_as_int = get_int_value(num)
-        minimal_num = int_to_roman(num_as_int)
-        diff = len(num) - len(minimal_num)
-        if diff<0:
-            print("THIS SHOULDN'T HAPPEN")
-            print(num)
-        characters_saved += diff
-    print(characters_saved)
 
 
+def euler_problem_89():
+    with open("resources/roman.txt") as f:
+        data = f.read().split("\n")
+        characters_saved = 0
+        for num in data:
+            num_as_int = get_int_value(num)
+            minimal_num = int_to_roman(num_as_int)
+            diff = len(num) - len(minimal_num)
+            if diff < 0:
+                print("THIS SHOULDN'T HAPPEN")
+                print(num)
+            characters_saved += diff
+        print(characters_saved)
+
+if __name__ == "__main__":
+    euler_problem_89()

@@ -98,4 +98,8 @@ while M<max_M:
         break
     M += 1
 
-print(M)
+def euler_problem_86():
+    print(M)
+
+if __name__ == "__main__":
+    euler_problem_86()

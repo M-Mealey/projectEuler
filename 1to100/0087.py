@@ -31,5 +31,8 @@ for x in prime_squares:
             if sums < 50000000:
                 numbers.add(sums)
 
-print(len(numbers))
+def euler_problem_87():
+    print(len(numbers))
 
+if __name__ == "__main__":
+    euler_problem_87()

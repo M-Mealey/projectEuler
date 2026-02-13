@@ -62,7 +62,11 @@ def calculate_min_paths(costs, path):
 paths = [[0 for _ in range(80)] for __ in range(80)]
 calculate_min_paths(data, paths)
 min_path = min([r[79] for r in paths])
-print(min_path)
 
+def euler_problem_82():
+    print(min_path)
+
+if __name__ == "__main__":
+    euler_problem_82()
 
 

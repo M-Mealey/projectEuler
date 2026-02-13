@@ -30,4 +30,8 @@ def solve(coins, x):
         remaining_amt -= next_coin
     return ways
 
-print(solve(p_amounts, 100))
+def euler_problem_76():
+    print(solve(p_amounts, 100))
+
+if __name__ == "__main__":
+    euler_problem_76()
