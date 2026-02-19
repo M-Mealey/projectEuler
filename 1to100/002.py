@@ -14,6 +14,8 @@ exceed four million.
 """
 Finds sum of all even-valued fibonacci terms that don't exceed x
 """
+
+
 def fib_sum_even(x):
     f0 = 1
     f1 = 2
@@ -26,8 +28,10 @@ def fib_sum_even(x):
         f1 = next
     return sum
 
+
 def euler_problem_2():
     print(fib_sum_even(4000000))
+
 
 if __name__ == "__main__":
     euler_problem_2()

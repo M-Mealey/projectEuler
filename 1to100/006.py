@@ -19,9 +19,9 @@ sum_of_squares = sum([x**2 for x in range(101)])
 square_of_sum = (sum([x for x in range(101)]))**2
 
 
-
 def euler_problem_6():
     print(square_of_sum - sum_of_squares)
+
 
 if __name__ == "__main__":
     euler_problem_6()

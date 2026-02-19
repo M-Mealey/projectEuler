@@ -10,11 +10,13 @@ from 1 to 20?
 """
 
 primes = [2, 3, 5, 7, 11, 13, 17, 19]
+
+
 def prime_factors(x):
     index = 0
     factors = []
-    while x>1 and index <8:
-        if x%primes[index]==0:
+    while x > 1 and index < 8:
+        if x % primes[index] == 0:
             factors.append(primes[index])
             x /= primes[index]
         else:
@@ -23,7 +25,7 @@ def prime_factors(x):
 
 
 def lcm(x):
-    powers = [0,0,0,0,0,0,0,0]
+    powers = [0, 0, 0, 0, 0, 0, 0, 0]
     for i in x:
         factors = prime_factors(i)
         for n in range(len(primes)):
@@ -37,6 +39,6 @@ def lcm(x):
 def euler_problem_5():
     print(lcm(range(20)))
 
+
 if __name__ == "__main__":
     euler_problem_5()
-
