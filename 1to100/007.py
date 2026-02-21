@@ -10,10 +10,11 @@ What is the 10001st prime number?
 import math
 from local_helpers import is_prime
 
+
 def find_prime(x):
     i = 0
     num = 1
-    while i<x:
+    while i < x:
         i += 1
         num += 1
         while not is_prime(num):
@@ -24,6 +25,6 @@ def find_prime(x):
 def euler_problem_7():
     print(find_prime(10001))
 
+
 if __name__ == "__main__":
     euler_problem_7()
-

@@ -43,12 +43,8 @@ def largest_palindrome_x(x):
     return largest_pal
 
 
-"""
-Finds largest palindrome that is the product of two 3-digit numbers.
-"""
-
-
 def largest_palindrome():
+    """Finds largest palindrome that is the product of two 3-digit numbers."""
     x = 999
     largest_found = 0
     while largest_found <= x * x:
