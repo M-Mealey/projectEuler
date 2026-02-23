@@ -56,8 +56,8 @@ grid = """
 """
 
 # convert string to array of ints
-intgrid = [[int(x) for x in row.strip().split()] for row in grid.strip().splitlines()]
-
+intgrid = [[int(x) for x in row.strip().split()]
+           for row in grid.strip().splitlines()]
 
 
 def euler_problem_11():
@@ -73,13 +73,16 @@ def euler_problem_11():
                     j - 3]
                 max_product = max(max_product, l_diagonal_product)
             if i <= 16:  # check vertical
-                vertical_product = intgrid[i][j] * intgrid[i + 1][j] * intgrid[i + 2][j] * intgrid[i + 3][j]
+                vertical_product = intgrid[i][j] * intgrid[i +
+                                                           1][j] * intgrid[i + 2][j] * intgrid[i + 3][j]
                 max_product = max(max_product, vertical_product)
             if j <= 16:  # check horizontal
-                horizontal_product = intgrid[i][j] * intgrid[i][j + 1] * intgrid[i][j + 2] * intgrid[i][j + 3]
+                horizontal_product = intgrid[i][j] * intgrid[i][j +
+                                                                1] * intgrid[i][j + 2] * intgrid[i][j + 3]
                 max_product = max(max_product, horizontal_product)
 
     print(max_product)
+
 
 if __name__ == "__main__":
     euler_problem_11()

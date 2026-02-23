@@ -23,25 +23,27 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 
 MAX_N = 1000000
 MAX_MEM = 4000000
-list = [0] * MAX_MEM
-list[1] = 1
+seq_len_list = [0] * MAX_MEM
+seq_len_list[1] = 1
 
-"update the list with x and its path length, then check for paths leading to x and update their path lengths"
-def update_list(x,p):
-    if x==1:
+
+def update_list(x, p):
+    """update the list with x and its path length, then check for paths leading to x and update their path lengths"""
+    if x == 1:
         return
-    while x<MAX_MEM:
-        list[x] = p
-        if x%2==0 and (x-1)%3 == 0: # the 3n thi
+    while x < MAX_MEM:
+        seq_len_list[x] = p
+        if x % 2 == 0 and (x-1) % 3 == 0:  # the 3n thi
             update_list(int((x-1)/3), p+1)
         x *= 2
         p += 1
 
-"compute length of path starting at n"
+
 def comp(n):
-    if n<MAX_MEM and list[n]:
-        return list[n]
-    elif n%2==0:
+    """compute length of path starting at n"""
+    if n < MAX_MEM and seq_len_list[n]:
+        return seq_len_list[n]
+    elif n % 2 == 0:
         path_len = comp(int(n/2)) + 1
         update_list(n, path_len)
         return path_len
@@ -50,13 +52,14 @@ def comp(n):
         update_list(n, path_len)
         return path_len
 
-for n in range(2,MAX_N):
+
+for n in range(2, MAX_N):
     comp(n)
 
 
 def euler_problem_14():
-    max_chain = max(list[:MAX_N])
-    print(list.index(max_chain))
+    max_chain = max(seq_len_list[:MAX_N])
+    print(seq_len_list.index(max_chain))
 
 
 if __name__ == "__main__":

@@ -26,19 +26,18 @@ divisors?
 """
 import math
 
-"""
-Given int n, returns the nth triangle number
-"""
+
 def triangle_num_n(n):
+    """Given int n, returns the nth triangle number"""
     return int(n * (n+1) * 0.5)
+
 
 def find_factors(x):
     result = [1]
     for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
+        if x % i == 0:
             result.append(i)
     return result
-
 
 
 def euler_problem_12():
@@ -48,6 +47,7 @@ def euler_problem_12():
         x += 1
         num_factors = len(find_factors(triangle_num_n(x)))
     print(triangle_num_n(x))
+
 
 if __name__ == "__main__":
     euler_problem_12()
