@@ -9,6 +9,7 @@ Find the sum of the digits in the number 100!
 
 import math
 
+
 def euler_problem_20():
     f100 = math.factorial(100)
 
@@ -19,6 +20,6 @@ def euler_problem_20():
 
     print(digit_sum)
 
+
 if __name__ == "__main__":
     euler_problem_20()
-

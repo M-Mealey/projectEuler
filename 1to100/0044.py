@@ -19,22 +19,27 @@ import math
 pentagonal_numbers = [int(n*(3*n-1) / 2) for n in range(1, 10000)]
 
 # checks if given integer x is a pentagonal number
+
+
 def is_pentagonal(x):
     n = (1 + math.sqrt(24 * x + 1)) / 6
     if n == math.floor(n):
         return True
     return False
 
+
 # @TODO: make this more efficient
 solutions = []
-for j in range(1,len(pentagonal_numbers)-1):
+for j in range(1, len(pentagonal_numbers)-1):
     for k in range(j, len(pentagonal_numbers)-1):
         if is_pentagonal(pentagonal_numbers[j] + pentagonal_numbers[k]):
             if is_pentagonal(pentagonal_numbers[k] - pentagonal_numbers[j]):
                 solutions.append(pentagonal_numbers[k] - pentagonal_numbers[j])
 
+
 def euler_problem_44():
     print(min(solutions))
+
 
 if __name__ == "__main__":
     euler_problem_44()

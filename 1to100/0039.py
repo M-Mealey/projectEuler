@@ -22,9 +22,9 @@ for p in range(3, 1000):
         max_solutions = (p, solutions)
 
 
-
 def euler_problem_39():
     print(max_solutions[0])
+
 
 if __name__ == "__main__":
     euler_problem_39()

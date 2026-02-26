@@ -27,7 +27,6 @@ What is the first term in the Fibonacci sequence to contain 1000 digits?
 """
 
 
-
 def euler_problem_25():
     f1, f2 = 1, 1
     fnext = f1 + f2
@@ -40,6 +39,7 @@ def euler_problem_25():
         f2 = fnext
 
     print(count)
+
 
 if __name__ == "__main__":
     euler_problem_25()

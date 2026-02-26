@@ -18,11 +18,14 @@ of the following expression.
 
 # Given last integer appended x, digit pointer pointer, and target index d
 # returns the digit at index d in the irrational integer
+
+
 def get_digit(x, pointer, d):
     while pointer > d:
         x = x//10
         pointer -= 1
-    return x%10
+    return x % 10
+
 
 d_list = [1, 10, 100, 1000, 10000, 100000, 1000000]
 digit_pointer = 0
@@ -35,8 +38,10 @@ while digit_pointer < 1000000:
         d_list.pop(0)
     x += 1
 
+
 def euler_problem_40():
     print(product)
+
 
 if __name__ == "__main__":
     euler_problem_40()

@@ -17,6 +17,7 @@ sequence?
 import itertools
 from local_helpers import is_prime
 
+
 def tuple_to_int(tup):
     total = 0
     for d in tup:
@@ -24,15 +25,18 @@ def tuple_to_int(tup):
         total += d
     return total
 
+
 # get all combinations of 4 digits
-digits = [0,1,2,3,4,5,6,7,8,9]
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 combos = list(itertools.combinations_with_replacement(digits, 4))
-combos.remove((1,4,7,8)) # remove solution we already know
+combos.remove((1, 4, 7, 8))  # remove solution we already know
+
 
 def euler_problem_49():
     for c in combos:
         # get all prime numbers 4-digit numbers that can be made from these digits
-        numbers = set(filter(lambda x: x > 1000 and is_prime(x), [tuple_to_int(p) for p in itertools.permutations(c)]))
+        numbers = set(filter(lambda x: x > 1000 and is_prime(
+            x), [tuple_to_int(p) for p in itertools.permutations(c)]))
         # take one from set, get difference between each other element of set, and check for 3rd in arithmetic sequence
         while len(numbers) > 2:
             next_num = numbers.pop()
@@ -43,6 +47,7 @@ def euler_problem_49():
                     print(str(l) + str(g) + str(g + diff))
                 if l - diff in numbers:
                     print(str(l - diff) + str(l) + str(g))
+
 
 if __name__ == "__main__":
     euler_problem_49()

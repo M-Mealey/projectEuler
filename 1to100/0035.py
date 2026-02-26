@@ -13,6 +13,8 @@ How many circular primes are there below one million?
 from local_helpers import is_prime
 
 # for input int x, returns list of ints containing "rotations" of x
+
+
 def get_rotations(x):
     rotations = []
     num_rotations = len(str(x))
@@ -22,7 +24,8 @@ def get_rotations(x):
         rotations.append(int(next_str_r))
     return rotations
 
-circular_primes = 13 # there are 13 below 100, this var tracks total number found
+
+circular_primes = 13  # there are 13 below 100, this var tracks total number found
 # check every odd number between 100 and 1 million
 for i in range(101, 1000000, 2):
     # if there is an even digit, then the rotation with that digit in the ones place won't be prime
@@ -33,8 +36,10 @@ for i in range(101, 1000000, 2):
         if False not in prime_rotations:
             circular_primes += 1
 
+
 def euler_problem_35():
     print(circular_primes)
+
 
 if __name__ == "__main__":
     euler_problem_35()

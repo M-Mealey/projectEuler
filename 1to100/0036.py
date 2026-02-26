@@ -13,12 +13,15 @@ leading zeros.)
 """
 
 # checks if base 10 int x is a palindrome, returns True or False
+
+
 def is_palindrome_b10(x):
     x_string = str(x)
     for d in range(len(x_string)//2):
         if x_string[d] != x_string[-1-d]:
             return False
     return True
+
 
 def is_palindrome_b2(x):
     x_bin_str = bin(i)[2:]
@@ -27,12 +30,13 @@ def is_palindrome_b2(x):
             return False
     return True
 
+
 # naive way: iterate over all numbers less than 1M, check if both representations are palindromes
 sum = 0
 for i in range(1000000):
     if is_palindrome_b10(i) and is_palindrome_b2(i):
         sum += i
-#print(sum)
+# print(sum)
 
 # More efficient way: use math to generate all binary palindromes, then check if their
 # base 10 representation is a palindrome
@@ -51,18 +55,21 @@ sum = 1
 second_solutions = []
 for i in range(1, 977):
     bin_str = bin(i)[2:]
-    bin_palindromes = [bin_str + bin_str[::-1], bin_str + '0' + bin_str[::-1], bin_str + '1' + bin_str[::-1]]
+    bin_palindromes = [bin_str + bin_str[::-1], bin_str +
+                       '0' + bin_str[::-1], bin_str + '1' + bin_str[::-1]]
     for pal in bin_palindromes:
         pal_b10 = int(pal, 2)
         if pal_b10 < 1000000 and is_palindrome_b10(pal_b10):
             second_solutions.append(pal_b10)
             sum += pal_b10
 
-#print(sum)
+# print(sum)
 # @TODO: measure speed of each
+
 
 def euler_problem_36():
     print(sum)
+
 
 if __name__ == "__main__":
     euler_problem_36()

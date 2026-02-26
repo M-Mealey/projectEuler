@@ -17,6 +17,8 @@ import math
 
 # copied from problem 44
 # checks if given integer x is a pentagonal number
+
+
 def is_pentagonal(x):
     n = (1 + math.sqrt(24 * x + 1)) / 6
     if n == math.floor(n):
@@ -24,6 +26,8 @@ def is_pentagonal(x):
     return False
 
 # checks if given integer x is hexagonal
+
+
 def is_hexagonal(x):
     n = (math.sqrt(8*x+1) + 1) / 4
     if n == math.floor(n):
@@ -36,8 +40,10 @@ next_num = next(triangle_gen)
 while not (is_pentagonal(next_num) and is_hexagonal(next_num)):
     next_num = next(triangle_gen)
 
+
 def euler_problem_45():
     print(next_num)
+
 
 if __name__ == "__main__":
     euler_problem_45()

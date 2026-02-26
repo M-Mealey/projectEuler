@@ -20,18 +20,19 @@ answers = []
 
 for x in range(10, 100):
     tens_digit = x//10
-    ones_digit = x%10
+    ones_digit = x % 10
     if ones_digit == 0:
-        continue # "cancelling" 0s is trivial, tens digit can't be "cancelled" because then numerator would be 0
-    for i in range(1,10):
+        continue  # "cancelling" 0s is trivial, tens digit can't be "cancelled" because then numerator would be 0
+    for i in range(1, 10):
         # if we write x as to, where t is 10s digit and o is ones digit,
         # possible solutions are where to/ti == o/i, to/it == o/i, to/oi == t/i, to/io == t/i
-        possible_solutions = [(tens_digit*10 + i, ones_digit), (i*10 + tens_digit,ones_digit), (ones_digit*10 + i, tens_digit), (i*10 + ones_digit, tens_digit)]
+        possible_solutions = [(tens_digit*10 + i, ones_digit), (i*10 + tens_digit, ones_digit),
+                              (ones_digit*10 + i, tens_digit), (i*10 + ones_digit, tens_digit)]
         for d in possible_solutions:
-            if d[0]<=x: # fraction must be < 1
+            if d[0] <= x:  # fraction must be < 1
                 continue
             if x/d[0] == d[1]/i:
-                answers.append((x,d[0]))
+                answers.append((x, d[0]))
 
 
 numerator = 1
@@ -41,18 +42,23 @@ for a in answers:
     denominator *= a[1]
 
 # Find GCD of 2 integers using Euclidean algorithm
+
+
 def gcd(n1, n2):
     a, b = max(n1, n2), min(n1, n2)
-    r = a%b
-    while r!=0:
+    r = a % b
+    while r != 0:
         a, b = b, r
-        r = a%b
+        r = a % b
     return b
+
 
 solution = int(denominator / gcd(numerator, denominator))
 
+
 def euler_problem_33():
     print(solution)
+
 
 if __name__ == "__main__":
     euler_problem_33()

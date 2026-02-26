@@ -38,16 +38,16 @@ answer = 0
 for i in range(10, 10000000):
     sum = 0
     number = i
-    while number >0:
-        sum += math.factorial(number%10)
+    while number > 0:
+        sum += math.factorial(number % 10)
         number = number//10
-    if sum==i:
+    if sum == i:
         answer += i
-
 
 
 def euler_problem_34():
     print(answer)
+
 
 if __name__ == "__main__":
     euler_problem_34()

@@ -30,14 +30,17 @@ from local_helpers import is_prime
 
 # for a given generator g, find how many sequential primes it yields starting from the first element
 # returns int, the number of sequential primes
+
+
 def find_sequential_primes(g):
     count = 0
     while is_prime(next(g, None)):
         count += 1
     return count
 
+
 # vars to keep track of best answer so far
-max_n = 10 # maximum value of n to try, can be increased
+max_n = 10  # maximum value of n to try, can be increased
 max_sequence = 0
 best_pair = None
 
@@ -45,23 +48,27 @@ best_pair = None
 for a in range(1000):
     for b in range(1000):
         if not is_prime(abs(b)):
-            continue # if b is composite, the first number produced (n=0) will be composite
-        tuples = [(a,b), (a, -b), (-a, b), (-a, -b)]
-        for a0,b0 in tuples:
-            sequence = find_sequential_primes((n*n + a0*n + b0 for n in range(max_n)))
-            if sequence == max_n: # all entries were prime, need to increase max_n
+            # if b is composite, the first number produced (n=0) will be composite
+            continue
+        tuples = [(a, b), (a, -b), (-a, b), (-a, -b)]
+        for a0, b0 in tuples:
+            sequence = find_sequential_primes(
+                (n*n + a0*n + b0 for n in range(max_n)))
+            if sequence == max_n:  # all entries were prime, need to increase max_n
                 max_n += 10
-                tuples.append((a0,b0)) # add tuple back to list, retry later
+                tuples.append((a0, b0))  # add tuple back to list, retry later
             if sequence > max_sequence:
-                best_pair = (a0,b0)
+                best_pair = (a0, b0)
                 max_sequence = sequence
 
-#print(f"best pair: a={best_pair[0]}, b={best_pair[1]}")
-#print(f"max sequence: {max_sequence}")
+# print(f"best pair: a={best_pair[0]}, b={best_pair[1]}")
+# print(f"max sequence: {max_sequence}")
 print(best_pair[0] * best_pair[1])
+
 
 def euler_problem_27():
     print(index_found)
+
 
 if __name__ == "__main__":
     euler_problem_27()

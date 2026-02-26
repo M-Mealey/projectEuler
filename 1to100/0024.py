@@ -16,9 +16,10 @@ import math
 
 digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+
 def find_nth_permutation(n, ls):
     ans_str = ""
-    index = n - 1 # n is 1-indexed, so subtract 1
+    index = n - 1  # n is 1-indexed, so subtract 1
     while len(ls) > 0:
         ls.sort()
         num_perms_starting_with_each = math.perm(len(ls)-1, len(ls)-1)
@@ -30,6 +31,7 @@ def find_nth_permutation(n, ls):
 
 def euler_problem_24():
     print(find_nth_permutation(1000000, digits))
+
 
 if __name__ == "__main__":
     euler_problem_24()

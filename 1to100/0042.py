@@ -36,8 +36,10 @@ for word in word_list:
     if value in triangle_numbers:
         triangle_word_count += 1
 
+
 def euler_problem_42():
     print(triangle_word_count)
+
 
 if __name__ == "__main__":
     euler_problem_42()

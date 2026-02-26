@@ -14,9 +14,12 @@ forty-two) contains 23 letters and 115 (one hundred and fifteen) contains
 with British usage.
 """
 
-ones_digit = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"]
-tens_digit = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+ones_digit = ["one", "two", "three", "four",
+              "five", "six", "seven", "eight", "nine"]
+teens = ["ten", "eleven", "twelve", "thirteen", "fourteen",
+         "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"]
+tens_digit = ["twenty", "thirty", "forty", "fifty",
+              "sixty", "seventy", "eighty", "ninety"]
 
 # sum for 1 to 9
 sum_ones = 0
@@ -44,6 +47,7 @@ for s in ones_digit:
 
 def euler_problem_17():
     print(sum_to_99 + sum_hundreds + len("onethousand"))
+
 
 if __name__ == "__main__":
     euler_problem_17()

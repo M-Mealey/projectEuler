@@ -13,16 +13,17 @@ from local_helpers import is_prime
 
 # can only go up to 9-digit
 largest = 2143
-for n in range(4,10):
-    perms = itertools.permutations(range(1,n+1))
+for n in range(4, 10):
+    perms = itertools.permutations(range(1, n+1))
     for p in perms:
         x = sum(list(k * (10**(n-p.index(k)-1)) for k in p))
         if is_prime(x):
             largest = max(largest, x)
 
+
 def euler_problem_41():
     print(largest)
 
+
 if __name__ == "__main__":
     euler_problem_41()
-

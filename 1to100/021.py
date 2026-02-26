@@ -15,6 +15,7 @@ Evaluate the sum of all the amicable numbers under 10000.
 """
 from local_helpers import find_divisors
 
+
 def euler_problem_21():
     amicable_numbers = []
     for i in range(10000):
@@ -24,6 +25,6 @@ def euler_problem_21():
 
     print(sum(amicable_numbers))
 
+
 if __name__ == "__main__":
     euler_problem_21()
-

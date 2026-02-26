@@ -20,22 +20,25 @@ factors. What is the first of these numbers?
 
 import math
 
+
 def find_next_factor(x):
-    if not isinstance(x, int) or x<=1:
+    if not isinstance(x, int) or x <= 1:
         return -1
     for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
+        if x % i == 0:
             return i
     return x
+
 
 def find_prime_factors(x):
     factors = set()
     f = find_next_factor(x)
-    while f>0:
+    while f > 0:
         factors.add(f)
         x = int(x/f)
         f = find_next_factor(x)
     return factors
+
 
 def euler_problem_47():
     counter = 0
@@ -47,6 +50,7 @@ def euler_problem_47():
         if counter == 4:
             print(i - 3)
             break
+
 
 if __name__ == "__main__":
     euler_problem_47()

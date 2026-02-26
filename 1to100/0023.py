@@ -27,11 +27,14 @@ from local_helpers import find_divisors
 """
 Checks if integer x can be created by adding 2 numbers in iterable l
 """
+
+
 def can_make_sum(x, l):
     for i in l:
         if x-i in l:
             return True
     return False
+
 
 def euler_problem_23():
     abundant_numbers = set([])
@@ -45,8 +48,6 @@ def euler_problem_23():
 
     print(number_sum)
 
+
 if __name__ == "__main__":
     euler_problem_23()
-
-
-

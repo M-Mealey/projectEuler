@@ -22,15 +22,18 @@ import itertools
 # then checking the product
 
 pandigital_products = set()
-all_digits = [1,2,3,4,5,6,7,8,9]
+all_digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 
 def int_to_list(x):
     return [int(ch) for ch in str(x)]
 
+
 for f1 in range(1, 100):
     f1_list = int_to_list(f1)
     # check first factor
-    if 0 in f1_list or len(f1_list) != len(set(f1_list)): #if digits are same or 0, skip this iteration
+    # if digits are same or 0, skip this iteration
+    if 0 in f1_list or len(f1_list) != len(set(f1_list)):
         continue
     # find possible digit permutations for 2nd factor
     remaining_digits = [d for d in all_digits if d not in f1_list]
@@ -48,14 +51,17 @@ for f1 in range(1, 100):
         # check product
         product = f1 * f2
         product_list = int_to_list(product)
-        if len(product_list) != len(set(product_list)) or (len(product_list) != len(product_digits)): # product can't have duplicates
+        # product can't have duplicates
+        if len(product_list) != len(set(product_list)) or (len(product_list) != len(product_digits)):
             continue
         diff_list = [x for x in product_digits if x not in product_list]
-        if len(diff_list) == 0: #if true, equation f1 * f2 = product is pandigital
+        if len(diff_list) == 0:  # if true, equation f1 * f2 = product is pandigital
             pandigital_products.add(product)
+
 
 def euler_problem_32():
     print(sum(pandigital_products))
+
 
 if __name__ == "__main__":
     euler_problem_32()

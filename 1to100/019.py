@@ -45,6 +45,6 @@ def euler_problem_19():
 
     print(sunday_1st_count)
 
+
 if __name__ == "__main__":
     euler_problem_19()
-

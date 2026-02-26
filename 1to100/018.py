@@ -55,11 +55,11 @@ pyramid_input = """
 """
 
 
-
 def euler_problem_18():
     # copied from problem 11
     # convert string to array of ints
-    pyramid = [[int(x) for x in row.strip().split()] for row in pyramid_input.strip().splitlines()]
+    pyramid = [[int(x) for x in row.strip().split()]
+               for row in pyramid_input.strip().splitlines()]
 
     sums = pyramid[0]
     # Iterate over rows, tracking the largest sum up to each entry in the pyramid
@@ -76,6 +76,7 @@ def euler_problem_18():
     # end with row of sums representing the maximum sum for a path ending at each index in bottom row
     # print the largest sum
     print(max(sums))
+
 
 if __name__ == "__main__":
     euler_problem_18()

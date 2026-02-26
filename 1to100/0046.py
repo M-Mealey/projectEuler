@@ -19,7 +19,8 @@ prime and twice a square?
 """
 from local_helpers import is_prime
 
-twice_squares = [2*x*x for x in range(1,1000)]
+twice_squares = [2*x*x for x in range(1, 1000)]
+
 
 def euler_problem_46():
     for i in range(3, 10001, 2):
@@ -33,6 +34,7 @@ def euler_problem_46():
             if not sum_found:
                 print(i)
                 break
+
 
 if __name__ == "__main__":
     euler_problem_46()

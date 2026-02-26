@@ -22,6 +22,7 @@ with open("resources/names.txt") as f:
     data.sort()
     name_list = data
 
+
 def score_name(n):
     letter_sum = 0
     for ch in n:
@@ -36,6 +37,7 @@ def euler_problem_22():
         name_score_sum += (i + 1) * score_name(name)
 
     print(name_score_sum)
+
 
 if __name__ == "__main__":
     euler_problem_22()
