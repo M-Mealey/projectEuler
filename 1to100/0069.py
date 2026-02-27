@@ -37,23 +37,28 @@ import math
 from local_helpers import is_prime
 
 # Copied from problem 47
+
+
 def find_next_factor(x):
-    if not isinstance(x, int) or x<=1:
+    if not isinstance(x, int) or x <= 1:
         return -1
     for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
+        if x % i == 0:
             return i
     return x
 
 # Copied from problem 47 and modified
+
+
 def find_prime_factors(x):
     factors = set()
     f = find_next_factor(x)
-    while f>0:
+    while f > 0:
         factors.add(f)
         x = int(x/f)
         f = find_next_factor(x)
     return factors
+
 
 def calculate_totient(n):
     prime_factors = find_prime_factors(n)
@@ -62,18 +67,22 @@ def calculate_totient(n):
         totient *= (1 - 1/p)
     return totient
 
+
 max_ratio = 3
 best_n = 6
 for n in range(7, 1000001):
     if is_prime(n):
-        continue # a prime will never be the answer. for prime n, n/f(n) = n/(n-1) < 2
+        # a prime will never be the answer. for prime n, n/f(n) = n/(n-1) < 2
+        continue
     ratio = n / calculate_totient(n)
     if ratio > max_ratio:
         max_ratio = ratio
         best_n = n
 
+
 def euler_problem_69():
     print(best_n)
+
 
 if __name__ == "__main__":
     euler_problem_69()

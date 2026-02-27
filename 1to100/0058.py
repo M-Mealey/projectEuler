@@ -27,12 +27,12 @@ from local_helpers import is_prime
 # ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
 prime_count = 0
 count = 1
-end_of_ring = 1 # tracks end of previous ring
+end_of_ring = 1  # tracks end of previous ring
 side_len = 1
-for r in range(1,100000):
+for r in range(1, 100000):
     side_len = 2 * r + 1
     # each corner is 2r steps up from the last corner, where r is the ring # the corner is in
-    corners = [end_of_ring + 2*r*x for x in range(1,5)]
+    corners = [end_of_ring + 2*r*x for x in range(1, 5)]
     for c in corners:
         if is_prime(c):
             prime_count += 1
@@ -41,8 +41,10 @@ for r in range(1,100000):
         break
     end_of_ring = end_of_ring + 8*r
 
+
 def euler_problem_58():
     print(side_len)
+
 
 if __name__ == "__main__":
     euler_problem_58()

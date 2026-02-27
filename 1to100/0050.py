@@ -29,13 +29,15 @@ for i in range(len(prime_list)):
         if j > len(prime_list)-1:
             break
         total += prime_list[j]
-        if total<1000000 and is_prime(total) and j-i+1 > longest_sequence:
+        if total < 1000000 and is_prime(total) and j-i+1 > longest_sequence:
             best_prime = total
             longest_sequence = j-i+1
         j += 1
 
+
 def euler_problem_50():
     print(best_prime)
+
 
 if __name__ == "__main__":
     euler_problem_50()

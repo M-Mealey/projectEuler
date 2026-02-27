@@ -37,8 +37,10 @@ for d in range(7, 1000001):
     if (3/7) - (closest_fraction[0]/closest_fraction[1]) > (3/7) - (x/d):
         closest_fraction = (x, d)
 
+
 def euler_problem_71():
     print(closest_fraction[0])
+
 
 if __name__ == "__main__":
     euler_problem_71()

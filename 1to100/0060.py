@@ -16,10 +16,12 @@ from local_helpers import is_prime
 
 max_prime = 20000
 primes = [x for x in range(3, max_prime, 2) if is_prime(x)]
-primes.remove(5) # only prime that ends in 5 is 5
+primes.remove(5)  # only prime that ends in 5 is 5
+
 
 def check_prime_pair(x, y):
     return is_prime(int(str(x)+str(y))) and is_prime(int(str(y)+str(x)))
+
 
 p_sum = 200000
 while len(primes) > 0:
@@ -45,8 +47,10 @@ while len(primes) > 0:
                 if len(quints) > 0:
                     p_sum = min(p_sum, p + pj + pt + pq + quints[0])
 
+
 def euler_problem_60():
     print(p_sum)
+
 
 if __name__ == "__main__":
     euler_problem_60()

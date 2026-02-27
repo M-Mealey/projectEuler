@@ -9,19 +9,23 @@ How many n-digit positive integers exist which are also an nth power?
 """
 # powers of single-digit numbers
 
+
 def check_powers(p):
     matches = 0
-    for i in range(1,10):
+    for i in range(1, 10):
         if len(str(i**p)) == p:
             matches += 1
     return matches
+
 
 match_count = 0
 for x in range(1, 100):
     match_count += check_powers(x)
 
+
 def euler_problem_63():
     print(match_count)
+
 
 if __name__ == "__main__":
     euler_problem_63()

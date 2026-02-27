@@ -11,10 +11,13 @@ contain the same digits.
 
 multiples = [1, 2, 3, 4, 5, 6]
 
+
 def int_to_digit_list(n):
     return [(n % (10 ** b)) // (10 ** (b - 1)) for b in range(len(str(n)), 0, -1)]
 
 # given an array, checks that all rows are equal length
+
+
 def check_row_len(arr):
     for row in arr:
         if len(row) != len(arr[0]):
@@ -22,12 +25,13 @@ def check_row_len(arr):
     return True
 
 # given an array, checks that all rows are equal length
+
+
 def check_row_digits(arr):
     for row in arr:
         if row != arr[0]:
             return False
     return True
-
 
 
 def euler_problem_52():
@@ -40,6 +44,7 @@ def euler_problem_52():
         if check_row_digits(x_mult):
             print(x)
             break
+
 
 if __name__ == "__main__":
     euler_problem_52()

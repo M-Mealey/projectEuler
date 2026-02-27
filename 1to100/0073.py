@@ -23,21 +23,23 @@ import math
 # Find GCD of 2 integers using Euclidean algorithm
 def gcd(n1, n2):
     a, b = max(n1, n2), min(n1, n2)
-    r = a%b
-    while r!=0:
+    r = a % b
+    while r != 0:
         a, b = b, r
-        r = a%b
+        r = a % b
     return b
 
 
 total = 3
-for d in range(9,12001):
+for d in range(9, 12001):
     min_num = math.ceil(d/3.0)
     max_num = math.floor(d/2.0)
-    total += len([x for x in range(min_num, max_num+1) if gcd(x,d)==1])
+    total += len([x for x in range(min_num, max_num+1) if gcd(x, d) == 1])
+
 
 def euler_problem_73():
     print(int(total))
+
 
 if __name__ == "__main__":
     euler_problem_73()

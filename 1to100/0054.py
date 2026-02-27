@@ -54,7 +54,8 @@ How many hands does Player 1 win?
 
 # Ace can also be 1, but the only situation in this problem where you would count it as 1 is if it's in a straight
 # so that special case can be handled separately
-card_values = {'2':2, '3':3, '4': 4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10, 'J':11, 'Q':12, 'K':13, 'A':14}
+card_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+               '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
 
 hands = []
 with open("resources/poker.txt") as f:
@@ -62,24 +63,30 @@ with open("resources/poker.txt") as f:
 
 p1_win_count = 0
 
+
 def check_flush(hand):
-    return hand[0][1]==hand[1][1] and hand[0][1]==hand[2][1] and hand[0][1]==hand[3][1] and hand[0][1]==hand[4][1]
+    return hand[0][1] == hand[1][1] and hand[0][1] == hand[2][1] and hand[0][1] == hand[3][1] and hand[0][1] == hand[4][1]
+
 
 def check_straight(hand):
-    if hand == [2, 3, 4, 5, 14]: # special case, A can be 1 in a straight
+    if hand == [2, 3, 4, 5, 14]:  # special case, A can be 1 in a straight
         return True
-    if [c - hand[0] for c in hand] == [0,1,2,3,4]:
+    if [c - hand[0] for c in hand] == [0, 1, 2, 3, 4]:
         return True
     return False
 
 # returns
+
+
 def count_multiples(hand):
     cards = {}
     for c in hand:
         cards[c] = cards.get(c, 0) + 1
-    return dict(sorted(cards.items(), key = lambda item: item[1], reverse=True))
+    return dict(sorted(cards.items(), key=lambda item: item[1], reverse=True))
 
 # returns 2 values: score and tiebreaker info
+
+
 def grade_hand(hand):
     card_int_values = [card_values[c[0]] for c in hand]
     card_int_values.sort()
@@ -89,13 +96,13 @@ def grade_hand(hand):
     if check_flush(hand):
         if card_int_values == [10, 11, 12, 13, 14]:
             # for royal straight and all other straights, tiebreaker is simple highest card.
-            return 9, [max(card_int_values)] # royal flush
+            return 9, [max(card_int_values)]  # royal flush
         elif check_straight(card_int_values):
-            return 8, [max(card_int_values)] # straight flush
+            return 8, [max(card_int_values)]  # straight flush
         else:
-            return 5, sorted(card_int_values, reverse=True) # simple flush
+            return 5, sorted(card_int_values, reverse=True)  # simple flush
     elif check_straight(card_int_values):
-        return 4, [max(card_int_values)] # simple straight
+        return 4, [max(card_int_values)]  # simple straight
     else:
         # for other hands, tiebreaker is list of card values by frequency they occur, cards with the same frequency
         # are sorted by descending values
@@ -104,22 +111,24 @@ def grade_hand(hand):
         tiebreaker = list(card_counts.keys())
         vals = sorted(list(card_counts.values()), reverse=True)
         if 4 in vals:
-            return 7 , tiebreaker # 4 of a kind
+            return 7, tiebreaker  # 4 of a kind
         elif 3 in vals:
             if 2 in vals:
-                return 6, tiebreaker # full house
-            return 3, tiebreaker # 3 of a kind
+                return 6, tiebreaker  # full house
+            return 3, tiebreaker  # 3 of a kind
         elif 2 in vals:
-            if vals  == [2,2,1]:
-                return 2, tiebreaker # 2 pairs
-            return 1, tiebreaker # 1 pair
-        return 0, tiebreaker # high card
+            if vals == [2, 2, 1]:
+                return 2, tiebreaker  # 2 pairs
+            return 1, tiebreaker  # 1 pair
+        return 0, tiebreaker  # high card
+
 
 def resolve_tiebreaker(t1, t2):
     if t1[0] == t2[0]:
         return resolve_tiebreaker(t1[1:], t2[1:])
     else:
         return t1[0] > t2[0]
+
 
 for h in hands:
     p1_cards, p2_cards = h.split()[:5], h.split()[5:]
@@ -133,8 +142,10 @@ for h in hands:
         if resolve_tiebreaker(tie1, tie2):
             p1_win_count += 1
 
+
 def euler_problem_54():
     print(p1_win_count)
+
 
 if __name__ == "__main__":
     euler_problem_54()

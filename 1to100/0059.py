@@ -43,17 +43,21 @@ with open('resources/cipher1.txt') as f:
 
 bytes_by_key = {1: [], 2: [], 3: []}
 for x in range(len(bytes)):
-    bytes_by_key[x%3 + 1].append(bytes[x])
+    bytes_by_key[x % 3 + 1].append(bytes[x])
 
 # given a byte list where all bytes are encrypted by the same key,
 # find the most common byte and return list of potential keys that would
 # correspond to this byte being one of the most common characters
+
+
 def get_likely_keys(b_list):
     byte_count = Counter(b_list)
     most_common_byte = byte_count.most_common(1)[0][0]
     # problem states valid cipher chars are lowercase letters
-    likely_keys = [ord(c) ^ most_common_byte for c in most_common_chars if ord('z') >= (ord(c)^most_common_byte) >= ord('a')]
+    likely_keys = [ord(c) ^ most_common_byte for c in most_common_chars if ord(
+        'z') >= (ord(c) ^ most_common_byte) >= ord('a')]
     return likely_keys
+
 
 k1 = get_likely_keys(bytes_by_key[1])
 k2 = get_likely_keys(bytes_by_key[2])
@@ -64,6 +68,8 @@ possible_key_combos = list(product(k1, k2, k3))
 # validate the plaintext by checking if at least 9 of first 10 words are common English words
 # using the word list from https://public.websites.umich.edu/~jlawler/wordlist.html
 # return True if passes, False if not
+
+
 def validate_message(txt):
     with open('resources/wordlist.txt') as f:
         words = f.read().split('\n')
@@ -75,13 +81,16 @@ def validate_message(txt):
 
 # trys to decrypt the plaintext with the given keys. Returns plaintext if it passes validation,
 # or None if it doesn't
+
+
 def try_decrypt(keys):
-    decrypted_bytes = [bytes[x] ^ keys[x%3] for x in range(len(bytes))]
+    decrypted_bytes = [bytes[x] ^ keys[x % 3] for x in range(len(bytes))]
     decoded_string = ''.join([chr(x) for x in decrypted_bytes])
     if validate_message(decoded_string):
         return decoded_string
     else:
         return None
+
 
 def try_keys(key_combos):
     for k in key_combos:
@@ -89,13 +98,16 @@ def try_keys(key_combos):
             return try_decrypt(k)
     return None
 
+
 plaintext = try_keys(possible_key_combos)
 if not plaintext:
     print("ERROR: COULD NOT DECRYPT")
 ascii_sum = sum([ord(c) for c in plaintext])
 
+
 def euler_problem_59():
     print(ascii_sum)
+
 
 if __name__ == "__main__":
     euler_problem_59()

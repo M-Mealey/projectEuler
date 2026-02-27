@@ -22,6 +22,7 @@ with open("resources/keylog.txt") as f:
 # finds which things only appear first then remove them from each of the login attempts and repeat
 # Eventually attempt list should be empty and we have the password.
 
+
 def get_first(ls):
     first_digits = set()
     not_first = set()
@@ -34,6 +35,7 @@ def get_first(ls):
     else:
         return solutions.pop()
 
+
 def remove_char(ls, ch):
     new_list = []
     for i in range(len(ls)):
@@ -44,15 +46,17 @@ def remove_char(ls, ch):
             new_list.append(ls[i])
     return new_list
 
+
 pw = ""
 while len(data) > 0:
     next_char = get_first(data)
     pw += next_char
     data = remove_char(data, next_char)
 
+
 def euler_problem_79():
     print(pw)
 
+
 if __name__ == "__main__":
     euler_problem_79()
-

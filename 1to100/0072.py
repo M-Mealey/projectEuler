@@ -24,11 +24,13 @@ fractions for d 1,000,000?
 import math
 
 # Copied from problem 47
+
+
 def find_next_factor(x):
-    if not isinstance(x, int) or x<=1:
+    if not isinstance(x, int) or x <= 1:
         return -1
     for i in range(2, int(math.sqrt(x))+1):
-        if x%i == 0:
+        if x % i == 0:
             return i
     return x
 
@@ -36,11 +38,12 @@ def find_next_factor(x):
 def find_prime_factors(x):
     factors = set()
     f = find_next_factor(x)
-    while f>0:
+    while f > 0:
         factors.add(f)
         x = int(x/f)
         f = find_next_factor(x)
     return factors
+
 
 def calculate_totient(n):
     prime_factors = find_prime_factors(n)
@@ -50,13 +53,14 @@ def calculate_totient(n):
     return totient
 
 
-
 total = 21
-for d in range(9,1000001):
+for d in range(9, 1000001):
     total += calculate_totient(d)
+
 
 def euler_problem_72():
     print(int(total))
+
 
 if __name__ == "__main__":
     euler_problem_72()

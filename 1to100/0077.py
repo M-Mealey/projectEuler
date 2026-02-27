@@ -27,9 +27,11 @@ prime_combos = [0 for _ in range(max_number + 1)]
 # solutions for index i += solutions for index i - (prime), like appending the prime to the sum
 # no risk of double-counting because this goes in ascending order
 for p in primes:
-    prime_combos[p] += 1 # counting prime number itself as one way to write sum
+    # counting prime number itself as one way to write sum
+    prime_combos[p] += 1
     for i in range(p, max_number):
         prime_combos[i] += prime_combos[i-p]
+
 
 def euler_problem_77():
     # print first index with more than 5000 combos
@@ -37,6 +39,7 @@ def euler_problem_77():
         if pc > 5000:
             print(prime_combos.index(pc))
             break
+
 
 if __name__ == "__main__":
     euler_problem_77()

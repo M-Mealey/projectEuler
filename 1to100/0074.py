@@ -31,22 +31,26 @@ sixty non-repeating terms?
 """
 import math
 
+
 def digit_factorial_sum(x):
     return sum([math.factorial(int(c)) for c in str(x)])
 
+
 total = 0
-for x in range(2,1000000):
+for x in range(2, 1000000):
     seen = set()
     seen.add(x)
     next = digit_factorial_sum(x)
-    while next not in seen and len(seen)<60:
+    while next not in seen and len(seen) < 60:
         seen.add(next)
         next = digit_factorial_sum(next)
     if len(seen) == 60 and next in seen:
         total += 1
 
+
 def euler_problem_74():
     print(total)
+
 
 if __name__ == "__main__":
     euler_problem_74()

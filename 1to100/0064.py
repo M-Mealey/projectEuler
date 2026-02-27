@@ -71,6 +71,8 @@ from math import sqrt, floor
 #     remainder corresponding with previous a-value was rationalized as (root(n) + r0) / r1
 # This function returns the new remainder fraction by rationalizing 1 / [ ((root(n) + r0) / r1) - a) ]
 # new remainder is returned as list of 2 numbers like input r
+
+
 def rationalize_remainder(n, r, a):
     x, y = r[0], r[1]
     z = y*a - x
@@ -78,26 +80,31 @@ def rationalize_remainder(n, r, a):
 
 # Find a-values for fractional expansion of square root of int n
 # returns a list of integers
+
+
 def get_a_values(n):
     a0 = floor(sqrt(n))
     r = [a0, n-(a0**2)]
     a_values = [a0]
-    while len(a_values) < 1000: # condition is just to stop infinite loop, shouldn't be false
-        a_next = floor((sqrt(n)+r[0]) /r[1])
+    while len(a_values) < 1000:  # condition is just to stop infinite loop, shouldn't be false
+        a_next = floor((sqrt(n)+r[0]) / r[1])
         a_values.append(a_next)
-        if r[1] == 1: # cycle ends where denominator is 1
+        if r[1] == 1:  # cycle ends where denominator is 1
             break
         r = rationalize_remainder(n, r, a_next)
     return a_values
 
+
 # main loop
 total = 0
-for n in range(2,10001):
+for n in range(2, 10001):
     if not sqrt(n) == floor(sqrt(n)) and int(len(get_a_values(n))-1) % 2 == 1:
         total += 1
 
+
 def euler_problem_64():
     print(total)
+
 
 if __name__ == "__main__":
     euler_problem_64()

@@ -33,13 +33,15 @@ NOTE: Wording was modified slightly on 24 April 2007 to emphasise the
 theoretical nature of Lychrel numbers.
 """
 
+
 def is_palindrome(intstr):
     if len(intstr) <= 1:
         return True
     elif len(intstr) == 2:
-        return intstr[0]==intstr[1]
+        return intstr[0] == intstr[1]
     else:
-        return intstr[0]==intstr[-1] and is_palindrome(intstr[1:-1])
+        return intstr[0] == intstr[-1] and is_palindrome(intstr[1:-1])
+
 
 lychrel_numbers = 0
 for i in range(1, 10000):
@@ -53,8 +55,10 @@ for i in range(1, 10000):
     if not is_palindrome(str(current_number)):
         lychrel_numbers += 1
 
+
 def euler_problem_55():
     print(lychrel_numbers)
+
 
 if __name__ == "__main__":
     euler_problem_55()

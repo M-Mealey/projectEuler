@@ -52,12 +52,14 @@ continued fraction for e.
 """
 
 # generates the list of digits in the continuous fraction list of e, up to x digits
+
+
 def gen_e_cf_list(x):
     if x < 1:
         return []
     ls = [2]
     for i in range(2, x+1):
-        if i%3 == 0:
+        if i % 3 == 0:
             ls.append(int(i*2/3))
         else:
             ls.append(1)
@@ -65,21 +67,26 @@ def gen_e_cf_list(x):
 
 # calculates convergent from list of coefficients in a continued fraction
 # returns 2 ints, numerator and denominator
+
+
 def calculate_convergent(cf_list):
     if len(cf_list) < 1:
         return 0
-    cn = cf_list.pop() # convergent numerator
-    cd = 1 # convergent denominator
+    cn = cf_list.pop()  # convergent numerator
+    cd = 1  # convergent denominator
     while len(cf_list) > 0:
-        cn, cd = cd, cn # 1/current fraction
-        cn += cf_list.pop() * cd # add next coefficient
+        cn, cd = cd, cn  # 1/current fraction
+        cn += cf_list.pop() * cd  # add next coefficient
     return cn, cd
+
 
 num, den = calculate_convergent(gen_e_cf_list(100))
 total = sum([int(x) for x in str(num)])
 
+
 def euler_problem_65():
     print(total)
+
 
 if __name__ == "__main__":
     euler_problem_65()

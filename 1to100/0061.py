@@ -29,59 +29,71 @@ which each polygonal type: triangle, square, pentagonal, hexagonal,
 heptagonal, and octagonal, is represented by a different number in the
 set.
 """
-triangle_numbers = [int((x*(x+1))/2) for x in range(1,200) if 999 < (x*(x+1))/2 < 10000]
-square_numbers = [x**2 for x in range(1,100) if 999 < x**2 < 10000]
-pent_numbers = [int((x*(3*x-1))/2) for x in range(1,100) if 999 < (x*(3*x-1))/2 < 10000]
-hex_numbers = [x*(2*x-1) for x in range(1,100) if 999 < x*(2*x-1) < 10000]
-hep_numbers = [int((x*(5*x-3))/2) for x in range(1,100) if 999 < (x*(5*x-3))/2 < 10000]
-oct_numbers = [x*(3*x-2) for x in range(1,100) if 999 < x*(3*x-2) < 10000]
+triangle_numbers = [int((x*(x+1))/2)
+                    for x in range(1, 200) if 999 < (x*(x+1))/2 < 10000]
+square_numbers = [x**2 for x in range(1, 100) if 999 < x**2 < 10000]
+pent_numbers = [int((x*(3*x-1))/2)
+                for x in range(1, 100) if 999 < (x*(3*x-1))/2 < 10000]
+hex_numbers = [x*(2*x-1) for x in range(1, 100) if 999 < x*(2*x-1) < 10000]
+hep_numbers = [int((x*(5*x-3))/2)
+               for x in range(1, 100) if 999 < (x*(5*x-3))/2 < 10000]
+oct_numbers = [x*(3*x-2) for x in range(1, 100) if 999 < x*(3*x-2) < 10000]
 
-number_sets = [triangle_numbers, square_numbers, pent_numbers, hex_numbers, hep_numbers, oct_numbers]
-all_numbers = triangle_numbers + square_numbers + pent_numbers + hex_numbers + hep_numbers + oct_numbers
+number_sets = [triangle_numbers, square_numbers,
+               pent_numbers, hex_numbers, hep_numbers, oct_numbers]
+all_numbers = triangle_numbers + square_numbers + \
+    pent_numbers + hex_numbers + hep_numbers + oct_numbers
 
 # "prefix" = first 2 digits, "suffix" = last 2 digits
 prefix_set = set([x//100 for x in all_numbers])
-suffix_set = set([x%100 for x in all_numbers])
+suffix_set = set([x % 100 for x in all_numbers])
 # filter out any numbers that have no possible prefix/suffix matches
 for s in range(len(number_sets)):
-    number_sets[s] = list(filter(lambda x: x//100 in suffix_set and x%100 in prefix_set, number_sets[s]))
+    number_sets[s] = list(filter(
+        lambda x: x//100 in suffix_set and x % 100 in prefix_set, number_sets[s]))
 
 # create hashmap with prefix as key, value is tuple of the number and the type of number (3=triangle, 4=square, etc.)
 numbers_by_prefix = {}
 for n in range(10, 100):
     numbers_by_prefix[n] = []
 for s in range(len(number_sets)):
-    order = s+3 # order is the "type" of number, 3 for triangle, 4 for square, etc.
+    # order is the "type" of number, 3 for triangle, 4 for square, etc.
+    order = s+3
     for x in number_sets[s]:
-        numbers_by_prefix.get(x//100).append((x,order))
+        numbers_by_prefix.get(x//100).append((x, order))
 
 # attempt to find next item in given set, returns the set if found, otherwise returns empty list
+
+
 def try_to_find_next(curr_set):
     curr_num = curr_set[-1]
     ords_used = [i[1] for i in curr_set]
-    candidates = [x for x in numbers_by_prefix[curr_num[0]%100] if x[1] not in ords_used]
+    candidates = [x for x in numbers_by_prefix[curr_num[0] %
+                                               100] if x[1] not in ords_used]
     for c in candidates:
-        if len(curr_set) == 5: # if this is the last one
-            if curr_set[0][0]//100 == c[0]%100: # if this completes the set
+        if len(curr_set) == 5:  # if this is the last one
+            if curr_set[0][0]//100 == c[0] % 100:  # if this completes the set
                 return curr_set + [c]
             else:
                 return []
         sol = try_to_find_next(curr_set + [c])
         if len(sol) == 6:
-            return sol # else, continue
+            return sol  # else, continue
     return []
+
 
 solution_list = []
 for t in number_sets[0]:
-    solution_list = try_to_find_next([(t,3)])
+    solution_list = try_to_find_next([(t, 3)])
     if len(solution_list) == 6:
         break
 
 solution = sum([x[0] for x in solution_list])
 
+
 def euler_problem_61():
     print(solution)
 
+
 if __name__ == "__main__":
     euler_problem_61()
-

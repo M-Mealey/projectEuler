@@ -24,12 +24,14 @@ from math import comb
 count = 0
 
 for x in range(23, 101):
-    for y in range(1,x+1):
+    for y in range(1, x+1):
         if comb(x, y) > 1000000:
             count += 1
 
+
 def euler_problem_53():
     print(count)
+
 
 if __name__ == "__main__":
     euler_problem_53()
