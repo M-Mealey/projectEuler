@@ -20,21 +20,24 @@ import math
 with open("resources/base_exp.txt") as f:
     data = f.read().split()
 
-data_with_estimates = [] # list of list, each list contains base, exponent, and power when converted to base 2
+# list of list, each list contains base, exponent, and power when converted to base 2
+data_with_estimates = []
 largest_exponent = 0
 for i in range(len(data)):
     r = data[i]
     values = r.split(',')
-    data_entry = [int(values[0]), int(values[1]), math.log2(int(values[0]))*int(values[1])]
-    largest_exponent = max(largest_exponent, math.log2(int(values[0]))*int(values[1]))
+    data_entry = [int(values[0]), int(values[1]),
+                  math.log2(int(values[0]))*int(values[1])]
+    largest_exponent = max(largest_exponent, math.log2(
+        int(values[0]))*int(values[1]))
     data_with_estimates.append(data_entry)
 
-for row in data_with_estimates:
-    if row[2] == largest_exponent:
-        print(1 + data.index(str(row[0]) + "," + str(row[1])))
 
 def euler_problem_99():
-    print(int(b))
+    for row in data_with_estimates:
+        if row[2] == largest_exponent:
+            print(1 + data.index(str(row[0]) + "," + str(row[1])))
+
 
 if __name__ == "__main__":
     euler_problem_99()

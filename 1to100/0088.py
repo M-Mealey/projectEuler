@@ -27,17 +27,19 @@ In fact, as the complete set of minimal product-sum numbers for 2k12 is
 
 What is the sum of all the minimal product-sum numbers for 2k12000?
 """
-from local_helpers import find_divisors, prime_sieve
+from local_helpers import find_divisors, prime_sieve  # pylint: disable=E0611
 
 # for integer n, finds the unique lengths of all ps sets that can be made for that number
 # writes the values to ps_sizes
+
+
 def find_ps_set_sizes(n, ps_sizes, ps_set=[], the_sum=0, the_prod=1):
     if the_sum > n or the_prod > n:
         return
     if the_sum == n and the_prod == n:
         ps_sizes.add(len(ps_set))
         return
-    if the_prod == n and n > the_sum: # product is correct, sum < n, so add a bunch of 1s
+    if the_prod == n and n > the_sum:  # product is correct, sum < n, so add a bunch of 1s
         ps_sizes.add(len(ps_set) + n-the_sum)
         return
     divisors = sorted(find_divisors(n//the_prod)[1:], reverse=True)
@@ -51,7 +53,7 @@ def find_ps_set_sizes(n, ps_sizes, ps_set=[], the_sum=0, the_prod=1):
         find_ps_set_sizes(n, ps_sizes, new_set, the_sum+div, the_prod*div)
 
 
-ps_minimums = [ 0 for _ in range(12001)]
+ps_minimums = [0 for _ in range(12001)]
 
 # no set is possible for primes because only factors are 1 and self, so sum of factors is always greater than the number
 primes_to_24k = set(prime_sieve(24001))
@@ -67,10 +69,10 @@ for x in range(2, 24001):
         if ps_minimums[s] == 0:
             ps_minimums[s] = x
 
+
 def euler_problem_88():
     print(sum(set(ps_minimums)))
 
+
 if __name__ == "__main__":
     euler_problem_88()
-
-

@@ -1,5 +1,5 @@
 from helpers import is_prime, find_divisors, prime_sieve
-import pytest
+import pytest  # pylint: disable=E0401
 
 def test_is_prime():
     assert is_prime(7) == True

@@ -26,7 +26,7 @@ Find the product of the coefficients, a and b, for the quadratic
 expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
-from local_helpers import is_prime
+from local_helpers import is_prime  # pylint: disable=E0611
 
 # for a given generator g, find how many sequential primes it yields starting from the first element
 # returns int, the number of sequential primes
@@ -61,13 +61,9 @@ for a in range(1000):
                 best_pair = (a0, b0)
                 max_sequence = sequence
 
-# print(f"best pair: a={best_pair[0]}, b={best_pair[1]}")
-# print(f"max sequence: {max_sequence}")
-print(best_pair[0] * best_pair[1])
-
 
 def euler_problem_27():
-    print(index_found)
+    print(best_pair[0] * best_pair[1])
 
 
 if __name__ == "__main__":

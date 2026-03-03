@@ -15,7 +15,7 @@ How many numbers below fifty million can be expressed as the sum of a
 prime square, prime cube, and prime fourth power?
 """
 import math
-from local_helpers import prime_sieve
+from local_helpers import prime_sieve  # pylint: disable=E0611
 
 max_sum = 50000000
 prime_squares = prime_sieve(math.ceil(max_sum**0.5))
@@ -31,8 +31,10 @@ for x in prime_squares:
             if sums < 50000000:
                 numbers.add(sums)
 
+
 def euler_problem_87():
     print(len(numbers))
+
 
 if __name__ == "__main__":
     euler_problem_87()
