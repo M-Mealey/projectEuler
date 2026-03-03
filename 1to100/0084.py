@@ -76,7 +76,7 @@ with the six-digit modal string: 102400.
 If, instead of using two 6-sided dice, two 4-sided dice are used, find the
 six-digit modal string.
 """
-import numpy as np
+import numpy as np  # pylint: disable=E0401
 import itertools
 
 # Can solve with Markov chains, each square is a state, 40 x 40 state space
