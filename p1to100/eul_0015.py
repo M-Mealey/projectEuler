@@ -47,5 +47,5 @@ def euler_problem_15(compare=False):
 
 
 if __name__ == "__main__":
-    compare_solutions = True
+    compare_solutions = False
     euler_problem_15(compare_solutions)
