@@ -16,7 +16,7 @@ necessarily adjacent digits) with the same digit, is part of an eight
 prime value family.
 """
 
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 import itertools
 
 longest_sequence = 0

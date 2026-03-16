@@ -16,7 +16,7 @@ Which prime, below one-million, can be written as the sum of the most
 consecutive primes?
 """
 
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 
 longest_sequence = 0
 best_prime = 0

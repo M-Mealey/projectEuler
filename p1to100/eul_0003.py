@@ -7,7 +7,7 @@ The prime factors of 13195 are 5, 7, 13 and 29.
 What is the largest prime factor of the number 600851475143?
 """
 import math
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 
 
 def largest_prime_factor(x):

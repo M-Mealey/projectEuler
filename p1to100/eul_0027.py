@@ -26,7 +26,7 @@ Find the product of the coefficients, a and b, for the quadratic
 expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 
 # for a given generator g, find how many sequential primes it yields starting from the first element
 # returns int, the number of sequential primes

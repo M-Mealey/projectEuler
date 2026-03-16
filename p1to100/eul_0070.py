@@ -16,7 +16,7 @@ Find the value of n, 1 < n < 10^7, for which f(n) is a permutation of n
 and the ratio n/f(n) produces a minimum.
 """
 import math
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 
 # Copied from problem 47
 

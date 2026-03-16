@@ -9,7 +9,7 @@ and is also prime.
 What is the largest n-digit pandigital prime that exists?
 """
 import itertools
-from local_helpers import is_prime  # pylint: disable=E0611
+from helpers import is_prime  # pylint: disable=E0611
 
 # can only go up to 9-digit
 largest = 2143
