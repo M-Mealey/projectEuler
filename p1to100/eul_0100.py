@@ -18,17 +18,17 @@ contain.
 import math
 
 
-t_min = 1000000000000
-# solve with pell equations
-c,d =5,7
-t = (2 + math.sqrt(8*c*c - 4))//4
-while t<t_min:
-    c,d = 2*d + 3*c, 3*d + 4*c
-    t = (2 + math.sqrt(8 * c * c - 4)) // 4
-b = (1+math.sqrt(1+2*t*t-2*t))//2
-
 def euler_problem_100():
+    t_min = 1000000000000
+    # solve with pell equations
+    c, d = 5, 7
+    t = (2 + math.sqrt(8 * c * c - 4)) // 4
+    while t < t_min:
+        c, d = 2 * d + 3 * c, 3 * d + 4 * c
+        t = (2 + math.sqrt(8 * c * c - 4)) // 4
+    b = (1 + math.sqrt(1 + 2 * t * t - 2 * t)) // 2
     print(int(b))
+
 
 if __name__ == "__main__":
     euler_problem_100()
