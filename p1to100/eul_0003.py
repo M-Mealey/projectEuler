@@ -20,9 +20,9 @@ def largest_prime_factor(x):
     return largest_factor
 
 
-def euler_problem_3():
-    print(largest_prime_factor(600851475143))
+def solve():
+    return largest_prime_factor(600851475143)
 
 
 if __name__ == "__main__":
-    euler_problem_3()
+    print(solve())

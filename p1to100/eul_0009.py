@@ -36,16 +36,16 @@ def test_a(a):
     return 0
 
 
-def solve():
+def get_solution():
     for a in range(1, 1000):
         b = test_a(a)
         if b:
             return a * b * (1000 - a - b)
 
 
-def euler_problem_9():
-    print(solve())
+def solve():
+    return get_solution()
 
 
 if __name__ == "__main__":
-    euler_problem_9()
+    print(solve())

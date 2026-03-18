@@ -93,8 +93,9 @@ while i<len(digit_list):
 """
 
 
-def euler_problem_8():
-    print(int(max_product))
+def solve():
+    return int(max_product)
+
 
 if __name__ == "__main__":
-    euler_problem_8()
+    print(solve())

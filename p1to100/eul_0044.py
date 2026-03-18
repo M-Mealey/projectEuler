@@ -29,18 +29,19 @@ def is_pentagonal(x):
 # @TODO: make this more efficient
 
 
-def euler_problem_44():
-    pentagonal_numbers = [int(n * (3 * n - 1) / 2) for n in range(1, 10000)]
+def solve():
+    pentagonal_numbers = [int(n * (3 * n - 1) / 2) for n in range(1, 6000)]
 
     solutions = []
     for j in range(1, len(pentagonal_numbers) - 1):
         for k in range(j, len(pentagonal_numbers) - 1):
             if is_pentagonal(pentagonal_numbers[j] + pentagonal_numbers[k]):
                 if is_pentagonal(pentagonal_numbers[k] - pentagonal_numbers[j]):
-                    solutions.append(pentagonal_numbers[k] - pentagonal_numbers[j])
+                    solutions.append(
+                        pentagonal_numbers[k] - pentagonal_numbers[j])
 
-    print(min(solutions))
+    return min(solutions)
 
 
 if __name__ == "__main__":
-    euler_problem_44()
+    print(solve())

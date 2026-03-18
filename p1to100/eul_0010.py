@@ -11,10 +11,10 @@ import math
 from helpers import prime_sieve  # pylint: disable=E0611
 
 
-def euler_problem_10():
+def solve():
     primes = prime_sieve(2000000)
-    print(sum(primes))
+    return sum(primes)
 
 
 if __name__ == "__main__":
-    euler_problem_10()
+    print(solve())

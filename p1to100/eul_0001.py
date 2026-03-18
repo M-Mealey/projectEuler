@@ -22,9 +22,9 @@ def sum_3_5(x):
     return int(total)
 
 
-def euler_problem_1():
-    print(sum_3_5(1000))
+def solve():
+    return sum_3_5(1000)
 
 
 if __name__ == "__main__":
-    euler_problem_1()
+    print(solve())

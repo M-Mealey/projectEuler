@@ -53,9 +53,9 @@ def largest_palindrome():
     return largest_found
 
 
-def euler_problem_4():
-    print(largest_palindrome())
+def solve():
+    return largest_palindrome()
 
 
 if __name__ == "__main__":
-    euler_problem_4()
+    print(solve())

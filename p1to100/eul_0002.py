@@ -29,9 +29,9 @@ def fib_sum_even(x):
     return sum
 
 
-def euler_problem_2():
-    print(fib_sum_even(4000000))
+def solve():
+    return fib_sum_even(4000000)
 
 
 if __name__ == "__main__":
-    euler_problem_2()
+    print(solve())

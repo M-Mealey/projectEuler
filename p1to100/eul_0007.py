@@ -22,9 +22,9 @@ def find_prime(x):
     return num
 
 
-def euler_problem_7():
-    print(find_prime(10001))
+def solve():
+    return find_prime(10001)
 
 
 if __name__ == "__main__":
-    euler_problem_7()
+    print(solve())
