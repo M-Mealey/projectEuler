@@ -45,9 +45,9 @@ for s in ones_digit:
     sum_hundreds += 100*len(s) + 100*len("hundred") + 99*len("and") + sum_to_99
 
 
-def euler_problem_17():
-    print(sum_to_99 + sum_hundreds + len("onethousand"))
+def solve():
+    return sum_to_99 + sum_hundreds + len("onethousand")
 
 
 if __name__ == "__main__":
-    euler_problem_17()
+    print(solve())

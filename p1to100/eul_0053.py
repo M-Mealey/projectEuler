@@ -29,9 +29,9 @@ for x in range(23, 101):
             count += 1
 
 
-def euler_problem_53():
-    print(count)
+def solve():
+    return count
 
 
 if __name__ == "__main__":
-    euler_problem_53()
+    print(solve())

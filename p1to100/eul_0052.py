@@ -34,7 +34,7 @@ def check_row_digits(arr):
     return True
 
 
-def euler_problem_52():
+def solve():
     for x in range(1, 1000000):
         x_mult = [int_to_digit_list(x * m) for m in multiples]
         for r in x_mult:
@@ -42,9 +42,8 @@ def euler_problem_52():
         if not check_row_len(x_mult):
             continue
         if check_row_digits(x_mult):
-            print(x)
-            break
+            return x
 
 
 if __name__ == "__main__":
-    euler_problem_52()
+    print(solve())

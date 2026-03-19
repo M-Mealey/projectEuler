@@ -49,9 +49,9 @@ for n in range(1, 1000):
         count += 1
 
 
-def euler_problem_57():
-    print(count)
+def solve():
+    return count
 
 
 if __name__ == "__main__":
-    euler_problem_57()
+    print(solve())

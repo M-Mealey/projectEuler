@@ -16,7 +16,10 @@ necessarily adjacent digits) with the same digit, is part of an eight
 prime value family.
 """
 
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 import itertools
 
 longest_sequence = 0
@@ -68,9 +71,9 @@ for i in prime_list:
         break
 
 
-def euler_problem_51():
-    print(solution)
+def solve():
+    return solution
 
 
 if __name__ == "__main__":
-    euler_problem_51()
+    print(solve())

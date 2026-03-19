@@ -10,7 +10,10 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37,
 
 How many circular primes are there below one million?
 """
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 # for input int x, returns list of ints containing "rotations" of x
 
@@ -37,9 +40,9 @@ for i in range(101, 1000000, 2):
             circular_primes += 1
 
 
-def euler_problem_35():
-    print(circular_primes)
+def solve():
+    return circular_primes
 
 
 if __name__ == "__main__":
-    euler_problem_35()
+    print(solve())

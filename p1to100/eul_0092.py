@@ -23,15 +23,18 @@ goes_to_89 = set()
 goes_to_89.add(89)
 
 # computes sum of squares of digits in integer x
+
+
 def sum_square_digits(x):
     digits_squared = [int(c)**2 for c in str(x)]
     return sum(digits_squared)
+
 
 upper_bound = 10000000
 count = 0
 for i in range(1, upper_bound):
     if i in goes_to_89:
-        count +=1
+        count += 1
     elif i in goes_to_1:
         continue
     else:
@@ -50,8 +53,10 @@ for i in range(1, upper_bound):
                 goes_to_1.update(chain)
                 end = True
 
-def euler_problem_92():
-    print(count)
+
+def solve():
+    return count
+
 
 if __name__ == "__main__":
-    euler_problem_92()
+    print(solve())

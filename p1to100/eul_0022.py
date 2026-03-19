@@ -14,15 +14,6 @@ COLIN would obtain a score of 938 * 53 = 49714.
 What is the total of all the name scores in the file?
 """
 
-name_list = []
-
-with open("resources/names.txt") as f:
-    data = f.read().split(',')
-    data = [x[1:-1] for x in data]
-    data.sort()
-    name_list = data
-
-
 def score_name(n):
     letter_sum = 0
     for ch in n:
@@ -30,14 +21,22 @@ def score_name(n):
     return letter_sum
 
 
-def euler_problem_22():
+def solve():
+    name_list = []
+
+    with open("resources/names.txt") as f:
+        data = f.read().split(',')
+        data = [x[1:-1] for x in data]
+        data.sort()
+        name_list = data
+
     name_score_sum = 0
     for i in range(len(name_list)):
         name = name_list[i]
         name_score_sum += (i + 1) * score_name(name)
 
-    print(name_score_sum)
+    return name_score_sum
 
 
 if __name__ == "__main__":
-    euler_problem_22()
+    print(solve())

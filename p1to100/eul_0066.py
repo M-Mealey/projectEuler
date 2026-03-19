@@ -120,9 +120,9 @@ for d in range(2, 1000):
 # @TODO: clean
 
 
-def euler_problem_66():
-    print(d_index)
+def solve():
+    return d_index
 
 
 if __name__ == "__main__":
-    euler_problem_66()
+    print(solve())

@@ -32,6 +32,8 @@ with open("resources/matrix.txt") as f:
 # calculates minimum path from top left corner to each square in an array going only right or down
 # inputs: costs, a matrix of costs for each square
 #         path, a matrix the same size as costs for minimum path lengths to be written to
+
+
 def calculate_min_paths(costs, path):
     # first column
     for r in range(len(costs)):
@@ -51,10 +53,10 @@ def calculate_min_paths(costs, path):
                 continue
             path[row][c] = cost
             squares_filled.add(row)
-            if row > 0: # add path to square above to candidates
+            if row > 0:  # add path to square above to candidates
                 path_up = (cost + costs[row-1][c], row-1)
                 bisect.insort(path_candidates, path_up)
-            if row < len(costs) - 1: # add path to square below to candidates
+            if row < len(costs) - 1:  # add path to square below to candidates
                 path_down = (cost + costs[row + 1][c], row + 1)
                 bisect.insort(path_candidates, path_down)
 
@@ -63,10 +65,10 @@ paths = [[0 for _ in range(80)] for __ in range(80)]
 calculate_min_paths(data, paths)
 min_path = min([r[79] for r in paths])
 
-def euler_problem_82():
-    print(min_path)
+
+def solve():
+    return min_path
+
 
 if __name__ == "__main__":
-    euler_problem_82()
-
-
+    print(solve())

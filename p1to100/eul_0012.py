@@ -40,14 +40,14 @@ def find_factors(x):
     return result
 
 
-def euler_problem_12():
+def solve():
     num_factors = 1
     x = 1
     while num_factors < 250:
         x += 1
         num_factors = len(find_factors(triangle_num_n(x)))
-    print(triangle_num_n(x))
+    return triangle_num_n(x)
 
 
 if __name__ == "__main__":
-    euler_problem_12()
+    print(solve())

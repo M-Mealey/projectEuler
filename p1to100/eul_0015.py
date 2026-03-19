@@ -31,9 +31,9 @@ Mathematically, this can be calculated as nCr, where n=40 and r=20
 """
 
 
-def euler_problem_15(compare=False):
+def solve(compare=False):
     start_time = time.perf_counter()
-    print(math.comb(40, 20))
+    solution = math.comb(40, 20)
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
     if compare:
@@ -44,8 +44,9 @@ def euler_problem_15(compare=False):
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
         print(f"solve with written method took {elapsed_time} seconds")
+    return solution
 
 
 if __name__ == "__main__":
     compare_solutions = False
-    euler_problem_15(compare_solutions)
+    print(solve(compare_solutions))

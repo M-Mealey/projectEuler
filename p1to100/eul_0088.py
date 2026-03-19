@@ -27,7 +27,10 @@ In fact, as the complete set of minimal product-sum numbers for 2k12 is
 
 What is the sum of all the minimal product-sum numbers for 2k12000?
 """
-from helpers import find_divisors, prime_sieve  # pylint: disable=E0611
+try:
+    from helpers import find_divisors, prime_sieve  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import find_divisors, prime_sieve
 
 # for integer n, finds the unique lengths of all ps sets that can be made for that number
 # writes the values to ps_sizes
@@ -70,9 +73,9 @@ for x in range(2, 24001):
             ps_minimums[s] = x
 
 
-def euler_problem_88():
-    print(sum(set(ps_minimums)))
+def solve():
+    return sum(set(ps_minimums))
 
 
 if __name__ == "__main__":
-    euler_problem_88()
+    print(solve())

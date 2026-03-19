@@ -31,9 +31,9 @@ for r in range(1, 501):
     end_of_ring = end_of_ring + 8*r
 
 
-def euler_problem_28():
-    print(diagonal_sum)
+def solve():
+    return diagonal_sum
 
 
 if __name__ == "__main__":
-    euler_problem_28()
+    print(solve())

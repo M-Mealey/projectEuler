@@ -47,9 +47,9 @@ for r in pyramid[1:]:
 # print the largest sum
 
 
-def euler_problem_67():
-    print(max(sums))
+def solve():
+    return max(sums)
 
 
 if __name__ == "__main__":
-    euler_problem_67()
+    print(solve())

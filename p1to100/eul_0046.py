@@ -17,12 +17,15 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as the sum of a
 prime and twice a square?
 """
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 twice_squares = [2*x*x for x in range(1, 1000)]
 
 
-def euler_problem_46():
+def solve():
     for i in range(3, 10001, 2):
         if not is_prime(i):
             sum_found = False
@@ -32,9 +35,8 @@ def euler_problem_46():
                 if is_prime(i - s):
                     sum_found = True
             if not sum_found:
-                print(i)
-                break
+                return i
 
 
 if __name__ == "__main__":
-    euler_problem_46()
+    print(solve())

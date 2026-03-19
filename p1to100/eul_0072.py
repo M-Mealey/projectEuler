@@ -58,9 +58,9 @@ for d in range(9, 1000001):
     total += calculate_totient(d)
 
 
-def euler_problem_72():
-    print(int(total))
+def solve():
+    return int(total)
 
 
 if __name__ == "__main__":
-    euler_problem_72()
+    print(solve())

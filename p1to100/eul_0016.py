@@ -8,15 +8,15 @@ What is the sum of the digits of the number 2^1000?
 """
 
 
-def euler_problem_16():
+def solve():
     # The naive way to do this is to calculate 2^1000 and iterate over its digits, adding them together
     x = 2 ** 1000
-    sum = 0
+    total = 0
     while x > 0:
-        sum += x % 10
+        total += x % 10
         x = x // 10
-    print(sum)
+    return total
 
 
 if __name__ == "__main__":
-    euler_problem_16()
+    print(solve())

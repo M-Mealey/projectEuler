@@ -48,36 +48,44 @@ square_lookup = set()
 for i in range(1, math.isqrt(max_square)+1):
     square_lookup.add(i*i)
 
+
 def is_square(x):
     return x in square_lookup
 
 
-digits = ['0','1','2','3','4','5','6','7','8','9']
+digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 # returns largest square made, 0 if none found
+
+
 def find_largest_anagram_square(k, ls):
     unique_letters = sorted(list(set([ch for ch in k])))
-    #print(unique_letters)
+    # print(unique_letters)
     largest_square = 0
-    possible_digit_assignments = itertools.permutations(digits, len(unique_letters))
+    possible_digit_assignments = itertools.permutations(
+        digits, len(unique_letters))
     for p in possible_digit_assignments:
         digit_assignment = dict(zip(unique_letters, p))
         numbers = []
         for word in ls:
             num_word = "".join([digit_assignment[ch] for ch in word])
-            if num_word[0] != '0': # no leading zeros
+            if num_word[0] != '0':  # no leading zeros
                 numbers.append(int(num_word))
         square_numbers = [n for n in numbers if is_square(n)]
         if len(square_numbers) > 1:
             largest_square = max(largest_square, max(square_numbers))
     return largest_square
 
+
 largest_square = 0
 for k in anagrams:
     if len(anagrams[k]) > 1:
-        largest_square = max(largest_square, find_largest_anagram_square(k, anagrams[k]))
+        largest_square = max(
+            largest_square, find_largest_anagram_square(k, anagrams[k]))
 
-def euler_problem_98():
-    print(largest_square)
+
+def solve():
+    return largest_square
+
 
 if __name__ == "__main__":
-    euler_problem_98()
+    print(solve())

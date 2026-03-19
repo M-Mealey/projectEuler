@@ -33,11 +33,11 @@ for i in range(len(data)):
     data_with_estimates.append(data_entry)
 
 
-def euler_problem_99():
+def solve():
     for row in data_with_estimates:
         if row[2] == largest_exponent:
-            print(1 + data.index(str(row[0]) + "," + str(row[1])))
+            return 1 + data.index(str(row[0]) + "," + str(row[1]))
 
 
 if __name__ == "__main__":
-    euler_problem_99()
+    print(solve())

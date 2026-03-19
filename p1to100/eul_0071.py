@@ -38,9 +38,9 @@ for d in range(7, 1000001):
         closest_fraction = (x, d)
 
 
-def euler_problem_71():
-    print(closest_fraction[0])
+def solve():
+    return closest_fraction[0]
 
 
 if __name__ == "__main__":
-    euler_problem_71()
+    print(solve())

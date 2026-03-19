@@ -27,6 +27,7 @@ answer as a string: abcd.
 import itertools
 from itertools import combinations
 
+
 def apply_ops(st, x):
     results = set()
     for s in st:
@@ -34,11 +35,12 @@ def apply_ops(st, x):
         results.add(s*x)
         results.add(s-x)
         results.add(x-s)
-        if s !=0:
+        if s != 0:
             results.add(x/s)
         if x != 0:
             results.add(s/x)
     return results
+
 
 def get_possible_targets(t):
     possible_targets = set()
@@ -50,7 +52,7 @@ def get_possible_targets(t):
         im_set_3 = apply_ops(im_set_2, p[2])
         im_set_4 = apply_ops(im_set_3, p[3])
         for i in im_set_4:
-            if i>0 and abs(i - round(i)) < 0.00001:
+            if i > 0 and abs(i - round(i)) < 0.00001:
                 possible_targets.add(i)
         # 2 and 2
         im_set_a = set()
@@ -64,7 +66,7 @@ def get_possible_targets(t):
             im_set_22 = apply_ops(im_set_a2, b)
             im_set_2u.update(im_set_22)
         for i in im_set_2u:
-            if i>0 and abs(i - round(i)) < 0.00001:
+            if i > 0 and abs(i - round(i)) < 0.00001:
                 possible_targets.add(i)
     # find all the solutions :)
     # all of the operations can be thought of as pairwise, so start with 2 from set, apply all operations b/t
@@ -73,15 +75,17 @@ def get_possible_targets(t):
     # repeat for every initial 2 numbers
     return possible_targets
 
+
 def find_longest_sequence(s):
     n = 1
     while n in s:
         n += 1
     return n-1
 
+
 combos = combinations(range(10), 4)
 longest_sequence = 0
-best_combo = (0,0,0,0)
+best_combo = (0, 0, 0, 0)
 for c in combos:
     res = get_possible_targets(c)
     s_len = find_longest_sequence(res)
@@ -89,8 +93,10 @@ for c in combos:
         longest_sequence = s_len
         best_combo = c
 
-def euler_problem_93():
-    print(f"{best_combo[0]}{best_combo[1]}{best_combo[2]}{best_combo[3]}")
+
+def solve():
+    return f"{best_combo[0]}{best_combo[1]}{best_combo[2]}{best_combo[3]}"
+
 
 if __name__ == "__main__":
-    euler_problem_93()
+    print(solve())

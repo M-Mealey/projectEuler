@@ -67,9 +67,9 @@ for i in range(1, 977):
 # @TODO: measure speed of each
 
 
-def euler_problem_36():
-    print(sum)
+def solve():
+    return sum
 
 
 if __name__ == "__main__":
-    euler_problem_36()
+    print(solve())

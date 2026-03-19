@@ -105,9 +105,9 @@ if not plaintext:
 ascii_sum = sum([ord(c) for c in plaintext])
 
 
-def euler_problem_59():
-    print(ascii_sum)
+def solve():
+    return ascii_sum
 
 
 if __name__ == "__main__":
-    euler_problem_59()
+    print(solve())

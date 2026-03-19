@@ -14,7 +14,10 @@ ways:
 What is the first value which can be written as the sum of primes in over
 five thousand different ways?
 """
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 # highest number to search
 max_number = 1000
@@ -33,13 +36,12 @@ for p in primes:
         prime_combos[i] += prime_combos[i-p]
 
 
-def euler_problem_77():
+def solve():
     # print first index with more than 5000 combos
     for pc in prime_combos:
         if pc > 5000:
-            print(prime_combos.index(pc))
-            break
+            return prime_combos.index(pc)
 
 
 if __name__ == "__main__":
-    euler_problem_77()
+    print(solve())

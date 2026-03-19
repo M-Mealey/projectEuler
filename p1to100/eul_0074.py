@@ -48,9 +48,9 @@ for x in range(2, 1000000):
         total += 1
 
 
-def euler_problem_74():
-    print(total)
+def solve():
+    return total
 
 
 if __name__ == "__main__":
-    euler_problem_74()
+    print(solve())

@@ -63,7 +63,8 @@ one million.
 #
 import math
 
-def find_shortest_cuboid_path(x,y,z):
+
+def find_shortest_cuboid_path(x, y, z):
     path1 = math.sqrt((x+y)**2 + z**2)
     path2 = math.sqrt(x**2 + (y+z)**2)
     return min(path1, path2)
@@ -71,13 +72,13 @@ def find_shortest_cuboid_path(x,y,z):
 
 M = 10
 int_lengths = 0
-for x in range(1,M+1):
-    for y in range(1,x+1):
-        for z in range(1,y+1):
-            path = find_shortest_cuboid_path(x,y,z)
+for x in range(1, M+1):
+    for y in range(1, x+1):
+        for z in range(1, y+1):
+            path = find_shortest_cuboid_path(x, y, z)
             if path == math.floor(path):
                 int_lengths += 1
-#print(int_lengths)
+# print(int_lengths)
 
 # does restriction to x>=y>=z mean that the shortest path will always be (path2) d = root( x**2 + (y+z)**2 )
 # probably b/c x is always greatest
@@ -86,20 +87,22 @@ for x in range(1,M+1):
 solutions = 0
 M = 1
 max_M = 1000000
-while M<max_M:
-    for opp in range(1, 2*M): # opp = y + z
+while M < max_M:
+    for opp in range(1, 2*M):  # opp = y + z
         hyp = math.sqrt(M**2 + opp**2)
         if hyp == math.floor(hyp):
             if opp > M+1:
                 solutions += (M+M+2-opp)//2
-            else: # side M must be the longest (x), opposite side is x+y
+            else:  # side M must be the longest (x), opposite side is x+y
                 solutions += opp//2
     if solutions > 1000000:
         break
     M += 1
 
-def euler_problem_86():
-    print(M)
+
+def solve():
+    return M
+
 
 if __name__ == "__main__":
-    euler_problem_86()
+    print(solve())

@@ -16,7 +16,10 @@ Which prime, below one-million, can be written as the sum of the most
 consecutive primes?
 """
 
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 longest_sequence = 0
 best_prime = 0
@@ -35,9 +38,9 @@ for i in range(len(prime_list)):
         j += 1
 
 
-def euler_problem_50():
-    print(best_prime)
+def solve():
+    return best_prime
 
 
 if __name__ == "__main__":
-    euler_problem_50()
+    print(solve())

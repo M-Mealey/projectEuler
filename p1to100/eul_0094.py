@@ -28,6 +28,7 @@ from math import sqrt, isqrt
 max_perimeter = 1000000000
 tol = 0.000000001
 
+
 def calculate_tri_area_from_sides(a, b, c):
     s = (a+b+c)/2
     return sqrt(s*(s-a)*(s-b)*(s-c))
@@ -38,7 +39,7 @@ def calculate_tri_area_from_sides(a, b, c):
 # c must be even
 
 
-def euler_problem_94():
+def solve():
     perimeter_sum = 0
     for c in range(4, max_perimeter // 3 + 2, 2):
         for a in (c - 1, c + 1):
@@ -46,7 +47,8 @@ def euler_problem_94():
             A_rt = isqrt(A_sq)
             if A_rt * A_rt == A_sq:
                 perimeter_sum += a + a + c
-    print(perimeter_sum)
+    return perimeter_sum
+
 
 if __name__ == "__main__":
-    euler_problem_94()
+    print(solve())

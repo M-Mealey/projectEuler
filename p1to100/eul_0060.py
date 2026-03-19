@@ -12,7 +12,10 @@ Find the lowest sum for a set of five primes for which any two primes
 concatenate to produce another prime.
 """
 
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 max_prime = 20000
 primes = [x for x in range(3, max_prime, 2) if is_prime(x)]
@@ -48,9 +51,9 @@ while len(primes) > 0:
                     p_sum = min(p_sum, p + pj + pt + pq + quints[0])
 
 
-def euler_problem_60():
-    print(p_sum)
+def solve():
+    return p_sum
 
 
 if __name__ == "__main__":
-    euler_problem_60()
+    print(solve())

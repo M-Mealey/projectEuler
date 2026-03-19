@@ -59,9 +59,9 @@ for f1 in range(1, 100):
             pandigital_products.add(product)
 
 
-def euler_problem_32():
-    print(sum(pandigital_products))
+def solve():
+    return sum(pandigital_products)
 
 
 if __name__ == "__main__":
-    euler_problem_32()
+    print(solve())

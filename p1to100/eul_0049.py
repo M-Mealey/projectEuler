@@ -15,7 +15,10 @@ What 12-digit number do you form by concatenating the three terms in this
 sequence?
 """
 import itertools
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 
 def tuple_to_int(tup):
@@ -32,7 +35,7 @@ combos = list(itertools.combinations_with_replacement(digits, 4))
 combos.remove((1, 4, 7, 8))  # remove solution we already know
 
 
-def euler_problem_49():
+def solve():
     for c in combos:
         # get all prime numbers 4-digit numbers that can be made from these digits
         numbers = set(filter(lambda x: x > 1000 and is_prime(
@@ -44,10 +47,10 @@ def euler_problem_49():
                 g, l = max(next_num, n), min(next_num, n)
                 diff = g - l
                 if g + diff in numbers:
-                    print(str(l) + str(g) + str(g + diff))
+                    return str(l) + str(g) + str(g + diff)
                 if l - diff in numbers:
-                    print(str(l - diff) + str(l) + str(g))
+                    return str(l - diff) + str(l) + str(g)
 
 
 if __name__ == "__main__":
-    euler_problem_49()
+    print(solve())

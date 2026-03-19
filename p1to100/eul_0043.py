@@ -53,9 +53,9 @@ for p in perms:
         total += x
 
 
-def euler_problem_43():
-    print(total)
+def solve():
+    return total
 
 
 if __name__ == "__main__":
-    euler_problem_43()
+    print(solve())

@@ -102,9 +102,9 @@ for n in range(2, 10001):
         total += 1
 
 
-def euler_problem_64():
-    print(total)
+def solve():
+    return total
 
 
 if __name__ == "__main__":
-    euler_problem_64()
+    print(solve())

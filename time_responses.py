@@ -9,6 +9,7 @@ def load_module_from_path(module_name, file_path):
     This function was written by google AI :/
     Loads a Python module dynamically from a given file path.
     """
+    print("hi")
     # Create a module specification
     spec = importlib.util.spec_from_file_location(module_name, file_path)
 
@@ -42,8 +43,10 @@ def import_and_run(x):
 
     module_path = os.path.join(module_folder, f"eul_{fmt_x}.py")
     try:
+        print("hello")
         eul_prob = load_module_from_path(f"eul_{fmt_x}", module_path)
         start_time = time.perf_counter()
+        print("hello")
         eul_prob.solve()
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
@@ -51,6 +54,8 @@ def import_and_run(x):
     except FileNotFoundError:
         print(f"file not found at {module_path}")
 
+import_and_run(22)
+#for i in range(101):
+#    import_and_run(i)
 
-for i in range(11):
-    import_and_run(i)
+# @TODO: interrupt if takes more than 1 sec

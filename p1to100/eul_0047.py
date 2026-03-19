@@ -40,7 +40,7 @@ def find_prime_factors(x):
     return factors
 
 
-def euler_problem_47():
+def solve():
     counter = 0
     for i in range(1, 1000000):
         if len(find_prime_factors(i)) == 4:
@@ -48,9 +48,8 @@ def euler_problem_47():
         else:
             counter = 0
         if counter == 4:
-            print(i - 3)
-            break
+            return i - 3
 
 
 if __name__ == "__main__":
-    euler_problem_47()
+    print(solve())

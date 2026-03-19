@@ -143,9 +143,9 @@ for h in hands:
             p1_win_count += 1
 
 
-def euler_problem_54():
-    print(p1_win_count)
+def solve():
+    return p1_win_count
 
 
 if __name__ == "__main__":
-    euler_problem_54()
+    print(solve())

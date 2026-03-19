@@ -60,7 +60,7 @@ intgrid = [[int(x) for x in row.strip().split()]
            for row in grid.strip().splitlines()]
 
 
-def euler_problem_11():
+def solve():
     max_product = 1
     for i in range(20):
         for j in range(20):
@@ -81,8 +81,8 @@ def euler_problem_11():
                                                                 1] * intgrid[i][j + 2] * intgrid[i][j + 3]
                 max_product = max(max_product, horizontal_product)
 
-    print(max_product)
+    return max_product
 
 
 if __name__ == "__main__":
-    euler_problem_11()
+    print(solve())

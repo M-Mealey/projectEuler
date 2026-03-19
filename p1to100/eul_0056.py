@@ -25,9 +25,9 @@ for a in range(1, 100):
         max_digit_sum = max(max_digit_sum, get_digit_sum(a**b))
 
 
-def euler_problem_56():
-    print(max_digit_sum)
+def solve():
+    return max_digit_sum
 
 
 if __name__ == "__main__":
-    euler_problem_56()
+    print(solve())

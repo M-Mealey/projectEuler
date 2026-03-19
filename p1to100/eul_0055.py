@@ -56,9 +56,9 @@ for i in range(1, 10000):
         lychrel_numbers += 1
 
 
-def euler_problem_55():
-    print(lychrel_numbers)
+def solve():
+    return lychrel_numbers
 
 
 if __name__ == "__main__":
-    euler_problem_55()
+    print(solve())

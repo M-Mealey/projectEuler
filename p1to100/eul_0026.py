@@ -47,9 +47,9 @@ for i in range(2, 1000):
         index_found = i
 
 
-def euler_problem_26():
-    print(index_found)
+def solve():
+    return index_found
 
 
 if __name__ == "__main__":
-    euler_problem_26()
+    print(solve())

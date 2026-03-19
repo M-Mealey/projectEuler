@@ -22,7 +22,10 @@ two abundant numbers is less than this limit.
 Find the sum of all the positive integers which cannot be written as the
 sum of two abundant numbers.
 """
-from helpers import find_divisors  # pylint: disable=E0611
+try:
+    from helpers import find_divisors  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import find_divisors
 
 """
 Checks if integer x can be created by adding 2 numbers in iterable l
@@ -36,7 +39,7 @@ def can_make_sum(x, l):
     return False
 
 
-def euler_problem_23():
+def solve():
     abundant_numbers = set([])
     number_sum = 0
     for i in range(1, 28124):
@@ -46,8 +49,8 @@ def euler_problem_23():
         if not can_make_sum(i, abundant_numbers):
             number_sum += i
 
-    print(number_sum)
+    return number_sum
 
 
 if __name__ == "__main__":
-    euler_problem_23()
+    print(solve())

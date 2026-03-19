@@ -37,9 +37,9 @@ for d in range(9, 12001):
     total += len([x for x in range(min_num, max_num+1) if gcd(x, d) == 1])
 
 
-def euler_problem_73():
-    print(int(total))
+def solve():
+    return int(total)
 
 
 if __name__ == "__main__":
-    euler_problem_73()
+    print(solve())

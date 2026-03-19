@@ -37,9 +37,9 @@ for x in range(2, 1000000):
 # solutions = [4150, 4151, 54748, 92727, 93084, 194979]
 
 
-def euler_problem_30():
-    print(sum(solutions))
+def solve():
+    return sum(solutions)
 
 
 if __name__ == "__main__":
-    euler_problem_30()
+    print(solve())

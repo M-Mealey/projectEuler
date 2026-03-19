@@ -20,7 +20,7 @@ century (1 Jan 1901 to 31 Dec 2000)?
 """
 
 
-def euler_problem_19():
+def solve():
     # days in each month for both a normal year and a leap year
     days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     days_leap_year = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -43,8 +43,8 @@ def euler_problem_19():
                 sunday_1st_count += 1
             first_day = next_first
 
-    print(sunday_1st_count)
+    return sunday_1st_count
 
 
 if __name__ == "__main__":
-    euler_problem_19()
+    print(solve())

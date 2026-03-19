@@ -67,19 +67,21 @@ def next_zero(gr):
 # 1.5) optional step for efficiency: check rest of row/column/square for which numbers are used, make list of candidates
 # 2) copy grid, insert candidate, call self with new copy
 #    if no candidates, return None (backtrack)
+
+
 def try_solve(gr):
     r, c = next_zero(gr)
-    if r==-1 or c==-1: # no zeros, grid is complete
+    if r == -1 or c == -1:  # no zeros, grid is complete
         return gr
     # get possible candidates
     used_nums = set()
     for i in range(9):
         used_nums.add(gr[r][i])
         used_nums.add(gr[i][c])
-        bbox_row = r - r%3 # row and column of top left corner of 3x3 box containing this square
-        bbox_col = c - c%3
-        used_nums.add(gr[bbox_row + i//3][bbox_col + i%3])
-    candidates = {'1','2','3','4','5','6','7','8','9'} - used_nums
+        bbox_row = r - r % 3  # row and column of top left corner of 3x3 box containing this square
+        bbox_col = c - c % 3
+        used_nums.add(gr[bbox_row + i//3][bbox_col + i % 3])
+    candidates = {'1', '2', '3', '4', '5', '6', '7', '8', '9'} - used_nums
     # now try each candidate
     for cand in candidates:
         new_gr = gr.copy()
@@ -89,13 +91,16 @@ def try_solve(gr):
             return sol
     return None
 
+
 total = 0
 for g in grids:
     g_solved = try_solve(g)
     total += int(g_solved[0][:3])
 
-def euler_problem_96():
-    print(total)
+
+def solve():
+    return total
+
 
 if __name__ == "__main__":
-    euler_problem_96()
+    print(solve())

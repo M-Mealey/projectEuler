@@ -83,16 +83,21 @@ import itertools
 
 # go to jail: if landing on 30, go to 10
 # so for each column take value in row 30 and add it to row 10, set row 30 to 0
+
+
 def go_to_jail_transition(tm):
     for c in range(40):
         tm[10][c] += tm[30][c]
         tm[30][c] = 0
+
 
 # chance: landing on one has a 1/16 chance to send you to each of 10 destinations, 6/16 to stay
 chance_destinations = {7: [0, 10, 11, 24, 39, 5, 15, 15, 12, 4],
                        22: [0, 10, 11, 24, 39, 5, 25, 25, 28, 19],
                        36: [0, 10, 11, 24, 39, 5, 5, 5, 12, 33]
                        }
+
+
 def chance_transition(tm):
     for c in range(40):
         for ch in chance_destinations:
@@ -101,8 +106,11 @@ def chance_transition(tm):
                 tm[dest][c] += (1/16) * tm[ch][c]
             tm[ch][c] = (6/16) * tm[ch][c]
 
+
 # community chest spaces: 1/16 move to GO (0), 1/16 move to jail (10), 14/16 stay
 comm_chest = [2, 17, 33]
+
+
 def cc_transition(tm):
     for c in range(40):
         for cc in comm_chest:
@@ -111,7 +119,7 @@ def cc_transition(tm):
             tm[cc][c] = (14/16) * tm[cc][c]
 
 
-#for c in range(40):
+# for c in range(40):
 #    sum_of_column = np.sum(transition_matrix[:,c])
 #    if sum_of_column != 1.0:
 #        print(f"ERROR: sum of column {c} is {sum_of_column}")
@@ -121,8 +129,9 @@ def cc_transition(tm):
 # possible rolls for a die
 def create_transition_matrix(d1, d2):
     outcomes = list(itertools.product(d1, d2))
-    doubles = len([x for x in outcomes if x[0]==x[1]])
-    p_3_doubles = (doubles/len(outcomes))**3 # probability of rolling 3 doubles
+    doubles = len([x for x in outcomes if x[0] == x[1]])
+    # probability of rolling 3 doubles
+    p_3_doubles = (doubles/len(outcomes))**3
     max_roll = max([x[0]+x[1] for x in outcomes])
     rolls = [0 for _ in range(max_roll+1)]
     for r in outcomes:
@@ -133,13 +142,12 @@ def create_transition_matrix(d1, d2):
     transition_matrix = np.zeros((40, 40))
     for c in range(40):
         for i in range(len(rolls)):
-            transition_matrix[(i+c)%40][c] = rolls[i] * (1-p_3_doubles)
+            transition_matrix[(i+c) % 40][c] = rolls[i] * (1-p_3_doubles)
         transition_matrix[10][c] += p_3_doubles
     go_to_jail_transition(transition_matrix)
     chance_transition(transition_matrix)
     cc_transition(transition_matrix)
     return transition_matrix
-
 
 
 # finds steady state of a transition matrix
@@ -154,18 +162,22 @@ def find_steady_state(tm):
 # returns index of top 3 most common states based on steady state matrix
 # input: tm, a transition matrix
 # returns: list with 3 indices
-def get_top_3(tm):
-    states = list(tm[:,0])
-    top_3 = sorted(states)[-3:]
-    return [states.index(top_3[x]) for x in [2,1,0]]
 
-def euler_problem_84():
+
+def get_top_3(tm):
+    states = list(tm[:, 0])
+    top_3 = sorted(states)[-3:]
+    return [states.index(top_3[x]) for x in [2, 1, 0]]
+
+
+def solve():
     d4 = [1, 2, 3, 4]
     trans_mtx = create_transition_matrix(d4, d4)
     steady_state = find_steady_state(trans_mtx)
 
     top_3 = get_top_3(steady_state)
-    print(f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}")
+    return f"{top_3[0]:02d}{top_3[1]:02d}{top_3[2]:02d}"
+
 
 if __name__ == "__main__":
-    euler_problem_84()
+    print(solve())

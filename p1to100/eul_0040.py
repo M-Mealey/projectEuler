@@ -39,9 +39,9 @@ while digit_pointer < 1000000:
     x += 1
 
 
-def euler_problem_40():
-    print(product)
+def solve():
+    return product
 
 
 if __name__ == "__main__":
-    euler_problem_40()
+    print(solve())

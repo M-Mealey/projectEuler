@@ -44,9 +44,9 @@ def check_pandigital(x):
 solution = max([check_pandigital(i) for i in range(10000)])
 
 
-def euler_problem_38():
-    print(solution)
+def solve():
+    return solution
 
 
 if __name__ == "__main__":
-    euler_problem_38()
+    print(solve())

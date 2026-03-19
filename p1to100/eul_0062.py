@@ -12,7 +12,7 @@ are cube.
 """
 
 
-def euler_problem_62():
+def solve():
     sorted_cubes = {}
     smallest_cube = {}
 
@@ -26,10 +26,9 @@ def euler_problem_62():
         if matches == 0:
             smallest_cube[digits_sorted] = c
         if matches == 4:  # if this is the 5th match, search is over, return smallest cube for these digits
-            print(smallest_cube[digits_sorted])
-            break
+            return smallest_cube[digits_sorted]
         sorted_cubes[digits_sorted] = matches + 1
 
 
 if __name__ == "__main__":
-    euler_problem_62()
+    print(solve())

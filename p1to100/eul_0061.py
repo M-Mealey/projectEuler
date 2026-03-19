@@ -91,9 +91,9 @@ for t in number_sets[0]:
 solution = sum([x[0] for x in solution_list])
 
 
-def euler_problem_61():
-    print(solution)
+def solve():
+    return solution
 
 
 if __name__ == "__main__":
-    euler_problem_61()
+    print(solve())

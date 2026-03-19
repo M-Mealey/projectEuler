@@ -208,9 +208,9 @@ numbers = [37107287533902102798797998220837590246510135740250,
            53503534226472524250874054075591789781264330331690]
 
 
-def euler_problem_13():
-    print(str(sum(numbers))[:10])
+def solve():
+    return str(sum(numbers))[:10]
 
 
 if __name__ == "__main__":
-    euler_problem_13()
+    print(solve())

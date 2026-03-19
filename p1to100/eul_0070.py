@@ -16,7 +16,10 @@ Find the value of n, 1 < n < 10^7, for which f(n) is a permutation of n
 and the ratio n/f(n) produces a minimum.
 """
 import math
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 # Copied from problem 47
 
@@ -74,9 +77,9 @@ for n in range(7, 10000001):
         best_n = n
 
 
-def euler_problem_70():
-    print(best_n)
+def solve():
+    return best_n
 
 
 if __name__ == "__main__":
-    euler_problem_70()
+    print(solve())

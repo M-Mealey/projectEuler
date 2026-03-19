@@ -29,9 +29,9 @@ def find_nth_permutation(n, ls):
     return ans_str
 
 
-def euler_problem_24():
-    print(find_nth_permutation(1000000, digits))
+def solve():
+    return find_nth_permutation(1000000, digits)
 
 
 if __name__ == "__main__":
-    euler_problem_24()
+    print(solve())

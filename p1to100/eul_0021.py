@@ -13,18 +13,21 @@ For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22,
 
 Evaluate the sum of all the amicable numbers under 10000.
 """
-from helpers import find_divisors  # pylint: disable=E0611
+try:
+    from helpers import find_divisors  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import find_divisors
 
 
-def euler_problem_21():
+def solve():
     amicable_numbers = []
     for i in range(10000):
         divisor_sum = sum(find_divisors(i))
         if divisor_sum != i and sum(find_divisors(divisor_sum)) == i:
             amicable_numbers.append(i)
 
-    print(sum(amicable_numbers))
+    return sum(amicable_numbers)
 
 
 if __name__ == "__main__":
-    euler_problem_21()
+    print(solve())

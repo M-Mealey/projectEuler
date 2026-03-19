@@ -34,7 +34,10 @@ It can be seen that n=6 produces a maximum n/f(n) for n 10.
 Find the value of n 1,000,000 for which n/f(n) is a maximum.
 """
 import math
-from helpers import is_prime  # pylint: disable=E0611
+try:
+    from helpers import is_prime  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import is_prime
 
 # Copied from problem 47
 
@@ -80,9 +83,9 @@ for n in range(7, 1000001):
         best_n = n
 
 
-def euler_problem_69():
-    print(best_n)
+def solve():
+    return best_n
 
 
 if __name__ == "__main__":
-    euler_problem_69()
+    print(solve())

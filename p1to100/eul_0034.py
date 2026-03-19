@@ -45,9 +45,9 @@ for i in range(10, 10000000):
         answer += i
 
 
-def euler_problem_34():
-    print(answer)
+def solve():
+    return answer
 
 
 if __name__ == "__main__":
-    euler_problem_34()
+    print(solve())

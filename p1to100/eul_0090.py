@@ -51,8 +51,10 @@ import itertools
 
 # checks if dieA is lower than dieB
 # returns boolean, on tie returns True
+
+
 def is_lower_die(dieA, dieB, index=0):
-    if index > 5: #tie
+    if index > 5:  # tie
         return True
     if dieA[index] != dieB[index]:
         return dieA[index] < dieB[index]
@@ -60,16 +62,21 @@ def is_lower_die(dieA, dieB, index=0):
         return is_lower_die(dieA, dieB, index+1)
 
 # adds a pair of dice to the set
+
+
 def add_dice_pair_to_set(dieA, dieB, the_set):
-    #determine which is d0, d1
+    # determine which is d0, d1
     d0, d1 = dieA, dieB
     if is_lower_die(dieB, dieA):
         d0, d1 = dieB, dieA
     the_set.add(tuple(d0 + d1))
 
 # checks if dice are valid and can create all squares
+
+
 def check_dice(d0, d1):
-    squares = [(0,1), (0,4), (0,9), (1,6), (2,5), (3,6), (4,9), (6,4), (8,1)]
+    squares = [(0, 1), (0, 4), (0, 9), (1, 6), (2, 5),
+               (3, 6), (4, 9), (6, 4), (8, 1)]
     if len(d0) != 6 or len(d1) != 6:
         print(f"ERR: dice wrong size ({d0}, {d1}")
         return False
@@ -98,10 +105,12 @@ def simple_build_dice():
         for d1 in possible_dice_1:
             if check_dice(d0, d1):
                 add_dice_pair_to_set(d0, d1, dice_pairs)
-    print(len(dice_pairs))
+    return len(dice_pairs)
 
-def euler_problem_90():
-    simple_build_dice()
+
+def solve():
+    return simple_build_dice()
+
 
 if __name__ == "__main__":
-    euler_problem_90()
+    print(solve())

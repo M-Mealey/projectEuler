@@ -41,12 +41,11 @@ for n in range(1, max_number+1):
         perms[n] += (-1)**(k//2) * perms[n-pent_numbers[k]]
 
 
-def euler_problem_78():
+def solve():
     for p in perms:
         if p % 1000000 == 0:
-            print(perms.index(p))
-            break
+            return perms.index(p)
 
 
 if __name__ == "__main__":
-    euler_problem_78()
+    print(solve())

@@ -19,7 +19,7 @@ two positive integers?
 p_amounts = [x for x in range(1, 100)]
 
 
-def solve(coins, x):
+def find_combinations(coins, x):
     if len(coins) == 1:  # base case 2
         return x % coins[0] == 0
     next_coin = coins[-1]
@@ -27,14 +27,14 @@ def solve(coins, x):
     ways = 0
     remaining_amt = x
     while remaining_amt >= 0:
-        ways += solve(remaining_coins, remaining_amt)
+        ways += find_combinations(remaining_coins, remaining_amt)
         remaining_amt -= next_coin
     return ways
 
 
-def euler_problem_76():
-    print(solve(p_amounts, 100))
+def solve():
+    return find_combinations(p_amounts, 100)
 
 
 if __name__ == "__main__":
-    euler_problem_76()
+    print(solve())

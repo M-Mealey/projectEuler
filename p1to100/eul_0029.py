@@ -25,9 +25,9 @@ for a in range(2, 101):
         power_set.add(a**b)
 
 
-def euler_problem_29():
-    print(len(power_set))
+def solve():
+    return len(power_set)
 
 
 if __name__ == "__main__":
-    euler_problem_29()
+    print(solve())

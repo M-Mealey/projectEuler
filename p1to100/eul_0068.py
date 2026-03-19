@@ -71,9 +71,9 @@ for r in inner_rings:
 # correct answer, but inefficient
 
 
-def euler_problem_68():
-    print(solution_max)
+def solve():
+    return solution_max
 
 
 if __name__ == "__main__":
-    euler_problem_68()
+    print(solve())

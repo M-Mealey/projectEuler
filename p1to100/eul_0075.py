@@ -57,9 +57,9 @@ for k in solutions_found:
         total += 1
 
 
-def euler_problem_75():
-    print(total)
+def solve():
+    return total
 
 
 if __name__ == "__main__":
-    euler_problem_75()
+    print(solve())

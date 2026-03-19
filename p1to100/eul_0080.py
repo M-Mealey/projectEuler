@@ -22,13 +22,15 @@ getcontext().prec = 102
 digit_sum = 0
 for x in range(1, 101):
     if math.floor(math.sqrt(x)) == math.sqrt(x):
-        continue # skip squares
+        continue  # skip squares
     s = Decimal(x).sqrt()
-    decimal_digits = str(s).replace(".","")[:100]
+    decimal_digits = str(s).replace(".", "")[:100]
     digit_sum += sum([int(x) for x in decimal_digits])
 
-def euler_problem_80():
-    print(digit_sum)
+
+def solve():
+    return digit_sum
+
 
 if __name__ == "__main__":
-    euler_problem_80()
+    print(solve())
