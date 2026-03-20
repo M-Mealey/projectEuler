@@ -2,14 +2,18 @@ import time
 import importlib
 import importlib.util
 import os
+import multiprocessing
+import signal
 
+resource_files = {
+    22: "resources/names.txt"
+}
 
 def load_module_from_path(module_name, file_path):
     """
     This function was written by google AI :/
     Loads a Python module dynamically from a given file path.
     """
-    print("hi")
     # Create a module specification
     spec = importlib.util.spec_from_file_location(module_name, file_path)
 
@@ -43,18 +47,21 @@ def import_and_run(x):
 
     module_path = os.path.join(module_folder, f"eul_{fmt_x}.py")
     try:
-        print("hello")
         eul_prob = load_module_from_path(f"eul_{fmt_x}", module_path)
         start_time = time.perf_counter()
-        print("hello")
-        eul_prob.solve()
+        if x in resource_files:
+            eul_prob.solve(module_folder +"/"+ resource_files[x])
+        else:
+            eul_prob.solve()
+
         end_time = time.perf_counter()
         elapsed_time = end_time - start_time
         print(f"problem {x}: {elapsed_time} seconds")
     except FileNotFoundError:
         print(f"file not found at {module_path}")
 
-import_and_run(22)
+if __name__ == '__main__':  # Critical protection
+    import_and_run(44)
 #for i in range(101):
 #    import_and_run(i)
 
