@@ -59,7 +59,7 @@ def import_and_run(x):
     if p.is_alive():
         p.terminate()
         p.join()
-        print(f"problem {x}: timed out (>{TIMEOUT_SECONDS}s)")
+        print(f"\033[31mproblem {x}: timed out (>{TIMEOUT_SECONDS}s)\033[0m")
     else:
         elapsed, result = queue.get()
         print(f"problem {x}: {result} ({elapsed:.4f}s)")
