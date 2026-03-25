@@ -24,7 +24,12 @@ divisors.
 What is the value of the first triangle number to have over five hundred
 divisors?
 """
+import time
 import math
+try:
+    from helpers import find_divisors  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import find_divisors
 
 
 def triangle_num_n(n):
@@ -40,14 +45,46 @@ def find_factors(x):
     return result
 
 
-def solve():
+def solve(num_divisors=500):
+    array_len = 10000
+    tri_numbers = [triangle_num_n(x) for x in range(2*num_divisors*num_divisors, array_len)]
+    print(len(tri_numbers))
+    for t in tri_numbers:
+        factors = len(find_divisors(t))
+        if factors > 500:
+            return t
+
     num_factors = 1
     x = 1
     while num_factors < 250:
         x += 1
         num_factors = len(find_factors(triangle_num_n(x)))
+    print(x)
     return triangle_num_n(x)
 
+def solve_2(num_divisors=500):
+    t = 6
+    d = 4
+    num_divisors = len(find_divisors(t))
+    while num_divisors < 500:
+        num_divisors = len(find_divisors(t))
+        t, d = t+d, d+1
+    return t
 
+# simple upper bound for number of divisors a number can have: 2rootn
 if __name__ == "__main__":
+    start_time = time.perf_counter()
     print(solve())
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    print(elapsed_time)
+
+    start_time = time.perf_counter()
+    print(solve_2())
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    print(elapsed_time)
+
+
+
+
