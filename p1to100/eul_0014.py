@@ -22,35 +22,9 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 """
 import time
 import sys
+import math
 
 MAX_N = 1000000
-MAX_MEM = 4000000
-
-
-def update_list(x, p, ls):
-    """update the list with x and its path length, then check for paths leading to x and update their path lengths"""
-    if x == 1:
-        return
-    while x < MAX_MEM:
-        ls[x] = p
-        if x % 2 == 0 and (x-1) % 3 == 0:  # the 3n thi
-            update_list(int((x-1)/3), p+1, ls)
-        x *= 2
-        p += 1
-
-
-def comp(n, ls):
-    """compute length of path starting at n"""
-    if n < MAX_MEM and ls[n]:
-        return ls[n]
-    elif n % 2 == 0:
-        path_len = comp(int(n/2), ls) + 1
-        update_list(n, path_len, ls)
-        return path_len
-    else:
-        path_len = comp(3*n+1, ls) + 1
-        update_list(n, path_len, ls)
-        return path_len
 
 
 def dict_comp(n, d):
@@ -66,46 +40,53 @@ def dict_comp(n, d):
         return path_len
 
 
-def solve_with_list():
-    seq_len_list = [0] * MAX_MEM
-    seq_len_list[1] = 1
-    for n in range(2, MAX_N):
-        comp(n, seq_len_list)
-    max_chain = max(seq_len_list[:MAX_N])
-    return seq_len_list.index(max_chain)
+def solve():
+    seq_dict = {1: 1}
 
+    # forward fill for all powers of 2, path is always dividing by 2
+    # for p in range(1, math.ceil(math.log2(MAX_N))):
+    #    seq_dict[2**p] = p+1
 
-def solve_with_dict():
-    seq_dict = {}
-    seq_dict[1] = 1
     for n in range(2, MAX_N):
         if n not in seq_dict:
             dict_comp(n, seq_dict)
-    highest_value = (1, 1)
-    for x in seq_dict:
-        if seq_dict[x] > highest_value[1]:
-            highest_value = (x, seq_dict[x])
-    return highest_value[0]
+    max_key = max(seq_dict, key=seq_dict.get)
+    return max_key
 
 
-def solve(timers=False):
-    start_time = time.perf_counter()
-    dict_result = solve_with_dict()
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    if timers:
-        print(f"dict solve took {elapsed_time} seconds")
+def get_next_set(s):
+    new_set = set()
+    for n in s:
+        if 2*n < MAX_N:
+            new_set.add(2*n)
+        if (n-1) % 3 == 0:
+            new_set.add((n-1)//3)
+    return new_set
 
-    start_time = time.perf_counter()
-    list_result = solve_with_list()
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    if timers:
-        print(f"list solve took {elapsed_time} seconds")
-        print(list_result)
-    return dict_result
+
+def solve_tree():
+    numbers_found = {}
+    this_set = set()
+    this_set.add(1)
+    p_len = 2
+
+    while this_set:
+        new_set = get_next_set(this_set)
+        this_set = set([x for x in new_set if x not in numbers_found])
+        numbers_found.update(dict.fromkeys(new_set, p_len))
+        p_len += 1
+
+    for n in range(2, MAX_N):
+        if n not in numbers_found:
+            dict_comp(n, numbers_found)
+
+    max_key = max(numbers_found, key=numbers_found.get)
+    return max_key
 
 
 if __name__ == "__main__":
-    print_times = False
-    print(solve(print_times))
+    start_time = time.perf_counter()
+    print(solve_tree())
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    # print(f"time: {elapsed_time}")
