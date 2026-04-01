@@ -21,31 +21,29 @@ Which starting number, under one million, produces the longest chain?
 NOTE: Once the chain starts the terms are allowed to go above one million.
 """
 import time
-import sys
-import math
 
 MAX_N = 1000000
 
 
 def dict_comp(n, d):
+    """
+    Recursively find the path length for the given number.
+    Add any path lengths found along the way to the dict, too.
+    """
     if n in d:
         return d[n]
     if n % 2 == 0:
         path_len = dict_comp(n//2, d) + 1
         d[n] = path_len
         return path_len
-    else:
-        path_len = dict_comp(3*n + 1, d) + 1
-        d[n] = path_len
-        return path_len
+    path_len = dict_comp(3*n + 1, d) + 1
+    d[n] = path_len
+    return path_len
 
 
 def solve():
+    """ Solve problem 14 """
     seq_dict = {1: 1}
-
-    # forward fill for all powers of 2, path is always dividing by 2
-    # for p in range(1, math.ceil(math.log2(MAX_N))):
-    #    seq_dict[2**p] = p+1
 
     for n in range(2, MAX_N):
         if n not in seq_dict:
@@ -55,6 +53,9 @@ def solve():
 
 
 def get_next_set(s):
+    """
+    Given a set of numbers, return a set of numbers that lead to numbers in that set
+    """
     new_set = set()
     for n in s:
         if 2*n < MAX_N:
@@ -65,6 +66,11 @@ def get_next_set(s):
 
 
 def solve_tree():
+    """
+    Attempting to solve the problem faster by proactively filling out
+    the path length for some of the shorter paths
+    It is a little slower than the dictionary solve method :(
+    """
     numbers_found = {}
     this_set = set()
     this_set.add(1)
@@ -72,7 +78,7 @@ def solve_tree():
 
     while this_set:
         new_set = get_next_set(this_set)
-        this_set = set([x for x in new_set if x not in numbers_found])
+        this_set = set(x for x in new_set if x not in numbers_found)
         numbers_found.update(dict.fromkeys(new_set, p_len))
         p_len += 1
 
@@ -86,7 +92,7 @@ def solve_tree():
 
 if __name__ == "__main__":
     start_time = time.perf_counter()
-    print(solve_tree())
+    print(solve())
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
     # print(f"time: {elapsed_time}")
