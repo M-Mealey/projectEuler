@@ -23,6 +23,7 @@ def sum_3_5(x):
 
 
 def solve():
+    """ solve problem 1 """
     return sum_3_5(1000)
 
 
