@@ -11,25 +11,23 @@ Find the sum of all the even-valued terms in the sequence which do not
 exceed four million.
 """
 
-"""
-Finds sum of all even-valued fibonacci terms that don't exceed x
-"""
-
 
 def fib_sum_even(x):
+    """ For given x, find sum even of fibonacci numbers less than x """
     f0 = 1
     f1 = 2
-    sum = 0
+    total = 0
     while f1 < x:
-        next = f1 + f0
+        next_f = f1 + f0
         if f1 % 2 == 0:
-            sum += f1
+            total += f1
         f0 = f1
-        f1 = next
-    return sum
+        f1 = next_f
+    return total
 
 
 def solve():
+    """ solve problem 2"""
     return fib_sum_even(4000000)
 
 
