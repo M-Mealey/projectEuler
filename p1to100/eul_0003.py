@@ -14,6 +14,7 @@ except ModuleNotFoundError:
 
 
 def largest_prime_factor(x):
+    """ returns the largest prime factor for a given x """
     largest_factor = 0
     for i in range(2, int(math.sqrt(x))):
         if x % i == 0 and is_prime(i):
@@ -24,6 +25,7 @@ def largest_prime_factor(x):
 
 
 def solve():
+    """ solve problem 3 """
     return largest_prime_factor(600851475143)
 
 
