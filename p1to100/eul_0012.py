@@ -55,10 +55,10 @@ def solve(num_divisors=500):
     next_factor_divisors = 1
     while factors < num_divisors:
         factors = next_factor_divisors
-        if n%2==0:
+        if n % 2 == 0:
             next_factor = n+1
         else:
-            next_factor = int( (n+1) /2)
+            next_factor = int((n+1) / 2)
         next_factor_divisors = len(find_divisors(next_factor))
         factors = factors * next_factor_divisors
         n += 1
@@ -70,8 +70,4 @@ if __name__ == "__main__":
     print(solve())
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
-    #print(elapsed_time)
-
-
-
-
+    # print(elapsed_time)

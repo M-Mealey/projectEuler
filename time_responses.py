@@ -49,10 +49,12 @@ def import_and_run(x):
         print(f"file not found at {module_path}")
         return
 
-    args = (module_folder + "/" + resource_files[x],) if x in resource_files else ()
+    args = (module_folder + "/" +
+            resource_files[x],) if x in resource_files else ()
 
     queue = multiprocessing.Queue()
-    p = multiprocessing.Process(target=_worker, args=(queue, f"eul_{fmt_x}", module_path, args))
+    p = multiprocessing.Process(target=_worker, args=(
+        queue, f"eul_{fmt_x}", module_path, args))
     p.start()
     p.join(timeout=TIMEOUT_SECONDS)
 

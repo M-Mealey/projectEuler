@@ -14,6 +14,7 @@ COLIN would obtain a score of 938 * 53 = 49714.
 What is the total of all the name scores in the file?
 """
 
+
 def score_name(n):
     letter_sum = 0
     for ch in n:
@@ -21,7 +22,7 @@ def score_name(n):
     return letter_sum
 
 
-def solve(input_file = "resources/names.txt"):
+def solve(input_file="resources/names.txt"):
     name_list = []
 
     with open(input_file) as f:
