@@ -8,12 +8,11 @@ from the product of two 2-digit numbers is 9009 = 91 * 99.
 Find the largest palindrome made from the product of two 3-digit numbers.
 """
 
-"""
-Determines if input int is a palindrome, returns True or False
-"""
-
 
 def is_palindrome(x):
+    """
+    Determines if input int is a palindrome, returns True or False
+    """
     is_pal = True
     num_str = str(x)
     current_digit = 1
@@ -24,13 +23,11 @@ def is_palindrome(x):
     return is_pal
 
 
-"""
-Finds the largest palindrome that is a product of x and a smaller 3-digit number
-Returns int of largest palindrome found, or 0 if none found
-"""
-
-
 def largest_palindrome_x(x):
+    """
+    Finds the largest palindrome that is a product of x and a smaller 3-digit number
+    Returns int of largest palindrome found, or 0 if none found
+    """
     palindrome_found = False
     largest_pal = 0
     other_factor = x
@@ -54,6 +51,7 @@ def largest_palindrome():
 
 
 def solve():
+    """ solve problem 4 """
     return largest_palindrome()
 
 

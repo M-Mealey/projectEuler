@@ -13,6 +13,7 @@ primes = [2, 3, 5, 7, 11, 13, 17, 19]
 
 
 def prime_factors(x):
+    """ for given x, return prime factors of x between 1 and 20"""
     index = 0
     factors = []
     while x > 1 and index < 8:
@@ -25,18 +26,20 @@ def prime_factors(x):
 
 
 def lcm(x):
+    """ for list x, find least common multiple of all ints in list"""
     powers = [0, 0, 0, 0, 0, 0, 0, 0]
     for i in x:
         factors = prime_factors(i)
-        for n in range(len(primes)):
-            powers[n] = max(powers[n], factors.count(primes[n]))
-    lcm = 1
-    for n in range(len(primes)):
-        lcm *= (primes[n]**powers[n])
-    return lcm
+        for n, prime in enumerate(primes):
+            powers[n] = max(powers[n], factors.count(prime))
+    m = 1
+    for n, prime in enumerate(primes):
+        m *= (prime**powers[n])
+    return m
 
 
 def solve():
+    """ solve problem 5 """
     return lcm(range(20))
 
 
