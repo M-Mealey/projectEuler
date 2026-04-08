@@ -4,7 +4,10 @@ import os
 import multiprocessing
 
 resource_files = {
-    22: "resources/names.txt"
+    22: "resources/names.txt",
+    42: "resources/words.txt",
+    54: "resources/poker.txt",
+    59: "resources/cipher1.txt"
 }
 
 TIMEOUT_SECONDS = 1

@@ -15,29 +15,29 @@ value is a triangle number then we shall call the word a triangle word.
 Using words.txt, a 16K text file containing nearly two-thousand common
 English words, how many are triangle words?
 """
-word_list = []
-with open('resources/words.txt') as f:
-    word_list = f.read()[1:-1].split('","')
-
-# get an upper bound on word value so we know how many triangle numbers to generate
-max_word_len = max((len(w) for w in word_list))
-max_value = max_word_len * 27
-# generate list of triangle numbers
-triangle_numbers = [1]
-n = 2
-while triangle_numbers[-1] < max_value:
-    next_triangle_number = int((n*(n+1))/2)
-    triangle_numbers.append(next_triangle_number)
-    n += 1
-
-triangle_word_count = 0
-for word in word_list:
-    value = sum([ord(c) - 64 for c in word])
-    if value in triangle_numbers:
-        triangle_word_count += 1
 
 
-def solve():
+def solve(input_file="resources/words.txt"):
+    word_list = []
+    with open(input_file) as f:
+        word_list = f.read()[1:-1].split('","')
+
+    # get an upper bound on word value so we know how many triangle numbers to generate
+    max_word_len = max((len(w) for w in word_list))
+    max_value = max_word_len * 27
+    # generate list of triangle numbers
+    triangle_numbers = [1]
+    n = 2
+    while triangle_numbers[-1] < max_value:
+        next_triangle_number = int((n * (n + 1)) / 2)
+        triangle_numbers.append(next_triangle_number)
+        n += 1
+
+    triangle_word_count = 0
+    for word in word_list:
+        value = sum([ord(c) - 64 for c in word])
+        if value in triangle_numbers:
+            triangle_word_count += 1
     return triangle_word_count
 
 

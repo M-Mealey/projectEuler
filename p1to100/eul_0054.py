@@ -57,12 +57,6 @@ How many hands does Player 1 win?
 card_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
                '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
 
-hands = []
-with open("resources/poker.txt") as f:
-    hands = f.read().split('\n')[:-1]
-
-p1_win_count = 0
-
 
 def check_flush(hand):
     return hand[0][1] == hand[1][1] and hand[0][1] == hand[2][1] and hand[0][1] == hand[3][1] and hand[0][1] == hand[4][1]
@@ -130,20 +124,24 @@ def resolve_tiebreaker(t1, t2):
         return t1[0] > t2[0]
 
 
-for h in hands:
-    p1_cards, p2_cards = h.split()[:5], h.split()[5:]
-    p1_cards.sort()
-    p2_cards.sort()
-    score1, tie1 = grade_hand(p1_cards)
-    score2, tie2 = grade_hand(p2_cards)
-    if score1 > score2:
-        p1_win_count += 1
-    elif score1 == score2:
-        if resolve_tiebreaker(tie1, tie2):
+def solve(input_file="resources/poker.txt"):
+    hands = []
+    with open(input_file) as f:
+        hands = f.read().split('\n')[:-1]
+
+    p1_win_count = 0
+
+    for h in hands:
+        p1_cards, p2_cards = h.split()[:5], h.split()[5:]
+        p1_cards.sort()
+        p2_cards.sort()
+        score1, tie1 = grade_hand(p1_cards)
+        score2, tie2 = grade_hand(p2_cards)
+        if score1 > score2:
             p1_win_count += 1
-
-
-def solve():
+        elif score1 == score2:
+            if resolve_tiebreaker(tie1, tie2):
+                p1_win_count += 1
     return p1_win_count
 
 
