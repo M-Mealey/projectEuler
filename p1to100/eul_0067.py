@@ -22,32 +22,31 @@ would take over twenty billion years to check them all. There is an
 efficient algorithm to solve it. ;o)
 """
 
-with open("resources/triangle.txt") as f:
-    pyramid_input = f.read()
 
-# all below is copied from problem 16
+def solve(input_file="resources/triangle.txt"):
+    with open(input_file) as f:
+        pyramid_input = f.read()
 
-# convert string to array of ints
-pyramid = [[int(x) for x in row.strip().split()]
-           for row in pyramid_input.strip().splitlines()]
+    # all below is copied from problem 16
 
-sums = pyramid[0]
-# Iterate over rows, tracking the largest sum up to each entry in the pyramid
-for r in pyramid[1:]:
-    new_sums = []
-    for i in range(len(r)):
-        if i == 0:  # first in row, can only be reached from right
-            new_sums.append(sums[i] + r[i])
-        elif i < len(r)-1:  # entry in the middle, pick max of the two points leading there
-            new_sums.append(max(sums[i-1] + r[i], sums[i] + r[i]))
-        else:  # last in row, can only be reached from left
-            new_sums.append(sums[i-1] + r[i])
-    sums = new_sums
-# end with row of sums representing the maximum sum for a path ending at each index in bottom row
-# print the largest sum
+    # convert string to array of ints
+    pyramid = [[int(x) for x in row.strip().split()]
+               for row in pyramid_input.strip().splitlines()]
 
-
-def solve():
+    sums = pyramid[0]
+    # Iterate over rows, tracking the largest sum up to each entry in the pyramid
+    for r in pyramid[1:]:
+        new_sums = []
+        for i in range(len(r)):
+            if i == 0:  # first in row, can only be reached from right
+                new_sums.append(sums[i] + r[i])
+            elif i < len(r) - 1:  # entry in the middle, pick max of the two points leading there
+                new_sums.append(max(sums[i - 1] + r[i], sums[i] + r[i]))
+            else:  # last in row, can only be reached from left
+                new_sums.append(sums[i - 1] + r[i])
+        sums = new_sums
+    # end with row of sums representing the maximum sum for a path ending at each index in bottom row
+    # print the largest sum
     return max(sums)
 
 

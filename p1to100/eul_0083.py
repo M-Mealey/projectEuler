@@ -21,10 +21,6 @@ and down.
 """
 import bisect
 
-with open("resources/matrix.txt") as f:
-    rows = f.read().strip().split("\n")
-    data = [r.split(",") for r in rows]
-    data = [[int(x) for x in r] for r in data]
 
 # calculates minimum path from top left corner to each square in an array going only right or down
 # inputs: costs, a matrix of costs for each square
@@ -58,11 +54,14 @@ def calculate_min_paths(costs, path):
             bisect.insort(path_candidates, path_right)
 
 
-paths = [[0 for _ in range(80)] for __ in range(80)]
-calculate_min_paths(data, paths)
+def solve(input_file="resources/matrix.txt"):
+    with open(input_file) as f:
+        rows = f.read().strip().split("\n")
+        data = [r.split(",") for r in rows]
+        data = [[int(x) for x in r] for r in data]
 
-
-def solve():
+    paths = [[0 for _ in range(80)] for __ in range(80)]
+    calculate_min_paths(data, paths)
     return paths[79][79]
 
 

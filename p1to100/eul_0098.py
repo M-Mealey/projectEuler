@@ -29,19 +29,6 @@ NOTE: All anagrams formed must be contained in the given text file.
 import itertools
 import math
 
-with open('resources/words.txt') as f:
-    word_list = f.read()[1:-1].split('","')
-
-
-anagrams = {}
-for word in word_list:
-    alpha_word = "".join(sorted(word))
-    if alpha_word in anagrams:
-        an_list = anagrams[alpha_word]
-        an_list.append(word)
-    else:
-        an_list = [word]
-        anagrams[alpha_word] = an_list
 
 max_square = 9876543210
 square_lookup = set()
@@ -76,14 +63,25 @@ def find_largest_anagram_square(k, ls):
     return largest_square
 
 
-largest_square = 0
-for k in anagrams:
-    if len(anagrams[k]) > 1:
-        largest_square = max(
-            largest_square, find_largest_anagram_square(k, anagrams[k]))
+def solve(input_file="resources/words.txt"):
+    with open(input_file) as f:
+        word_list = f.read()[1:-1].split('","')
 
+    anagrams = {}
+    for word in word_list:
+        alpha_word = "".join(sorted(word))
+        if alpha_word in anagrams:
+            an_list = anagrams[alpha_word]
+            an_list.append(word)
+        else:
+            an_list = [word]
+            anagrams[alpha_word] = an_list
 
-def solve():
+    largest_square = 0
+    for k in anagrams:
+        if len(anagrams[k]) > 1:
+            largest_square = max(
+                largest_square, find_largest_anagram_square(k, anagrams[k]))
     return largest_square
 
 

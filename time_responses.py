@@ -4,10 +4,19 @@ import os
 import multiprocessing
 
 resource_files = {
-    22: "resources/names.txt",
-    42: "resources/words.txt",
-    54: "resources/poker.txt",
-    59: "resources/cipher1.txt"
+    22: ["resources/names.txt"],
+    42: ["resources/words.txt"],
+    54: ["resources/poker.txt"],
+    59: ["resources/cipher1.txt", "resources/wordlist.txt"],
+    67: ["resources/triangle.txt"],
+    79: ["resources/keylog.txt"],
+    81: ["resources/matrix.txt"],
+    82: ["resources/matrix.txt"],
+    83: ["resources/matrix.txt"],
+    89: ["resources/roman.txt"],
+    96: ["resources/sudoku.txt"],
+    98: ["resources/words.txt"],
+    99: ["resources/base_exp.txt"],
 }
 
 TIMEOUT_SECONDS = 1
@@ -52,8 +61,14 @@ def import_and_run(x):
         print(f"file not found at {module_path}")
         return
 
-    args = (module_folder + "/" +
-            resource_files[x],) if x in resource_files else ()
+    args = ()
+    if x in resource_files:
+        if len(resource_files[x]) == 1:
+            args = (module_folder + "/" +
+                resource_files[x][0],)
+        else:
+            full_file_paths = [module_folder + "/" + f for f in resource_files[x]]
+            args = (full_file_paths,)
 
     queue = multiprocessing.Queue()
     p = multiprocessing.Process(target=_worker, args=(

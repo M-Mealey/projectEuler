@@ -35,15 +35,8 @@ from itertools import product
 # space + the five most common letters in English.
 # The most common byte for each key is very likely the encoded version of one of these
 most_common_chars = [' ', 'e', 't', 'a', 'o', 'i']
-
-bytes = []
-with open('resources/cipher1.txt') as f:
-    data = f.read()
-    bytes = [int(x) for x in data.split(',')]
-
 bytes_by_key = {1: [], 2: [], 3: []}
-for x in range(len(bytes)):
-    bytes_by_key[x % 3 + 1].append(bytes[x])
+
 
 # given a byte list where all bytes are encrypted by the same key,
 # find the most common byte and return list of potential keys that would
@@ -59,19 +52,13 @@ def get_likely_keys(b_list):
     return likely_keys
 
 
-k1 = get_likely_keys(bytes_by_key[1])
-k2 = get_likely_keys(bytes_by_key[2])
-k3 = get_likely_keys(bytes_by_key[3])
-# in practice there's only one possible key for each list, but if there were more this would generate all combinations
-possible_key_combos = list(product(k1, k2, k3))
-
 # validate the plaintext by checking if at least 9 of first 10 words are common English words
 # using the word list from https://public.websites.umich.edu/~jlawler/wordlist.html
 # return True if passes, False if not
 
 
-def validate_message(txt):
-    with open('resources/wordlist.txt') as f:
+def validate_message(txt, dict_file):
+    with open(dict_file) as f:
         words = f.read().split('\n')
     first_ten_words = txt.split(" ")[:10]
     valid_words = [w for w in first_ten_words if w.lower() in words]
@@ -92,20 +79,30 @@ def try_decrypt(keys):
         return None
 
 
-def try_keys(key_combos):
-    for k in key_combos:
-        if try_decrypt(k):
-            return try_decrypt(k)
-    return None
+def solve(input_files=["resources/cipher1.txt", "resources/wordlist.txt"]):
+    bytes = []
+    with open(input_files[0]) as f:
+        data = f.read()
+        bytes = [int(x) for x in data.split(',')]
 
+    for x in range(len(bytes)):
+        bytes_by_key[x % 3 + 1].append(bytes[x])
 
-plaintext = try_keys(possible_key_combos)
-if not plaintext:
-    print("ERROR: COULD NOT DECRYPT")
-ascii_sum = sum([ord(c) for c in plaintext])
+    k1 = get_likely_keys(bytes_by_key[1])
+    k2 = get_likely_keys(bytes_by_key[2])
+    k3 = get_likely_keys(bytes_by_key[3])
+    # in practice there's only one possible key for each list, but if there were more this would generate all combinations
+    possible_key_combos = list(product(k1, k2, k3))
 
-
-def solve():
+    plaintext = ""
+    for k in possible_key_combos:
+        decrypted_bytes = [bytes[x] ^ k[x % 3] for x in range(len(bytes))]
+        decoded_string = ''.join([chr(x) for x in decrypted_bytes])
+        if validate_message(decoded_string, input_files[1]):
+            plaintext = decoded_string
+    if not plaintext:
+        print("ERROR: COULD NOT DECRYPT")
+    ascii_sum = sum([ord(c) for c in plaintext])
     return ascii_sum
 
 

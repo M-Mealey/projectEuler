@@ -17,23 +17,23 @@ given above.
 """
 import math
 
-with open("resources/base_exp.txt") as f:
-    data = f.read().split()
 
-# list of list, each list contains base, exponent, and power when converted to base 2
-data_with_estimates = []
-largest_exponent = 0
-for i in range(len(data)):
-    r = data[i]
-    values = r.split(',')
-    data_entry = [int(values[0]), int(values[1]),
-                  math.log2(int(values[0]))*int(values[1])]
-    largest_exponent = max(largest_exponent, math.log2(
-        int(values[0]))*int(values[1]))
-    data_with_estimates.append(data_entry)
+def solve(input_file="resources/base_exp.txt"):
+    with open(input_file) as f:
+        data = f.read().split()
 
+    # list of list, each list contains base, exponent, and power when converted to base 2
+    data_with_estimates = []
+    largest_exponent = 0
+    for i in range(len(data)):
+        r = data[i]
+        values = r.split(',')
+        data_entry = [int(values[0]), int(values[1]),
+                      math.log2(int(values[0])) * int(values[1])]
+        largest_exponent = max(largest_exponent, math.log2(
+            int(values[0])) * int(values[1]))
+        data_with_estimates.append(data_entry)
 
-def solve():
     for row in data_with_estimates:
         if row[2] == largest_exponent:
             return 1 + data.index(str(row[0]) + "," + str(row[1]))

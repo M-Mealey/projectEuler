@@ -40,15 +40,6 @@ the top left corner of each solution grid; for example, 483 is the 3-digit
 number found in the top left corner of the solution grid above.
 """
 
-with open("resources/sudoku.txt") as f:
-    data = f.read().split()
-
-grids = []
-# each grid is 11 rows, 2 with title and 9 with numbers
-for g in range(len(data)//11):
-    grid = data[11*g+2:11*g+11]
-    grids.append(grid)
-
 
 # most basic way to solve is by trying numbers and backtracking when a conflict arises
 # feels inefficient but the puzzle is only 9x9
@@ -92,13 +83,20 @@ def try_solve(gr):
     return None
 
 
-total = 0
-for g in grids:
-    g_solved = try_solve(g)
-    total += int(g_solved[0][:3])
+def solve(input_file="resources/sudoku.txt"):
+    with open(input_file) as f:
+        data = f.read().split()
 
+    grids = []
+    # each grid is 11 rows, 2 with title and 9 with numbers
+    for g in range(len(data) // 11):
+        grid = data[11 * g + 2:11 * g + 11]
+        grids.append(grid)
 
-def solve():
+    total = 0
+    for g in grids:
+        g_solved = try_solve(g)
+        total += int(g_solved[0][:3])
     return total
 
 

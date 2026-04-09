@@ -14,8 +14,6 @@ file so as to determine the shortest possible secret passcode of unknown
 length.
 """
 
-with open("resources/keylog.txt") as f:
-    data = f.read().split()
 
 # I solved this on paper and each digit is only used once, so this solution will assume that
 # idea: the true first digit will always appear first, create function that scans all entries,
@@ -47,14 +45,14 @@ def remove_char(ls, ch):
     return new_list
 
 
-pw = ""
-while len(data) > 0:
-    next_char = get_first(data)
-    pw += next_char
-    data = remove_char(data, next_char)
-
-
-def solve():
+def solve(input_file="resources/keylog.txt"):
+    with open(input_file) as f:
+        data = f.read().split()
+    pw = ""
+    while len(data) > 0:
+        next_char = get_first(data)
+        pw += next_char
+        data = remove_char(data, next_char)
     return pw
 
 
