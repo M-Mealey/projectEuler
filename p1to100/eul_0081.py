@@ -37,8 +37,8 @@ def calculate_min_paths(data, path):
                 path[r][i] = data[r][i] + min(path[r-1][i], path[r][i-1])
 
 
-def solve(input_file="resources/matrix.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/matrix.txt"]):
+    with open(input_files[0]) as f:
         rows = f.read().strip().split("\n")
         data = [r.split(",") for r in rows]
         data = [[int(x) for x in r] for r in data]

@@ -45,8 +45,8 @@ def remove_char(ls, ch):
     return new_list
 
 
-def solve(input_file="resources/keylog.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/keylog.txt"]):
+    with open(input_files[0]) as f:
         data = f.read().split()
     pw = ""
     while len(data) > 0:

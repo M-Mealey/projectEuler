@@ -18,8 +18,8 @@ given above.
 import math
 
 
-def solve(input_file="resources/base_exp.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/base_exp.txt"]):
+    with open(input_files[0]) as f:
         data = f.read().split()
 
     # list of list, each list contains base, exponent, and power when converted to base 2

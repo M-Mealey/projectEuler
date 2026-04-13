@@ -63,12 +63,8 @@ def import_and_run(x):
 
     args = ()
     if x in resource_files:
-        if len(resource_files[x]) == 1:
-            args = (module_folder + "/" +
-                resource_files[x][0],)
-        else:
-            full_file_paths = [module_folder + "/" + f for f in resource_files[x]]
-            args = (full_file_paths,)
+        full_file_paths = [module_folder + "/" + f for f in resource_files[x]]
+        args = (full_file_paths,)
 
     queue = multiprocessing.Queue()
     p = multiprocessing.Process(target=_worker, args=(

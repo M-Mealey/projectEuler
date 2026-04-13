@@ -17,9 +17,9 @@ English words, how many are triangle words?
 """
 
 
-def solve(input_file="resources/words.txt"):
+def solve(input_files=["resources/words.txt"]):
     word_list = []
-    with open(input_file) as f:
+    with open(input_files[0]) as f:
         word_list = f.read()[1:-1].split('","')
 
     # get an upper bound on word value so we know how many triangle numbers to generate

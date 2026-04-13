@@ -83,8 +83,8 @@ def try_solve(gr):
     return None
 
 
-def solve(input_file="resources/sudoku.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/sudoku.txt"]):
+    with open(input_files[0]) as f:
         data = f.read().split()
 
     grids = []

@@ -66,27 +66,15 @@ def validate_message(txt, dict_file):
         return True
     return False
 
-# trys to decrypt the plaintext with the given keys. Returns plaintext if it passes validation,
-# or None if it doesn't
-
-
-def try_decrypt(keys):
-    decrypted_bytes = [bytes[x] ^ keys[x % 3] for x in range(len(bytes))]
-    decoded_string = ''.join([chr(x) for x in decrypted_bytes])
-    if validate_message(decoded_string):
-        return decoded_string
-    else:
-        return None
-
 
 def solve(input_files=["resources/cipher1.txt", "resources/wordlist.txt"]):
-    bytes = []
+    byte_data = []
     with open(input_files[0]) as f:
         data = f.read()
-        bytes = [int(x) for x in data.split(',')]
+        byte_data = [int(x) for x in data.split(',')]
 
-    for x in range(len(bytes)):
-        bytes_by_key[x % 3 + 1].append(bytes[x])
+    for x in range(len(byte_data)):
+        bytes_by_key[x % 3 + 1].append(byte_data[x])
 
     k1 = get_likely_keys(bytes_by_key[1])
     k2 = get_likely_keys(bytes_by_key[2])
@@ -96,7 +84,8 @@ def solve(input_files=["resources/cipher1.txt", "resources/wordlist.txt"]):
 
     plaintext = ""
     for k in possible_key_combos:
-        decrypted_bytes = [bytes[x] ^ k[x % 3] for x in range(len(bytes))]
+        decrypted_bytes = [byte_data[x] ^ k[x % 3]
+                           for x in range(len(byte_data))]
         decoded_string = ''.join([chr(x) for x in decrypted_bytes])
         if validate_message(decoded_string, input_files[1]):
             plaintext = decoded_string

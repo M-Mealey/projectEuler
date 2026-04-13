@@ -124,9 +124,9 @@ def resolve_tiebreaker(t1, t2):
         return t1[0] > t2[0]
 
 
-def solve(input_file="resources/poker.txt"):
+def solve(input_files=["resources/poker.txt"]):
     hands = []
-    with open(input_file) as f:
+    with open(input_files[0]) as f:
         hands = f.read().split('\n')[:-1]
 
     p1_win_count = 0

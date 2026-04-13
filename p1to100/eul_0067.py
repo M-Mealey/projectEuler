@@ -23,8 +23,8 @@ efficient algorithm to solve it. ;o)
 """
 
 
-def solve(input_file="resources/triangle.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/triangle.txt"]):
+    with open(input_files[0]) as f:
         pyramid_input = f.read()
 
     # all below is copied from problem 16

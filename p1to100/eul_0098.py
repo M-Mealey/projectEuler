@@ -63,8 +63,8 @@ def find_largest_anagram_square(k, ls):
     return largest_square
 
 
-def solve(input_file="resources/words.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/words.txt"]):
+    with open(input_files[0]) as f:
         word_list = f.read()[1:-1].split('","')
 
     anagrams = {}

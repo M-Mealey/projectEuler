@@ -22,10 +22,10 @@ def score_name(n):
     return letter_sum
 
 
-def solve(input_file="resources/names.txt"):
+def solve(input_files=["resources/names.txt"]):
     name_list = []
 
-    with open(input_file) as f:
+    with open(input_files[0]) as f:
         data = f.read().split(',')
         data = [x[1:-1] for x in data]
         data.sort()

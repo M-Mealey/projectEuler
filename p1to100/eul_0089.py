@@ -142,8 +142,8 @@ for x in test_numerals:
 ### END TESTS ###
 
 
-def solve(input_file="resources/roman.txt"):
-    with open(input_file) as f:
+def solve(input_files=["resources/roman.txt"]):
+    with open(input_files[0]) as f:
         data = f.read().split("\n")
         characters_saved = 0
         for num in data:
