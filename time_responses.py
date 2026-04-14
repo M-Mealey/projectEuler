@@ -2,6 +2,7 @@ import time
 import importlib.util
 import os
 import multiprocessing
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 resource_files = {
     22: ["resources/names.txt"],
@@ -19,14 +20,8 @@ resource_files = {
     99: ["resources/base_exp.txt"],
 }
 
-TIMEOUT_SECONDS = 1
+TIMEOUT_SECONDS = 5
 
-
-def load_module_from_path(module_name, file_path):
-    spec = importlib.util.spec_from_file_location(module_name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 def get_mod_folder(x):
@@ -48,18 +43,16 @@ def _worker(queue, module_name, module_path, args):
     queue.put((elapsed, result))
 
 
-def import_and_run(x):
-    """ Import and run problem x, printing elapsed time. Times out after 1 second. """
+def run_problem(x):
+    """Run problem x and return a result string."""
     fmt_x = f"{x:04d}"
     module_folder = get_mod_folder(x)
     if not module_folder:
-        print(f"module folder could not be found for problem {x}")
-        return
+        return f"problem {x}: module folder not found"
 
     module_path = os.path.join(module_folder, f"eul_{fmt_x}.py")
     if not os.path.exists(module_path):
-        print(f"file not found at {module_path}")
-        return
+        return None
 
     args = ()
     if x in resource_files:
@@ -75,12 +68,20 @@ def import_and_run(x):
     if p.is_alive():
         p.terminate()
         p.join()
-        print(f"\033[31mproblem {x}: timed out (>{TIMEOUT_SECONDS}s)\033[0m")
-    else:
-        elapsed, result = queue.get()
-        print(f"problem {x}: {result} ({elapsed:.4f}s)")
+        return f"\033[31mproblem {x}: timed out (>{TIMEOUT_SECONDS}s)\033[0m"
+    elapsed, result = queue.get()
+    return f"problem {x}: {result} ({elapsed:.4f}s)"
 
 
 if __name__ == '__main__':
-    for i in range(101):
-        import_and_run(i)
+    problems = range(1, 101)
+    results = {}
+
+    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+        future_to_x = {executor.submit(run_problem, x): x for x in problems}
+        for future in as_completed(future_to_x):
+            results[future_to_x[future]] = future.result()
+
+    for x in sorted(results):
+        if results[x]:
+            print(results[x])
