@@ -30,22 +30,24 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 # This shows that there aren't any solutions where n>7, because the upper bound of values
 # for the sum of factorials of digits grows too slowly. Therefore, only numbers with 2 to 7
 # digits need to be checked
+# Also, for the biggest 7-digit number, 9999999, the sum of the factorials of the digits is 2540160,
+# so this can be used as the upper bound
 
 import math
 
-# naive solution, check every number under 8 digits
-answer = 0
-for i in range(10, 10000000):
-    sum = 0
-    number = i
-    while number > 0:
-        sum += math.factorial(number % 10)
-        number = number//10
-    if sum == i:
-        answer += i
-
 
 def solve():
+    """ Solve problem 34"""
+    # naive solution, check every number under 8 digits
+    answer = 0
+    for i in range(10, 2540160):
+        sum = 0
+        number = i
+        while number > 0:
+            sum += math.factorial(number % 10)
+            number = number // 10
+        if sum == i:
+            answer += i
     return answer
 
 
