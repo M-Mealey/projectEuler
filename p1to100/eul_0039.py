@@ -9,21 +9,28 @@ sides, {a,b,c}, there are exactly three solutions for p = 120.
 
 For which value of p < 1000, is the number of solutions maximised?
 """
-
-max_solutions = (0, 0)
-for p in range(3, 1000):
-    solutions = 0
-    for a in range(1, p):
-        for b in range(a, p-a):
-            c = p - a - b
-            if a**2 + b**2 == c**2:
-                solutions += 1
-    if solutions > max_solutions[1]:
-        max_solutions = (p, solutions)
+import math
 
 
 def solve():
-    return max_solutions[0]
+    """ solve problem 39 """
+    # generate squares to save time checking later
+    squares = set([x ** 2 for x in range(1, 1000)])
+    # solutions dict, key is perimeter, value is list of tuples (a,b,c) that form right triangle with perimeter p
+    solutions = {}
+    for a in range(2, 999):
+        # c > a, so 1000-2a is a soft upper limit on b. Is there a better limit?
+        for b in range(2, 1000-2*a):
+            c_sq = a**2 + b**2
+            if c_sq in squares:
+                c = int(math.sqrt(c_sq))
+                p = a+b+c
+                if p in solutions:
+                    solutions[p].append((a, b, c))
+                else:
+                    solutions[p] = [(a, b, c)]
+    answer = max(solutions, key=lambda k: len(solutions[k]))
+    return answer
 
 
 if __name__ == "__main__":
