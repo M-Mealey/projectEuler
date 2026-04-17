@@ -13,31 +13,37 @@ to right and right to left.
 NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 """
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import is_prime, prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
-
-# for given int x, checks if all left and right truncations are prime. Returns True or False.
+    from local_helpers import is_prime, prime_sieve
 
 
-def check_truncs(x):
+def check_truncs(x, p_set):
+    """
+    for given int x, checks if all left and right truncations are prime. Returns True or False.
+    :param x: an integer
+    :param p_set: a set of all the primes to check
+    :return: True if all left and right truncations are prime, otherwise False
+    """
+    if len(str(x)) == 1:
+        return False
     n = 1
     while n < len(str(x)):
-        if not is_prime(x % (10**n)):
+        if x % (10**n) not in p_set:
             return False
-        if not is_prime(x // (10**n)):
+        if x // (10**n) not in p_set:
             return False
         n += 1
     return True
 
 
-answers = []
-for i in range(10, 1000000):
-    if is_prime(i) and check_truncs(i):
-        answers.append(i)
-
-
 def solve():
+    """ solve problem 37 """
+    prime_set = set(prime_sieve(1000000))
+    answers = []
+    for i in prime_set:
+        if check_truncs(i, prime_set):
+            answers.append(i)
     return sum(answers)
 
 
