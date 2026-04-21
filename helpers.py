@@ -12,13 +12,11 @@ def is_prime(x):
     return True
 
 
-"""
-Input integer x, returns list of positive integer divisors of x
-O(root(x)) time
-"""
-
-
 def find_divisors(x):
+    """
+    Input integer x, returns list of positive integer divisors of x
+    O(root(x)) time
+    """
     divisors = [1]
     for i in range(2, int(math.sqrt(x)+1)):
         if x % i == 0:
@@ -29,13 +27,11 @@ def find_divisors(x):
     return divisors
 
 
-"""
-Sieve of Eratosthenes - Generate primes up to (exclusive) a given number by iterating over list from low to high,
-for each entry in list remove all multiples of it
-"""
-
-
 def prime_sieve(limit):
+    """
+    Sieve of Eratosthenes - Generate primes up to (exclusive) a given number by iterating over list from low to high,
+    for each entry in list remove all multiples of it
+    """
     is_prime_list = [True] * limit
     is_prime_list[0] = False
     is_prime_list[1] = False
@@ -47,11 +43,9 @@ def prime_sieve(limit):
         current_i += 1
     return [x for x, prime in enumerate(is_prime_list) if prime]
 
-# from problem 33
-# Find GCD of 2 integers using Euclidean algorithm
-
 
 def gcd(n1, n2):
+    """ Find GCD of 2 integers using Euclidean algorithm """
     a, b = max(n1, n2), min(n1, n2)
     r = a % b
     while r != 0:
