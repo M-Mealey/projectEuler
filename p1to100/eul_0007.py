@@ -9,24 +9,16 @@ What is the 10001st prime number?
 """
 import math
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
-
-
-def find_prime(x):
-    i = 0
-    num = 1
-    while i < x:
-        i += 1
-        num += 1
-        while not is_prime(num):
-            num += 1
-    return num
+    from local_helpers import prime_sieve
 
 
 def solve():
-    return find_prime(10001)
+    """ solve problem 7 """
+    max_number = 1000000
+    prime_list = prime_sieve(max_number)
+    return prime_list[10000]
 
 
 if __name__ == "__main__":
