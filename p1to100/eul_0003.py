@@ -8,16 +8,17 @@ What is the largest prime factor of the number 600851475143?
 """
 import math
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
+    from local_helpers import prime_sieve
 
 
 def largest_prime_factor(x):
     """ returns the largest prime factor for a given x """
+    prime_set = set(prime_sieve(math.ceil(math.sqrt(x))))
     largest_factor = 0
     for i in range(2, int(math.sqrt(x))):
-        if x % i == 0 and is_prime(i):
+        if x % i == 0 and i in prime_set:
             largest_factor = i
     if largest_factor == 0:
         largest_factor = x
