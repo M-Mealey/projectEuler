@@ -27,17 +27,21 @@ expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
+    from local_helpers import prime_sieve
 
-# for a given generator g, find how many sequential primes it yields starting from the first element
-# returns int, the number of sequential primes
+
+prime_set = set(prime_sieve(1000000))
 
 
 def find_sequential_primes(g):
+    """
+    for a given generator g, find how many sequential primes it yields starting from the first element
+    returns int, the number of sequential primes
+    """
     count = 0
-    while is_prime(next(g, None)):
+    while next(g, None) in prime_set:
         count += 1
     return count
 
@@ -50,7 +54,7 @@ best_pair = None
 # iterate over 0<=a<1000 and 0<=b<1000, check combinations of +-a, +-b for each
 for a in range(1000):
     for b in range(1000):
-        if not is_prime(abs(b)):
+        if not abs(b) in prime_set:
             # if b is composite, the first number produced (n=0) will be composite
             continue
         tuples = [(a, b), (a, -b), (-a, b), (-a, -b)]
