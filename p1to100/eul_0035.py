@@ -11,14 +11,13 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37,
 How many circular primes are there below one million?
 """
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
-
-# for input int x, returns list of ints containing "rotations" of x
+    from local_helpers import prime_sieve
 
 
 def get_rotations(x):
+    """ for input int x, returns list of ints containing "rotations" of x """
     rotations = []
     num_rotations = len(str(x))
     x_string = str(x)
@@ -28,19 +27,17 @@ def get_rotations(x):
     return rotations
 
 
-circular_primes = 13  # there are 13 below 100, this var tracks total number found
-# check every odd number between 100 and 1 million
-for i in range(101, 1000000, 2):
-    # if there is an even digit, then the rotation with that digit in the ones place won't be prime
-    evens = [e for e in str(i) if e in "02468"]
-    if len(evens) == 0 and is_prime(i):
-        rot = get_rotations(i)
-        prime_rotations = [is_prime(x) for x in get_rotations(i)]
-        if False not in prime_rotations:
-            circular_primes += 1
-
-
 def solve():
+    prime_set = set(prime_sieve(1000000))
+    circular_primes = 13  # there are 13 below 100, this var tracks total number found
+    # check every odd number between 100 and 1 million
+    for i in range(101, 1000000, 2):
+        # if there is an even digit, then the rotation with that digit in the ones place won't be prime
+        evens = [e for e in str(i) if e in "02468"]
+        if len(evens) == 0 and i in prime_set:
+            prime_rotations = [x in prime_set for x in get_rotations(i)]
+            if False not in prime_rotations:
+                circular_primes += 1
     return circular_primes
 
 
