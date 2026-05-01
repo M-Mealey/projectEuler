@@ -18,21 +18,21 @@ What is the smallest odd composite that cannot be written as the sum of a
 prime and twice a square?
 """
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
-
-twice_squares = [2*x*x for x in range(1, 1000)]
+    from local_helpers import prime_sieve
 
 
 def solve():
+    twice_squares = [2 * x * x for x in range(1, 1000)]
+    prime_set = set(prime_sieve(10000))
     for i in range(3, 10001, 2):
-        if not is_prime(i):
+        if not i in prime_set:
             sum_found = False
             for s in twice_squares:
                 if s > i:
                     break
-                if is_prime(i - s):
+                if i - s in prime_set:
                     sum_found = True
             if not sum_found:
                 return i
