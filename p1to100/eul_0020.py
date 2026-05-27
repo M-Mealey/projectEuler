@@ -11,6 +11,7 @@ import math
 
 
 def solve():
+    """ solve problem 20 """
     f100 = math.factorial(100)
 
     digit_sum = 0

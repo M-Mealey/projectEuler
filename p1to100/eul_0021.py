@@ -20,6 +20,7 @@ except ModuleNotFoundError:
 
 
 def solve():
+    """ solve problem 21 """
     amicable_numbers = []
     for i in range(10000):
         divisor_sum = sum(find_divisors(i))

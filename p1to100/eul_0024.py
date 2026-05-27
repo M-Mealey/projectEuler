@@ -18,6 +18,12 @@ digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def find_nth_permutation(n, ls):
+    """
+    Finds nth permutation of digits in list ls (when permutations are in lexicographic order)
+    :param n: an integer, the index of the permutation to find
+    :param ls: a list of integers
+    :return: string of the nth permutation of ls
+    """
     ans_str = ""
     index = n - 1  # n is 1-indexed, so subtract 1
     while len(ls) > 0:
@@ -30,6 +36,7 @@ def find_nth_permutation(n, ls):
 
 
 def solve():
+    """ solve problem 24 """
     return find_nth_permutation(1000000, digits)
 
 

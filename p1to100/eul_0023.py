@@ -27,12 +27,14 @@ try:
 except ModuleNotFoundError:
     from local_helpers import find_divisors
 
-"""
-Checks if integer x can be created by adding 2 numbers in iterable l
-"""
-
 
 def can_make_sum(x, l):
+    """
+    Check if int x can be created by adding 2 numbers in iterable l
+    :param x: integer, the target number
+    :param l: iterable, contains integers
+    :return: boolean, True if any 2 integers in l sum to x, else False
+    """
     for i in l:
         if x-i in l:
             return True
@@ -40,6 +42,7 @@ def can_make_sum(x, l):
 
 
 def solve():
+    """ solve problem 23 """
     abundant_numbers = set([])
     number_sum = 0
     for i in range(1, 28124):
