@@ -16,24 +16,25 @@ What is the total of all the name scores in the file?
 
 
 def score_name(n):
+    """ find sum of letter scores for a name """
     letter_sum = 0
     for ch in n:
         letter_sum += ord(ch) - 64
     return letter_sum
 
 
-def solve(input_files=["resources/names.txt"]):
+def solve(input_files=("resources/names.txt",)):
+    """ solve problem 22 """
     name_list = []
 
-    with open(input_files[0]) as f:
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read().split(',')
         data = [x[1:-1] for x in data]
         data.sort()
         name_list = data
 
     name_score_sum = 0
-    for i in range(len(name_list)):
-        name = name_list[i]
+    for i, name in enumerate(name_list):
         name_score_sum += (i + 1) * score_name(name)
 
     return name_score_sum

@@ -36,7 +36,7 @@ a triangle containing one-hundred rows; it cannot be solved by brute
 force, and requires a clever method! ;o)
 """
 
-pyramid_input = """
+PYRAMID_INPUT = """
                                     75
                                   95 64
                                  17 47 82
@@ -56,24 +56,25 @@ pyramid_input = """
 
 
 def solve():
+    """ solve problem 18 """
     # copied from problem 11
     # convert string to array of ints
     pyramid = [[int(x) for x in row.strip().split()]
-               for row in pyramid_input.strip().splitlines()]
+               for row in PYRAMID_INPUT.strip().splitlines()]
 
     sums = pyramid[0]
     # Iterate over rows, tracking the largest sum up to each entry in the pyramid
     for r in pyramid[1:]:
         new_sums = []
-        for i in range(len(r)):
+        for i, r_i in enumerate(r):
             if i == 0:  # first in row, can only be reached from right
-                new_sums.append(sums[i] + r[i])
+                new_sums.append(sums[i] + r_i)
             elif i < len(r) - 1:  # entry in the middle, pick max of the two points leading there
-                new_sums.append(max(sums[i - 1] + r[i], sums[i] + r[i]))
+                new_sums.append(max(sums[i - 1] + r_i, sums[i] + r_i))
             else:  # last in row, can only be reached from left
-                new_sums.append(sums[i - 1] + r[i])
+                new_sums.append(sums[i - 1] + r_i)
         sums = new_sums
-    # end with row of sums representing the maximum sum for a path ending at each index in bottom row
+    # end with row of sums representing the maximum sum for a path ending at that index
     # print the largest sum
     return max(sums)
 

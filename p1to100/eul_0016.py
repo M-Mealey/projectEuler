@@ -9,7 +9,8 @@ What is the sum of the digits of the number 2^1000?
 
 
 def solve():
-    # The naive way to do this is to calculate 2^1000 and iterate over its digits, adding them together
+    """ solve problem 16 """
+    # naive way to do this is to calculate 2^1000 and iterate over its digits, adding them together
     x = 2 ** 1000
     total = 0
     while x > 0:

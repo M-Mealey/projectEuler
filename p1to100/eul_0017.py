@@ -21,31 +21,33 @@ teens = ["ten", "eleven", "twelve", "thirteen", "fourteen",
 tens_digit = ["twenty", "thirty", "forty", "fifty",
               "sixty", "seventy", "eighty", "ninety"]
 
-# sum for 1 to 9
-sum_ones = 0
-for s in ones_digit:
-    sum_ones += len(s)
-
-# sum for 10 to 19
-sum_teens = 0
-for s in teens:
-    sum_teens += len(s)
-
-# sum for 20 to 99
-sum_tens = 0
-for s in tens_digit:
-    sum_tens += 10*len(s) + sum_ones
-
-# sum of lengths of all numbers up to 99 (inclusive)
-sum_to_99 = sum_ones + sum_teens + sum_tens
-
-# sum for 100 to 999
-sum_hundreds = 0
-for s in ones_digit:
-    sum_hundreds += 100*len(s) + 100*len("hundred") + 99*len("and") + sum_to_99
-
 
 def solve():
+    """ solve problem 17"""
+    # sum for 1 to 9
+    sum_ones = 0
+    for s in ones_digit:
+        sum_ones += len(s)
+
+    # sum for 10 to 19
+    sum_teens = 0
+    for s in teens:
+        sum_teens += len(s)
+
+    # sum for 20 to 99
+    sum_tens = 0
+    for s in tens_digit:
+        sum_tens += 10 * len(s) + sum_ones
+
+    # sum of lengths of all numbers up to 99 (inclusive)
+    sum_to_99 = sum_ones + sum_teens + sum_tens
+
+    # sum for 100 to 999
+    sum_hundreds = 0
+    for s in ones_digit:
+        sum_hundreds += 100 * len(s) + 100 * \
+            len("hundred") + 99 * len("and") + sum_to_99
+
     return sum_to_99 + sum_hundreds + len("onethousand")
 
 
