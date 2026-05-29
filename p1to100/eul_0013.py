@@ -209,6 +209,7 @@ numbers = [37107287533902102798797998220837590246510135740250,
 
 
 def solve():
+    """ solve problem 13 """
     return str(sum(numbers))[:10]
 
 

@@ -27,7 +27,7 @@ number.
             71636269561882670428252483600823257530420752963450
 """
 
-number_str = """73167176531330624919225119674426574742355349194934
+NUMBER_STR = """73167176531330624919225119674426574742355349194934
             96983520312774506326239578318016984801869478851843
             85861560789112949495459501737958331952853208805511
             12540698747158523863050715693290963295227443043557
@@ -48,7 +48,7 @@ number_str = """73167176531330624919225119674426574742355349194934
             05886116467109405077541002256983155200055935729725
             71636269561882670428252483600823257530420752963450"""
 
-digit_list = [int(c) for c in number_str if c in "0123456789"]
+digit_list = [int(c) for c in NUMBER_STR if c in "0123456789"]
 max_product = 1
 
 for i in range(len(digit_list)-13):
@@ -57,43 +57,9 @@ for i in range(len(digit_list)-13):
         product *= digit_list[i+x]
     max_product = max(max_product, product)
 
-"""
-I was trying to do this whole thing with a pointer to the end of a window
-that gets reset when the next digit is zero 
-Above solution is was more readable and hardly less efficient
-
-def reset_window(i):
-    print(f"reset: {i}")
-    product = 1
-    end = i + 13
-    if end > len(digit_list):
-        print("end of list")
-        return len(digit_list), 1
-    while i<end:
-        if digit_list[i] == 0:
-            print("up")
-            return reset_window(i+1)
-        product *= int(digit_list[i])
-        i += 1
-    print(f"i = {i}, product = {product}")
-    return i, product
-
-i, max_product = reset_window(0)
-product = 1
-while i<len(digit_list):
-    if digit_list[i] == 0:
-        new_i, product = reset_window(i+1)
-        i = new_i
-        max_product = max(max_product, product)
-    else:
-        product /= digit_list[i-1]
-        product *= digit_list[i]
-        max_product = max(max_product, product)
-        i += 1
-"""
-
 
 def solve():
+    """ solve problem 8 """
     return int(max_product)
 
 

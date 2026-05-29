@@ -7,7 +7,7 @@ that the 6th prime is 13.
 
 What is the 10001st prime number?
 """
-import math
+
 try:
     from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:

@@ -32,7 +32,7 @@ What is the greatest product of four adjacent numbers in any direction
 (up, down, left, right, or diagonally) in the 20 * 20 grid?
 """
 
-grid = """
+INPUT_GRID = """
        08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
        49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
        81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -57,28 +57,29 @@ grid = """
 
 # convert string to array of ints
 intgrid = [[int(x) for x in row.strip().split()]
-           for row in grid.strip().splitlines()]
+           for row in INPUT_GRID.strip().splitlines()]
 
 
 def solve():
+    """ sovle problem 11 """
     max_product = 1
     for i in range(20):
         for j in range(20):
             if i <= 16 and j <= 16:  # check diagonal down/right
-                r_diagonal_product = intgrid[i][j] * intgrid[i + 1][j + 1] * intgrid[i + 2][j + 2] * intgrid[i + 3][
-                    j + 3]
+                r_diagonal_product = (intgrid[i][j] * intgrid[i + 1][j + 1] *
+                                      intgrid[i + 2][j + 2] * intgrid[i + 3][j + 3])
                 max_product = max(max_product, r_diagonal_product)
             if i <= 16 and j >= 3:  # check diagonal down/left
-                l_diagonal_product = intgrid[i][j] * intgrid[i + 1][j - 1] * intgrid[i + 2][j - 2] * intgrid[i + 3][
-                    j - 3]
+                l_diagonal_product = (intgrid[i][j] * intgrid[i + 1][j - 1] *
+                                      intgrid[i + 2][j - 2] * intgrid[i + 3][j - 3])
                 max_product = max(max_product, l_diagonal_product)
             if i <= 16:  # check vertical
-                vertical_product = intgrid[i][j] * intgrid[i +
-                                                           1][j] * intgrid[i + 2][j] * intgrid[i + 3][j]
+                vertical_product = (intgrid[i][j] * intgrid[i + 1][j] *
+                                    intgrid[i + 2][j] * intgrid[i + 3][j])
                 max_product = max(max_product, vertical_product)
             if j <= 16:  # check horizontal
-                horizontal_product = intgrid[i][j] * intgrid[i][j +
-                                                                1] * intgrid[i][j + 2] * intgrid[i][j + 3]
+                horizontal_product = (intgrid[i][j] * intgrid[i][j + 1] *
+                                      intgrid[i][j + 2] * intgrid[i][j + 3])
                 max_product = max(max_product, horizontal_product)
 
     return max_product

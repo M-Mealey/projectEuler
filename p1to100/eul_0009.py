@@ -19,10 +19,7 @@ def test_triplet(a, b):
     a^2 + b^2 = c^2. Returns True or False
     """
     c = 1000 - a - b
-    if c > b and a**2 + b**2 == c**2:
-        return True
-    else:
-        return False
+    return bool(c > b and a**2 + b**2 == c**2)
 
 
 def test_a(a):
@@ -36,15 +33,13 @@ def test_a(a):
     return 0
 
 
-def get_solution():
+def solve():
+    """ solve problem 9 """
     for a in range(1, 1000):
         b = test_a(a)
         if b:
             return a * b * (1000 - a - b)
-
-
-def solve():
-    return get_solution()
+    return -1
 
 
 if __name__ == "__main__":
