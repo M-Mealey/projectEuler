@@ -22,22 +22,23 @@ powers of their digits.
 # 7 digit max = 7*59049 = 413343
 # Therefore, possible answers have max of 6 digits
 
-# naive solution: iterate over all numbers, find sum of 5th power of digits
-solutions = []
-for x in range(2, 1000000):
-    digit_sum = (x % 10)**5
-    digit_sum += ((x//10) % 10)**5
-    digit_sum += ((x // 100) % 10) ** 5
-    digit_sum += ((x // 1000) % 10) ** 5
-    digit_sum += ((x // 10000) % 10) ** 5
-    digit_sum += ((x // 100000) % 10) ** 5
-    if digit_sum == x:
-        solutions.append(x)
-
-# solutions = [4150, 4151, 54748, 92727, 93084, 194979]
-
 
 def solve():
+    """
+    solve problem 30
+    naive solution: iterate over all numbers, find sum of 5th power of digits
+    """
+    solutions = []
+    for x in range(2, 1000000):
+        digit_sum = (x % 10) ** 5
+        digit_sum += ((x // 10) % 10) ** 5
+        digit_sum += ((x // 100) % 10) ** 5
+        digit_sum += ((x // 1000) % 10) ** 5
+        digit_sum += ((x // 10000) % 10) ** 5
+        digit_sum += ((x // 100000) % 10) ** 5
+        if digit_sum == x:
+            solutions.append(x)
+
     return sum(solutions)
 
 

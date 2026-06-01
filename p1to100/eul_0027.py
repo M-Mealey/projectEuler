@@ -37,8 +37,8 @@ prime_set = set(prime_sieve(1000000))
 
 def find_sequential_primes(g):
     """
-    for a given generator g, find how many sequential primes it yields starting from the first element
-    returns int, the number of sequential primes
+    for a given generator g, find how many sequential primes it yields starting from
+    the first element. returns int, the number of sequential primes
     """
     count = 0
     while next(g, None) in prime_set:
@@ -63,13 +63,13 @@ for a in range(1000):
                 (n*n + a0*n + b0 for n in range(max_n)))
             if sequence == max_n:  # all entries were prime, need to increase max_n
                 max_n += 10
-                tuples.append((a0, b0))  # add tuple back to list, retry later
             if sequence > max_sequence:
                 best_pair = (a0, b0)
                 max_sequence = sequence
 
 
 def solve():
+    """ solve problem 27 """
     return best_pair[0] * best_pair[1]
 
 

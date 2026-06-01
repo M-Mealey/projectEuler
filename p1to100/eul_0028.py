@@ -17,21 +17,24 @@ What is the sum of both diagonals in a 1001 by 1001 spiral formed in the
 same way?
 """
 
-# ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
-# a 1001 by 1001 grid has 501 "rings" (inc ring 0), ring 500 is 1001x1001
-# ring x is (2x+1)x(2x+1), contains 8x numbers
-diagonal_sum = 1
-end_of_ring = 1  # tracks end of previous ring
-for r in range(1, 501):
-    # each corner is 2r steps up from the last corner, where r is the ring # the corner is in
-    diagonal_sum += end_of_ring + 2*r
-    diagonal_sum += end_of_ring + 4*r
-    diagonal_sum += end_of_ring + 6*r
-    diagonal_sum += end_of_ring + 8*r
-    end_of_ring = end_of_ring + 8*r
-
 
 def solve():
+    """
+    solve problem 28
+    ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
+    a 1001 by 1001 grid has 501 "rings" (inc ring 0), ring 500 is 1001x1001
+    ring x is (2x+1)x(2x+1), contains 8x numbers
+    """
+    diagonal_sum = 1
+    end_of_ring = 1  # tracks end of previous ring
+    for r in range(1, 501):
+        # each corner is 2r steps up from the last corner, where r is the ring # the corner is in
+        diagonal_sum += end_of_ring + 2 * r
+        diagonal_sum += end_of_ring + 4 * r
+        diagonal_sum += end_of_ring + 6 * r
+        diagonal_sum += end_of_ring + 8 * r
+        end_of_ring = end_of_ring + 8 * r
+
     return diagonal_sum
 
 
