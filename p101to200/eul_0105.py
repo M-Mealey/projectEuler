@@ -21,9 +21,8 @@ value of S(A[1]) + S(A[2]) + ... + S(A[k]).
 
 NOTE: This problem is related to problems 103 and 106.
 """
-from importlib import import_module
-# need to import like this because files are named numbers :)
-validate_set = import_module('103').validate_set
+
+from eul_0103 import validate_set
 
 with open("resources/sets.txt") as f:
     data = f.read().split()
@@ -35,4 +34,3 @@ for set_str in data:
     if validate_set(int_set):
         total_sum += sum(int_set)
 print(total_sum)
-

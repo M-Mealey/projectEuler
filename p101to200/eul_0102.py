@@ -27,13 +27,13 @@ with open("resources/triangles.txt") as f:
     data = f.read().split()
 
 
-
 # traingle area from points, https://www.omnicalculator.com/math/area-triangle-coordinates
 def calc_tri_area(A, B, C):
     x1, y1 = A
     x2, y2 = B
     x3, y3 = C
-    return 1/2 * abs( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2))
+    return 1/2 * abs(x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2))
+
 
 triangle_count = 0
 for triangle in data:

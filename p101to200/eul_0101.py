@@ -46,10 +46,13 @@ Find the sum of FITs for the BOPs.
 import math
 # first 15 terms: 1, 1, 683, 44287, 838861, 8138021, 51828151, 247165843, 954437177, 3138105961, 9090909091, 23775972551, 57154490053, 128011456717, 269971011311
 
+
 def u(n):
     return 1 - n + n**2 - n**3 + n**4 - n**5 + n**6 - n**7 + n**8 - n**9 + n**10
 
+
 u_vals = [u(x) for x in range(15)]
+
 
 def find_fit(op):
     n = 1
@@ -57,18 +60,20 @@ def find_fit(op):
         n += 1
     return op(n)
 
+
 def find_op_k(k):
     def op_k(n):
         total = 0
         for i in range(1, k+1):
             lagrange_prod = 1
             for j in range(1, k+1):
-                if i==j:
+                if i == j:
                     continue
                 lagrange_prod *= (n - j) / (i - j)
             total += u_vals[i] * lagrange_prod
         return total
     return op_k
+
 
 fit_sum = 0
 for i in range(1, 11):
