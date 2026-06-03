@@ -14,7 +14,8 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 # The sum is only 7 digits, so it's impossible for a number with 8 or more digits to be a solution
 # The range of
 
-# For a given number of digits n, the range of possible sums of digits' factorials for an n-digit number
+# For a given number of digits n,
+# the range of possible sums of digits' factorials for an n-digit number
 # is from n * 1! = n * 1 = n to n * 9! = n * 362880
 # n     low     high
 # 2     2       725760
@@ -41,12 +42,12 @@ def solve():
     # naive solution, check every number under 8 digits
     answer = 0
     for i in range(10, 2540160):
-        sum = 0
+        total = 0
         number = i
         while number > 0:
-            sum += math.factorial(number % 10)
+            total += math.factorial(number % 10)
             number = number // 10
-        if sum == i:
+        if total == i:
             answer += i
     return answer
 

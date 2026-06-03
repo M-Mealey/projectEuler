@@ -28,11 +28,12 @@ def get_rotations(x):
 
 
 def solve():
+    """ solve problem 35 """
     prime_set = set(prime_sieve(1000000))
     circular_primes = 13  # there are 13 below 100, this var tracks total number found
     # check every odd number between 100 and 1 million
     for i in range(101, 1000000, 2):
-        # if there is an even digit, then the rotation with that digit in the ones place won't be prime
+        # prime can't have even digit in ones place
         evens = [e for e in str(i) if e in "02468"]
         if len(evens) == 0 and i in prime_set:
             prime_rotations = [x in prime_set for x in get_rotations(i)]

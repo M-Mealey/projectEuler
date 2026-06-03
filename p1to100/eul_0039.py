@@ -15,8 +15,9 @@ import math
 def solve():
     """ solve problem 39 """
     # generate squares to save time checking later
-    squares = set([x ** 2 for x in range(1, 1000)])
-    # solutions dict, key is perimeter, value is list of tuples (a,b,c) that form right triangle with perimeter p
+    squares = set(x ** 2 for x in range(1, 1000))
+    # solutions dict, key is perimeter,
+    # value is list of tuples (a,b,c) that form right triangle with perimeter p
     solutions = {}
     for a in range(2, 999):
         # c > a, so 1000-2a is a soft upper limit on b. Is there a better limit?

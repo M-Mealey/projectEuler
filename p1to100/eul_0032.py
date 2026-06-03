@@ -26,40 +26,41 @@ all_digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def int_to_list(x):
+    """ make int into list of characters """
     return [int(ch) for ch in str(x)]
 
 
-for f1 in range(1, 100):
-    f1_list = int_to_list(f1)
-    # check first factor
-    # if digits are same or 0, skip this iteration
-    if 0 in f1_list or len(f1_list) != len(set(f1_list)):
-        continue
-    # find possible digit permutations for 2nd factor
-    remaining_digits = [d for d in all_digits if d not in f1_list]
-    if len(f1_list) == 1:
-        combo_gen = itertools.permutations(remaining_digits, 4)
-    else:
-        combo_gen = itertools.permutations(remaining_digits, 3)
-    for c in combo_gen:
-        f2 = 0
-        # find digits that must appear in product
-        product_digits = remaining_digits.copy()
-        for x in c:
-            f2 = (f2 * 10) + x
-            product_digits.remove(x)
-        # check product
-        product = f1 * f2
-        product_list = int_to_list(product)
-        # product can't have duplicates
-        if len(product_list) != len(set(product_list)) or (len(product_list) != len(product_digits)):
-            continue
-        diff_list = [x for x in product_digits if x not in product_list]
-        if len(diff_list) == 0:  # if true, equation f1 * f2 = product is pandigital
-            pandigital_products.add(product)
-
-
 def solve():
+    """ solve problem 32 """
+    for f1 in range(1, 100):
+        f1_list = int_to_list(f1)
+        # check first factor
+        # if digits are same or 0, skip this iteration
+        if 0 in f1_list or len(f1_list) != len(set(f1_list)):
+            continue
+        # find possible digit permutations for 2nd factor
+        remaining_digits = [d for d in all_digits if d not in f1_list]
+        if len(f1_list) == 1:
+            combo_gen = itertools.permutations(remaining_digits, 4)
+        else:
+            combo_gen = itertools.permutations(remaining_digits, 3)
+        for c in combo_gen:
+            f2 = 0
+            # find digits that must appear in product
+            product_digits = remaining_digits.copy()
+            for x in c:
+                f2 = (f2 * 10) + x
+                product_digits.remove(x)
+            # check product
+            product = f1 * f2
+            prod_list = int_to_list(product)
+            # product can't have duplicates
+            if len(prod_list) != len(set(prod_list)) or (len(prod_list) != len(product_digits)):
+                continue
+            diff_list = [x for x in product_digits if x not in prod_list]
+            if len(diff_list) == 0:  # if true, equation f1 * f2 = product is pandigital
+                pandigital_products.add(product)
+
     return sum(pandigital_products)
 
 

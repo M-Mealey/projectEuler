@@ -19,11 +19,12 @@ What is the largest 1 to 9 pandigital 9-digit number that can be formed as
 the concatenated product of an integer with (1,2, ... , n) where n > 1?
 """
 
-# for a given int, check if a list "(1,2, ... , n) where n > 1" can be created to satisfy the problem
-# Returns the pandigital 9-digit number found, or -1 if none can be created
-
 
 def check_pandigital(x):
+    """
+    for int x, check if a list "(1,2, ... , n) where n > 1" can be created to satisfy the problem
+    Returns the pandigital 9-digit number found, or -1 if none can be created
+    """
     digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     n = 0
     pandigital_string = ""
@@ -39,12 +40,13 @@ def check_pandigital(x):
     return int(pandigital_string)
 
 
-# only need to check up to 4-digit numbers because n > 1, so concatenated product of 5-digit (or larger)
+# only need to check up to 4-digit numbers because concatenated product of 5-digit (or larger)
 # number with (1, 2) would have 10-digits (or more),
-solution = max([check_pandigital(i) for i in range(10000)])
+solution = max(check_pandigital(i) for i in range(10000))
 
 
 def solve():
+    """ solve problem 38 """
     return solution
 
 

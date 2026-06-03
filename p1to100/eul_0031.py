@@ -18,6 +18,7 @@ p_amounts = [1, 2, 5, 10, 20, 50, 100, 200]
 
 
 def find_combinations(coins, x):
+    """ find the number of ways the coins with values in list coins can combine to a total of x """
     if len(coins) == 1:  # base case 2
         return x % coins[0] == 0
     next_coin = coins[-1]
@@ -29,10 +30,12 @@ def find_combinations(coins, x):
         remaining_amt -= next_coin
     return ways
 
-# TODO: Try with dynamic programming? https://www.geeksforgeeks.org/understanding-the-coin-change-problem-with-dynamic-programming/
+# TODO: Try with dynamic programming?
+#  https://www.geeksforgeeks.org/understanding-the-coin-change-problem-with-dynamic-programming/
 
 
 def solve():
+    """ solve problem 31 """
     return find_combinations(p_amounts, 200)
 
 
