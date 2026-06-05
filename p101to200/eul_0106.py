@@ -26,13 +26,25 @@ from itertools import combinations
 
 
 def solve():
-    """ solve problem 106
-    only need to test cases where sets for two equal pairs, etc etc @TODO explain :)
+    """
+    solve problem 106
+    Since the problem specifies that condition 2 is always satisfied, we only need to check
+    the sums for equal sized subsets. To do this, use a list of numbers 1 to 12 to represent
+    the position of an item in the original sorted set of 12.
+    Iterate over the possible subset sizes (2-6)
+    For each subset size, iterate over all possible subsets B. For symmetry/to avoid double
+    counting, B will always be the subset with the smallest element. Then iterate over all
+    possible C that can be made from the remaining elements.
+    For each pair of subsets, B and C, represent as a sorted list and compare elements pairwise.
+    The first element of B will always be smaller than the first element of C. If this is true
+    for all the elements in the list, then there is no need to compare sums because each element in
+    B can be paired with an element in C that is strictly larger, so S(C) must be greater than S(B).
+    Otherwise, add one to the total of subsets whose sums need to be checked.
     """
     total = 0
     # indices represent index of number in original sorted set
     indices = range(1, 13)
-    for i in range(2, 7):  # test pairs of sets, sizes 2 thorugh 6
+    for i in range(2, 7):  # test pairs of sets, sizes 2 to 6
         for s_b in combinations(indices, i):
             # the first set is the one with the smallest element, avoid double counting
             diff = set(indices[indices.index(s_b[0]):]) - set(s_b)
