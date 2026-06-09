@@ -69,9 +69,39 @@ def calc_total_weight(m):
 
 def solve():
     """ solve problem 107 """
-    adj_mtx = read_adj_matrix(example_network)
-    print(adj_mtx)
-    print(calc_total_weight(adj_mtx))
+    # example problem
+    # adj_mtx = read_adj_matrix(example_network)
+
+    adj_mtx = []
+    with open("resources/network.txt") as f:
+        data = f.read()
+        adj_mtx = read_adj_matrix(data)
+
+    num_verts = len(adj_mtx)
+    new_adj_mtx = [[-1 for x in range(num_verts)] for y in range(num_verts)]
+    visited_verts = set()
+    visited_verts.add(0)
+    edge_queue = [] # should find more efficient data type here
+    for i,e in enumerate(adj_mtx[0]):
+        if e>0:
+            edge_queue.append((e,i))
+    next_vert = 0
+    next_edge_weight = 1000000
+    while len(visited_verts) < num_verts:
+        edge_queue.sort()
+        last_vert = next_vert
+        while next_vert in visited_verts:
+            next_edge_weight, next_vert = edge_queue.pop(0)
+        # add this edge to new adjacency matrix
+        new_adj_mtx[last_vert][next_vert] = next_edge_weight
+        new_adj_mtx[next_vert][last_vert] = next_edge_weight
+        # add new edges to queue
+        for i, e in enumerate(adj_mtx[next_vert]):
+            if e > 0 and i not in visited_verts:
+                edge_queue.append((e, i))
+        # done with this vertex, mark as visited and continue
+        visited_verts.add(next_vert)
+    return calc_total_weight(adj_mtx)- calc_total_weight(new_adj_mtx)
 
 if __name__ == "__main__":
     print(solve())
