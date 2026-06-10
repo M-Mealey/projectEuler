@@ -35,7 +35,7 @@ and given in matrix form, find the maximum saving which can be achieved by
 removing redundant edges whilst ensuring that the network remains connected.
 """
 
-example_network = """-,16,12,21,-,-,-
+EXAMPLE_NETWORK = """-,16,12,21,-,-,-
 16,-,-,17,20,-,-
 12,-,-,28,-,31,-
 21,17,28,-,18,19,23
@@ -44,64 +44,52 @@ example_network = """-,16,12,21,-,-,-
 -,-,-,23,11,27,-
 """
 
-# Use Prim's Algorithm: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 
 def read_adj_matrix(str_in):
     """ read a string input, return adjacency matrix """
     mtx = []
     for r in str_in.strip().split("\n"):
-        row = []
-        for i in r.split(","):
-            if i == "-":
-                row.append(-1)
-            else: # assuming input is formatted correctly
-                row.append(int(i))
-        mtx.append(row)
+        mtx.append([int(i) if i != "-" else 0 for i in r.split(",")])
     return mtx
+
 
 def calc_total_weight(m):
     """ calculate the total weight of an adjacency matrix """
-    total = 0
-    for r in m:
-        total += sum(x for x in r if x>0)
-    total /= 2
-    return int(total)
+    return sum(sum(r) for r in m)//2
 
-def solve():
-    """ solve problem 107 """
-    # example problem
-    # adj_mtx = read_adj_matrix(example_network)
 
-    adj_mtx = []
-    with open("resources/network.txt") as f:
+def solve(input_files=("resources/network.txt",)):
+    """ solve problem 107.
+    Uses Prim's Algorithm: https://en.wikipedia.org/wiki/Prim%27s_algorithm """
+
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read()
         adj_mtx = read_adj_matrix(data)
 
-    num_verts = len(adj_mtx)
-    new_adj_mtx = [[-1 for x in range(num_verts)] for y in range(num_verts)]
-    visited_verts = set()
-    visited_verts.add(0)
-    edge_queue = [] # should find more efficient data type here
-    for i,e in enumerate(adj_mtx[0]):
-        if e>0:
-            edge_queue.append((e,i))
+    new_adj_mtx = [[0 for x in adj_mtx] for y in adj_mtx]
+    visited = {0}
+    edge_queue = []  # should find more efficient data type here
+    for i, e in enumerate(adj_mtx[0]):
+        if e > 0:
+            edge_queue.append((e, i))
     next_vert = 0
     next_edge_weight = 1000000
-    while len(visited_verts) < num_verts:
+    while len(visited) < len(adj_mtx):
         edge_queue.sort()
         last_vert = next_vert
-        while next_vert in visited_verts:
+        while next_vert in visited:
             next_edge_weight, next_vert = edge_queue.pop(0)
         # add this edge to new adjacency matrix
         new_adj_mtx[last_vert][next_vert] = next_edge_weight
         new_adj_mtx[next_vert][last_vert] = next_edge_weight
         # add new edges to queue
         for i, e in enumerate(adj_mtx[next_vert]):
-            if e > 0 and i not in visited_verts:
+            if e > 0 and i not in visited:
                 edge_queue.append((e, i))
         # done with this vertex, mark as visited and continue
-        visited_verts.add(next_vert)
-    return calc_total_weight(adj_mtx)- calc_total_weight(new_adj_mtx)
+        visited.add(next_vert)
+    return calc_total_weight(adj_mtx) - calc_total_weight(new_adj_mtx)
+
 
 if __name__ == "__main__":
     print(solve())
