@@ -34,6 +34,7 @@ Using network.txt, a 6K text file containing a network with forty vertices,
 and given in matrix form, find the maximum saving which can be achieved by
 removing redundant edges whilst ensuring that the network remains connected.
 """
+import heapq
 
 EXAMPLE_NETWORK = """-,16,12,21,-,-,-
 16,-,-,17,20,-,-
@@ -47,15 +48,18 @@ EXAMPLE_NETWORK = """-,16,12,21,-,-,-
 
 def read_adj_matrix(str_in):
     """ read a string input, return adjacency matrix """
-    mtx = []
-    for r in str_in.strip().split("\n"):
-        mtx.append([int(i) if i != "-" else 0 for i in r.split(",")])
+    mtx = {}
+    for i, r in enumerate(str_in.strip().split("\n")):
+        mtx[i] = [(int(w), v) for v, w in enumerate(r.split(",")) if w != "-"]
     return mtx
 
 
 def calc_total_weight(m):
-    """ calculate the total weight of an adjacency matrix """
-    return sum(sum(r) for r in m)//2
+    """ calculate the total weight of a graph from its adjacency matrix """
+    total = 0
+    for v in m.values():
+        total += sum(x[0] for x in v)
+    return total//2
 
 
 def solve(input_files=("resources/network.txt",)):
@@ -66,26 +70,28 @@ def solve(input_files=("resources/network.txt",)):
         data = f.read()
         adj_mtx = read_adj_matrix(data)
 
-    new_adj_mtx = [[0 for x in adj_mtx] for y in adj_mtx]
+    new_adj_mtx = {}
+    for k in adj_mtx:
+        new_adj_mtx[k] = []
     visited = {0}
-    edge_queue = []  # should find more efficient data type here
-    for i, e in enumerate(adj_mtx[0]):
+    edge_queue = []
+    heapq.heapify(edge_queue)
+    for e, v in adj_mtx[0]:
         if e > 0:
-            edge_queue.append((e, i))
+            heapq.heappush(edge_queue, (e, v))
     next_vert = 0
     next_edge_weight = 1000000
     while len(visited) < len(adj_mtx):
-        edge_queue.sort()
         last_vert = next_vert
         while next_vert in visited:
-            next_edge_weight, next_vert = edge_queue.pop(0)
+            next_edge_weight, next_vert = heapq.heappop(edge_queue)
         # add this edge to new adjacency matrix
-        new_adj_mtx[last_vert][next_vert] = next_edge_weight
-        new_adj_mtx[next_vert][last_vert] = next_edge_weight
+        new_adj_mtx[last_vert].append((next_edge_weight, next_vert))
+        new_adj_mtx[next_vert].append((next_edge_weight, last_vert))
         # add new edges to queue
-        for i, e in enumerate(adj_mtx[next_vert]):
-            if e > 0 and i not in visited:
-                edge_queue.append((e, i))
+        for e, v in adj_mtx[next_vert]:
+            if e > 0 and v not in visited:
+                heapq.heappush(edge_queue, (e, v))
         # done with this vertex, mark as visited and continue
         visited.add(next_vert)
     return calc_total_weight(adj_mtx) - calc_total_weight(new_adj_mtx)
