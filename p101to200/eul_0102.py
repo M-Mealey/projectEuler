@@ -21,27 +21,34 @@ interior contains the origin.
 NOTE: The first two examples in the file represent the triangles in the
 example given above.
 """
-import math
-
-with open("resources/triangles.txt") as f:
-    data = f.read().split()
 
 
-# traingle area from points, https://www.omnicalculator.com/math/area-triangle-coordinates
-def calc_tri_area(A, B, C):
-    x1, y1 = A
-    x2, y2 = B
-    x3, y3 = C
+def calc_tri_area(a, b, c):
+    """ calculate the area of a triangle from points representing vertices
+    from: https://www.omnicalculator.com/math/area-triangle-coordinates"""
+    x1, y1 = a
+    x2, y2 = b
+    x3, y3 = c
     return 1/2 * abs(x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2))
 
 
-triangle_count = 0
-for triangle in data:
-    points = [int(x) for x in triangle.split(",")]
-    A = (points[0], points[1])
-    B = (points[2], points[3])
-    C = (points[4], points[5])
-    O = (0, 0)
-    if calc_tri_area(A, B, C) == calc_tri_area(A, B, O) + calc_tri_area(A, O, C) + calc_tri_area(O, B, C):
-        triangle_count += 1
-print(triangle_count)
+def solve(input_files=("resources/triangles.txt",)):
+    """ solve problem 102 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
+        data = f.read().split()
+
+    triangle_count = 0
+    for triangle in data:
+        points = [int(x) for x in triangle.split(",")]
+        a = (points[0], points[1])
+        b = (points[2], points[3])
+        c = (points[4], points[5])
+        o = (0, 0)
+        if (calc_tri_area(a, b, c) == calc_tri_area(a, b, o) + calc_tri_area(a, o, c)
+                + calc_tri_area(o, b, c)):
+            triangle_count += 1
+    return triangle_count
+
+
+if __name__ == "__main__":
+    print(solve())

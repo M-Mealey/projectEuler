@@ -43,18 +43,20 @@ Consider the following tenth degree polynomial generating function:
 
 Find the sum of FITs for the BOPs.
 """
-import math
-# first 15 terms: 1, 1, 683, 44287, 838861, 8138021, 51828151, 247165843, 954437177, 3138105961, 9090909091, 23775972551, 57154490053, 128011456717, 269971011311
+# first 15 terms: 1, 1, 683, 44287, 838861, 8138021, 51828151, 247165843, 954437177, 3138105961,
+# 9090909091, 23775972551, 57154490053, 128011456717, 269971011311
 
 
 def u(n):
+    """ computes function u from problem 101 for given n """
     return 1 - n + n**2 - n**3 + n**4 - n**5 + n**6 - n**7 + n**8 - n**9 + n**10
 
 
-u_vals = [u(x) for x in range(15)]
+U_VALS = [u(x) for x in range(15)]
 
 
 def find_fit(op):
+    """ finds the first incorrect term of a function op estimating u(n)"""
     n = 1
     while op(n) == u(n):
         n += 1
@@ -62,6 +64,7 @@ def find_fit(op):
 
 
 def find_op_k(k):
+    """ find the optimum polynomial for the first k terms """
     def op_k(n):
         total = 0
         for i in range(1, k+1):
@@ -70,13 +73,19 @@ def find_op_k(k):
                 if i == j:
                     continue
                 lagrange_prod *= (n - j) / (i - j)
-            total += u_vals[i] * lagrange_prod
+            total += U_VALS[i] * lagrange_prod
         return total
     return op_k
 
 
-fit_sum = 0
-for i in range(1, 11):
-    func = find_op_k(i)
-    fit_sum += find_fit(func)
-print(int(fit_sum))
+def solve():
+    """ solve problem 101 """
+    fit_sum = 0
+    for i in range(1, 11):
+        func = find_op_k(i)
+        fit_sum += find_fit(func)
+    return int(fit_sum)
+
+
+if __name__ == "__main__":
+    print(solve())

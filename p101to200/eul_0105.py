@@ -22,15 +22,26 @@ value of S(A[1]) + S(A[2]) + ... + S(A[k]).
 NOTE: This problem is related to problems 103 and 106.
 """
 
-from eul_0103 import validate_set
+import os
+import sys
 
-with open("resources/sets.txt") as f:
-    data = f.read().split()
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+from eul_0103 import validate_set   # pylint: disable=C0413
 
-total_sum = 0
-for set_str in data:
-    int_set = [int(num) for num in set_str.split(",")]
-    int_set.sort()
-    if validate_set(int_set):
-        total_sum += sum(int_set)
-print(total_sum)
+
+def solve(input_files=("resources/sets.txt",)):
+    """ solve problem 105 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
+        data = f.read().split()
+
+    total_sum = 0
+    for set_str in data:
+        int_set = [int(num) for num in set_str.split(",")]
+        int_set.sort()
+        if validate_set(int_set):
+            total_sum += sum(int_set)
+    return total_sum
+
+
+if __name__ == "__main__":
+    print(solve())

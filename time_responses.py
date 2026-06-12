@@ -18,6 +18,9 @@ resource_files = {
     96: ["resources/sudoku.txt"],
     98: ["resources/words.txt"],
     99: ["resources/base_exp.txt"],
+    102: ["resources/triangles.txt"],
+    105: ["resources/sets.txt"],
+    107: ["resources/network.txt"]
 }
 
 TIMEOUT_SECONDS = 5
@@ -74,7 +77,7 @@ def run_problem(x):
 
 
 if __name__ == '__main__':
-    problems = range(1, 101)
+    problems = range(100, 108)
     results = {}
 
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
