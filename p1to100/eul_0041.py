@@ -25,6 +25,7 @@ for n in range(4, 10):
 
 
 def solve():
+    """ solve problem 41 """
     return largest
 
 
