@@ -29,22 +29,11 @@ except ModuleNotFoundError:
 import math
 import itertools
 
-MAX_N = 200000
-PRIMES = prime_sieve(MAX_N)
-PRIME_FACTORIZATIONS = {1: {1}, 2: {2}, 3: {3}, 4: {2, 4}}
-
+PRIMES = prime_sieve(100)
 
 def get_number_from_pf_array(arr):
     """ calculate an int from the array representing the powers of its prime factorization """
-    total = 1
-    for i, n in enumerate(arr):
-        total *= PRIMES[i]**n
-    return total
-
-
-def get_num_factors_from_pf_array(arr):
-    """ calculate the number of factors an int has using its prime factorization array """
-    return math.prod(x+1 for x in arr)
+    return math.prod(p**e for e,p in zip(arr,PRIMES))
 
 
 def solve():
@@ -58,17 +47,14 @@ def solve():
     Therefore, can represent each n as a list of exponents [e1, e2, e3, ... ei]
     where n = 2^e1 * 3^e2 * 5^e3 ... pi^ei
     n^2 doubles all exponents
-    solve by iterating over these exponent lists, find simple solution [1,1,...1] and
-    then optimize?"""
-    # try all arrays up to length 6, power up to 6?
-    # looking for a square number so all powers must be even
+    solve by iterating over these exponent lists"""
     # could optimize further by stopping iteration when remaining permutations
     # are bigger than current?
     powers = {0, 2, 4, 6}
     perms = list(itertools.product(powers, repeat=6))
     min_n_squared = 1000000000000000000
     for i in perms:
-        if get_num_factors_from_pf_array(i) > 2000:
+        if math.prod(x+1 for x in i) > 2000:
             min_n_squared = min(min_n_squared, get_number_from_pf_array(i))
     return int(math.sqrt(min_n_squared))
 
