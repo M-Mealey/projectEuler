@@ -12,6 +12,7 @@ the maximum digital sum?
 
 
 def get_digit_sum(x):
+    """ get sum of digits in a number """
     digit_sum = 0
     while x > 0:
         digit_sum += x % 10
@@ -19,13 +20,13 @@ def get_digit_sum(x):
     return digit_sum
 
 
-max_digit_sum = 0
-for a in range(1, 100):
-    for b in range(1, 100):
-        max_digit_sum = max(max_digit_sum, get_digit_sum(a**b))
-
-
 def solve():
+    """ solve problem 56 """
+    max_digit_sum = 0
+    for a in range(1, 100):
+        for b in range(1, 100):
+            max_digit_sum = max(max_digit_sum, get_digit_sum(a ** b))
+
     return max_digit_sum
 
 

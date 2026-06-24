@@ -32,7 +32,7 @@ def solve():
     """ Solve problem 58"""
     # like problem 28
     # ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
-    primes = set(prime_sieve(100000))
+    primes = set(prime_sieve(100000000))
     prime_count = 0
     count = 1
     end_of_ring = 1  # tracks end of previous ring

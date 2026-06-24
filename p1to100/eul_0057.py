@@ -22,34 +22,32 @@ In the first one-thousand expansions, how many fractions contain a
 numerator with more digits than denominator?
 """
 
-# calculates the nth expansion, returns float (not used in solution, but written to help understand concept)
-
 
 def get_expansion(n):
+    """ calculates the nth expansion, returns float
+    (not used in solution, but written to help understand concept) """
     total = 2
-    for i in range(1, n):
+    for _ in range(1, n):
         total = 2 + 1/total
     return 1 + 1/total
 
-# calculates the nth expansion as a fraction. Returns numerator, denominator
-
 
 def get_expansion_fraction(n):
+    """ calculates the nth expansion as a fraction. Returns numerator, denominator """
     num = 2
     denom = 1
-    for i in range(1, n):
+    for _ in range(1, n):
         num, denom = 2*num + denom, num
     return num + denom, num
 
 
-count = 0
-for n in range(1, 1000):
-    fraction = get_expansion_fraction(n)
-    if len(str(fraction[0])) > len(str(fraction[1])):
-        count += 1
-
-
 def solve():
+    """ solve problem 57 """
+    count = 0
+    for n in range(1, 1000):
+        fraction = get_expansion_fraction(n)
+        if len(str(fraction[0])) > len(str(fraction[1])):
+            count += 1
     return count
 
 

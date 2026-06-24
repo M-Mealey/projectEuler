@@ -22,30 +22,31 @@ except ModuleNotFoundError:
     from local_helpers import is_prime
 import itertools
 
-longest_sequence = 0
-best_prime = 0
-
 
 def int_to_tup(n):
+    """
+    convert int to its tuple representation
+    """
     return tuple((n % (10 ** b)) // (10 ** (b - 1)) for b in range(len(str(n)), 0, -1))
 
 
-def test_map(num, map):
+def test_map(num, tmap):
+    """ test if all numbers in map are prime? """
     # skip maps of all 0 or all 1
-    if 1 not in map or 0 not in map:
+    if 1 not in tmap or 0 not in tmap:
         return False
     num_tup = int_to_tup(num)
     strikes = 0
     smallest_prime = 999999999999
     for x in range(10):
-        if x == 0 and map[0] == 1:
+        if x == 0 and tmap[0] == 1:
             strikes += 1
             continue
         total = 0
-        for m in range(len(map)):
+        for i, m in enumerate(tmap):
             total *= 10
-            if map[m] == 0:
-                total += num_tup[m]
+            if m == 0:
+                total += num_tup[i]
             else:
                 total += x
         if not is_prime(total):
@@ -57,21 +58,20 @@ def test_map(num, map):
     return smallest_prime
 
 
-solution = 0
-prime_list = [x for x in range(100000, 200000) if is_prime(x)]
-for i in prime_list:
-    num_digits = len(str(i))
-    # generate all possible positions for *s, 1 = *, 0 = keep digit
-    digit_maps = itertools.product((0, 1), repeat=num_digits)
-    for m in digit_maps:
-        if test_map(i, m):
-            solution = test_map(i, m)
-            break
-    if solution:
-        break
-
-
 def solve():
+    """ solve problem 51 """
+    solution = 0
+    prime_list = [x for x in range(100000, 200000) if is_prime(x)]
+    for i in prime_list:
+        num_digits = len(str(i))
+        # generate all possible positions for *s, 1 = *, 0 = keep digit
+        digit_maps = itertools.product((0, 1), repeat=num_digits)
+        for m in digit_maps:
+            if test_map(i, m):
+                solution = test_map(i, m)
+                break
+        if solution:
+            break
     return solution
 
 

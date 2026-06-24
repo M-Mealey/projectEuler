@@ -35,28 +35,27 @@ theoretical nature of Lychrel numbers.
 
 
 def is_palindrome(intstr):
+    """ Returns True if int string is a palindrome, False otherwise """
     if len(intstr) <= 1:
         return True
-    elif len(intstr) == 2:
+    if len(intstr) == 2:
         return intstr[0] == intstr[1]
-    else:
-        return intstr[0] == intstr[-1] and is_palindrome(intstr[1:-1])
-
-
-lychrel_numbers = 0
-for i in range(1, 10000):
-    iterations = 0
-    current_number = i + int(str(i)[::-1])
-    while iterations < 50:
-        if is_palindrome(str(current_number)):
-            break
-        current_number = current_number + int(str(current_number)[::-1])
-        iterations += 1
-    if not is_palindrome(str(current_number)):
-        lychrel_numbers += 1
+    return intstr[0] == intstr[-1] and is_palindrome(intstr[1:-1])
 
 
 def solve():
+    """ solve problem 55 """
+    lychrel_numbers = 0
+    for i in range(1, 10000):
+        iterations = 0
+        current_number = i + int(str(i)[::-1])
+        while iterations < 50:
+            if is_palindrome(str(current_number)):
+                break
+            current_number = current_number + int(str(current_number)[::-1])
+            iterations += 1
+        if not is_palindrome(str(current_number)):
+            lychrel_numbers += 1
     return lychrel_numbers
 
 

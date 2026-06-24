@@ -38,12 +38,10 @@ most_common_chars = [' ', 'e', 't', 'a', 'o', 'i']
 bytes_by_key = {1: [], 2: [], 3: []}
 
 
-# given a byte list where all bytes are encrypted by the same key,
-# find the most common byte and return list of potential keys that would
-# correspond to this byte being one of the most common characters
-
-
 def get_likely_keys(b_list):
+    """ given a byte list where all bytes are encrypted by the same key,
+    find the most common byte and return list of potential keys that would
+    correspond to this byte being one of the most common characters"""
     byte_count = Counter(b_list)
     most_common_byte = byte_count.most_common(1)[0][0]
     # problem states valid cipher chars are lowercase letters
@@ -52,13 +50,11 @@ def get_likely_keys(b_list):
     return likely_keys
 
 
-# validate the plaintext by checking if at least 9 of first 10 words are common English words
-# using the word list from https://public.websites.umich.edu/~jlawler/wordlist.html
-# return True if passes, False if not
-
-
 def validate_message(txt, dict_file):
-    with open(dict_file) as f:
+    """ validate the plaintext by checking if at least 9 of first 10 words are common English words
+    using the word list from https://public.websites.umich.edu/~jlawler/wordlist.html
+    return True if passes, False if not"""
+    with open(dict_file, 'r', encoding='utf-8') as f:
         words = f.read().split('\n')
     first_ten_words = txt.split(" ")[:10]
     valid_words = [w for w in first_ten_words if w.lower() in words]
@@ -67,19 +63,21 @@ def validate_message(txt, dict_file):
     return False
 
 
-def solve(input_files=["resources/cipher1.txt", "resources/wordlist.txt"]):
+def solve(input_files=("resources/cipher1.txt", "resources/wordlist.txt")):
+    """ solve problem 59 """
     byte_data = []
-    with open(input_files[0]) as f:
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read()
         byte_data = [int(x) for x in data.split(',')]
 
-    for x in range(len(byte_data)):
-        bytes_by_key[x % 3 + 1].append(byte_data[x])
+    for i, x in enumerate(byte_data):
+        bytes_by_key[i % 3 + 1].append(x)
 
     k1 = get_likely_keys(bytes_by_key[1])
     k2 = get_likely_keys(bytes_by_key[2])
     k3 = get_likely_keys(bytes_by_key[3])
-    # in practice there's only one possible key for each list, but if there were more this would generate all combinations
+    # in practice there's only one possible key for each list,
+    # but if there were more this would generate all combinations
     possible_key_combos = list(product(k1, k2, k3))
 
     plaintext = ""
@@ -91,7 +89,7 @@ def solve(input_files=["resources/cipher1.txt", "resources/wordlist.txt"]):
             plaintext = decoded_string
     if not plaintext:
         print("ERROR: COULD NOT DECRYPT")
-    ascii_sum = sum([ord(c) for c in plaintext])
+    ascii_sum = sum(ord(c) for c in plaintext)
     return ascii_sum
 
 

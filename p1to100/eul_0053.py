@@ -21,15 +21,15 @@ How many values of nCr(n,r), for 1 =< n =< 100, are greater than one-million?
 
 from math import comb
 
-count = 0
-
-for x in range(23, 101):
-    for y in range(1, x+1):
-        if comb(x, y) > 1000000:
-            count += 1
-
 
 def solve():
+    """ solve problem 53 """
+    count = 0
+
+    for x in range(23, 101):
+        for y in range(1, x + 1):
+            if comb(x, y) > 1000000:
+                count += 1
     return count
 
 

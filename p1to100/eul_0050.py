@@ -21,24 +21,25 @@ try:
 except ModuleNotFoundError:
     from local_helpers import is_prime
 
-longest_sequence = 0
-best_prime = 0
-
-prime_list = [x for x in range(5000) if is_prime(x)]
-for i in range(len(prime_list)):
-    j = i+1
-    total = prime_list[i]
-    while total < 1000000:
-        if j > len(prime_list)-1:
-            break
-        total += prime_list[j]
-        if total < 1000000 and is_prime(total) and j-i+1 > longest_sequence:
-            best_prime = total
-            longest_sequence = j-i+1
-        j += 1
-
 
 def solve():
+    """ solve problem 50 """
+    longest_sequence = 0
+    best_prime = 0
+
+    prime_list = [x for x in range(5000) if is_prime(x)]
+    for i, p in enumerate(prime_list):
+        j = i + 1
+        total = p
+        while total < 1000000:
+            if j > len(prime_list) - 1:
+                break
+            total += prime_list[j]
+            if total < 1000000 and is_prime(total) and j - i + 1 > longest_sequence:
+                best_prime = total
+                longest_sequence = j - i + 1
+            j += 1
+
     return best_prime
 
 
