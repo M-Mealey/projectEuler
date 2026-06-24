@@ -15,33 +15,29 @@ Find the next triangle number that is also pentagonal and hexagonal.
 """
 import math
 
-# copied from problem 44
-# checks if given integer x is a pentagonal number
-
 
 def is_pentagonal(x):
+    """  checks if given integer x is a pentagonal number """
     n = (1 + math.sqrt(24 * x + 1)) / 6
     if n == math.floor(n):
         return True
     return False
 
-# checks if given integer x is hexagonal
-
 
 def is_hexagonal(x):
+    """ checks if given integer x is hexagonal """
     n = (math.sqrt(8*x+1) + 1) / 4
     if n == math.floor(n):
         return True
     return False
 
 
-triangle_gen = (int((n*(n+1))/2) for n in range(286, 100000))
-next_num = next(triangle_gen)
-while not (is_pentagonal(next_num) and is_hexagonal(next_num)):
-    next_num = next(triangle_gen)
-
-
 def solve():
+    """ solve problem 45 """
+    triangle_gen = (int((n * (n + 1)) / 2) for n in range(286, 100000))
+    next_num = next(triangle_gen)
+    while not (is_pentagonal(next_num) and is_hexagonal(next_num)):
+        next_num = next(triangle_gen)
     return next_num
 
 

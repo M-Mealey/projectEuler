@@ -22,6 +22,7 @@ import math
 
 
 def find_next_factor(x):
+    """ get the smallest integer (greater than 1) that is a factor of given int x """
     if not isinstance(x, int) or x <= 1:
         return -1
     for i in range(2, int(math.sqrt(x))+1):
@@ -31,6 +32,7 @@ def find_next_factor(x):
 
 
 def find_prime_factors(x):
+    """ finds prime factors of given int x. Returns set of integers """
     factors = set()
     f = find_next_factor(x)
     while f > 0:
@@ -41,6 +43,7 @@ def find_prime_factors(x):
 
 
 def solve():
+    """ solve problem 47 """
     counter = 0
     for i in range(1, 1000000):
         if len(find_prime_factors(i)) == 4:
@@ -49,6 +52,7 @@ def solve():
             counter = 0
         if counter == 4:
             return i - 3
+    return -1
 
 
 if __name__ == "__main__":

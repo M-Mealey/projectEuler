@@ -24,6 +24,7 @@ except ModuleNotFoundError:
 
 
 def solve():
+    """ solve problem 46 """
     twice_squares = [2 * x * x for x in range(1, 1000)]
     prime_set = set(prime_sieve(10000))
     for i in range(3, 10001, 2):
@@ -36,6 +37,7 @@ def solve():
                     sum_found = True
             if not sum_found:
                 return i
+    return -1
 
 
 if __name__ == "__main__":

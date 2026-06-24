@@ -14,7 +14,6 @@ Find the pair of pentagonal numbers, P[j] and P[k], for which their sum
 and difference is pentagonal and D = |P[k] - P[j]| is minimised; what is
 the value of D?
 """
-import math
 
 
 def solve():
