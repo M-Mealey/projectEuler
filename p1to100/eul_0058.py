@@ -23,28 +23,28 @@ what is the side length of the square spiral for which the ratio of primes
 along both diagonals first falls below 10%?
 """
 try:
-    from helpers import prime_sieve  # pylint: disable=E0611
+    from helpers import miller_rabin_prime_test  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+    from local_helpers import miller_rabin_prime_test
 
 
 def solve():
-    """ Solve problem 58"""
+    """ Solve problem 58 """
     # like problem 28
     # ring 0 is 1x1, ring 1 is 3x3, ring 2 is 5x5, ring 3 is 7x7, etc.
-    primes = set(prime_sieve(100000000))
     prime_count = 0
     count = 1
     end_of_ring = 1  # tracks end of previous ring
     side_len = 1
-    for r in range(1, 100000):
+    for r in range(1, 20000):
         side_len = 2 * r + 1
         # each corner is 2r steps up from the last corner, where r is the ring # the corner is in
-        corners = [end_of_ring + 2 * r * x for x in range(1, 5)]
+        corners = [end_of_ring + 2 * r * x for x in range(1, 4)]
         for c in corners:
-            if c in primes:
+            if miller_rabin_prime_test(c):
                 prime_count += 1
             count += 1
+        count += 1  # last corner is always square, increase count, don't need to check
         if (prime_count / count) < 0.1:
             break
         end_of_ring = end_of_ring + 8 * r
