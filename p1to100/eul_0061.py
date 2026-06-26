@@ -45,27 +45,28 @@ all_numbers = triangle_numbers + square_numbers + \
     pent_numbers + hex_numbers + hep_numbers + oct_numbers
 
 # "prefix" = first 2 digits, "suffix" = last 2 digits
-prefix_set = set([x//100 for x in all_numbers])
-suffix_set = set([x % 100 for x in all_numbers])
+prefix_set = set(x//100 for x in all_numbers)
+suffix_set = set(x % 100 for x in all_numbers)
 # filter out any numbers that have no possible prefix/suffix matches
-for s in range(len(number_sets)):
-    number_sets[s] = list(filter(
-        lambda x: x//100 in suffix_set and x % 100 in prefix_set, number_sets[s]))
+for i, s_i in enumerate(number_sets):
+    number_sets[i] = list(filter(
+        lambda x: x//100 in suffix_set and x % 100 in prefix_set, s_i))
 
-# create hashmap with prefix as key, value is tuple of the number and the type of number (3=triangle, 4=square, etc.)
+# create hashmap with prefix as key,
+# value is tuple of the number and the type of number (3=triangle, 4=square, etc.)
 numbers_by_prefix = {}
 for n in range(10, 100):
     numbers_by_prefix[n] = []
-for s in range(len(number_sets)):
+for i, s_i in enumerate(number_sets):
     # order is the "type" of number, 3 for triangle, 4 for square, etc.
-    order = s+3
-    for x in number_sets[s]:
+    order = i+3
+    for x in s_i:
         numbers_by_prefix.get(x//100).append((x, order))
-
-# attempt to find next item in given set, returns the set if found, otherwise returns empty list
 
 
 def try_to_find_next(curr_set):
+    """ attempt to find next item in given set, returns the set if found,
+    otherwise returns empty list """
     curr_num = curr_set[-1]
     ords_used = [i[1] for i in curr_set]
     candidates = [x for x in numbers_by_prefix[curr_num[0] %
@@ -74,24 +75,23 @@ def try_to_find_next(curr_set):
         if len(curr_set) == 5:  # if this is the last one
             if curr_set[0][0]//100 == c[0] % 100:  # if this completes the set
                 return curr_set + [c]
-            else:
-                return []
+            return []
         sol = try_to_find_next(curr_set + [c])
         if len(sol) == 6:
             return sol  # else, continue
     return []
 
 
-solution_list = []
-for t in number_sets[0]:
-    solution_list = try_to_find_next([(t, 3)])
-    if len(solution_list) == 6:
-        break
-
-solution = sum([x[0] for x in solution_list])
-
-
 def solve():
+    """ solve problem 61 """
+    solution_list = []
+    for t in number_sets[0]:
+        solution_list = try_to_find_next([(t, 3)])
+        if len(solution_list) == 6:
+            break
+
+    solution = sum(x[0] for x in solution_list)
+
     return solution
 
 

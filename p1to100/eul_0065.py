@@ -51,10 +51,9 @@ Find the sum of digits in the numerator of the 100th convergent of the
 continued fraction for e.
 """
 
-# generates the list of digits in the continuous fraction list of e, up to x digits
-
 
 def gen_e_cf_list(x):
+    """ generates the list of digits in the continuous fraction list of e, up to x digits """
     if x < 1:
         return []
     ls = [2]
@@ -65,11 +64,10 @@ def gen_e_cf_list(x):
             ls.append(1)
     return ls
 
-# calculates convergent from list of coefficients in a continued fraction
-# returns 2 ints, numerator and denominator
-
 
 def calculate_convergent(cf_list):
+    """ calculates convergent from list of coefficients in a continued fraction
+    returns 2 ints, numerator and denominator"""
     if len(cf_list) < 1:
         return 0
     cn = cf_list.pop()  # convergent numerator
@@ -80,11 +78,10 @@ def calculate_convergent(cf_list):
     return cn, cd
 
 
-num, den = calculate_convergent(gen_e_cf_list(100))
-total = sum([int(x) for x in str(num)])
-
-
 def solve():
+    """ solve problem 65 """
+    num, _ = calculate_convergent(gen_e_cf_list(100))
+    total = sum(int(x) for x in str(num))
     return total
 
 

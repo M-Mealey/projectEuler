@@ -7,10 +7,10 @@ The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the
 
 How many n-digit positive integers exist which are also an nth power?
 """
-# powers of single-digit numbers
 
 
 def check_powers(p):
+    """ check how many powers of a single digit number are p digits """
     matches = 0
     for i in range(1, 10):
         if len(str(i**p)) == p:
@@ -18,12 +18,12 @@ def check_powers(p):
     return matches
 
 
-match_count = 0
-for x in range(1, 100):
-    match_count += check_powers(x)
-
-
 def solve():
+    """ solve problem 63 """
+    match_count = 0
+    for x in range(1, 100):
+        match_count += check_powers(x)
+
     return match_count
 
 

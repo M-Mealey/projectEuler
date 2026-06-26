@@ -43,6 +43,7 @@ except ModuleNotFoundError:
 
 
 def find_next_factor(x):
+    """ find smallest factor of x"""
     if not isinstance(x, int) or x <= 1:
         return -1
     for i in range(2, int(math.sqrt(x))+1):
@@ -54,6 +55,7 @@ def find_next_factor(x):
 
 
 def find_prime_factors(x):
+    """ finds all prime factors of x """
     factors = set()
     f = find_next_factor(x)
     while f > 0:
@@ -64,6 +66,7 @@ def find_prime_factors(x):
 
 
 def calculate_totient(n):
+    """ calculate the totient of int n """
     prime_factors = find_prime_factors(n)
     totient = n
     for p in prime_factors:
@@ -71,19 +74,18 @@ def calculate_totient(n):
     return totient
 
 
-max_ratio = 3
-best_n = 6
-for n in range(7, 1000001):
-    if is_prime(n):
-        # a prime will never be the answer. for prime n, n/f(n) = n/(n-1) < 2
-        continue
-    ratio = n / calculate_totient(n)
-    if ratio > max_ratio:
-        max_ratio = ratio
-        best_n = n
-
-
 def solve():
+    """ solve problem 69 """
+    max_ratio = 3
+    best_n = 6
+    for n in range(7, 1000001):
+        if is_prime(n):
+            # a prime will never be the answer. for prime n, n/f(n) = n/(n-1) < 2
+            continue
+        ratio = n / calculate_totient(n)
+        if ratio > max_ratio:
+            max_ratio = ratio
+            best_n = n
     return best_n
 
 

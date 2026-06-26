@@ -23,8 +23,9 @@ efficient algorithm to solve it. ;o)
 """
 
 
-def solve(input_files=["resources/triangle.txt"]):
-    with open(input_files[0]) as f:
+def solve(input_files=("resources/triangle.txt",)):
+    """ solve problem 67 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         pyramid_input = f.read()
 
     # all below is copied from problem 16
@@ -37,15 +38,15 @@ def solve(input_files=["resources/triangle.txt"]):
     # Iterate over rows, tracking the largest sum up to each entry in the pyramid
     for r in pyramid[1:]:
         new_sums = []
-        for i in range(len(r)):
+        for i, r_i in enumerate(r):
             if i == 0:  # first in row, can only be reached from right
-                new_sums.append(sums[i] + r[i])
+                new_sums.append(sums[i] + r_i)
             elif i < len(r) - 1:  # entry in the middle, pick max of the two points leading there
-                new_sums.append(max(sums[i - 1] + r[i], sums[i] + r[i]))
+                new_sums.append(max(sums[i - 1] + r_i, sums[i] + r_i))
             else:  # last in row, can only be reached from left
-                new_sums.append(sums[i - 1] + r[i])
+                new_sums.append(sums[i - 1] + r_i)
         sums = new_sums
-    # end with row of sums representing the maximum sum for a path ending at each index in bottom row
+    # end with row of sums representing the maximum sum for path ending at each index in bottom row
     # print the largest sum
     return max(sums)
 
