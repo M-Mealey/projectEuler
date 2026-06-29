@@ -11,24 +11,38 @@ primes with this property.
 Find the lowest sum for a set of five primes for which any two primes
 concatenate to produce another prime.
 """
-
+from itertools import combinations
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import miller_rabin_prime_test, prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
+    from local_helpers import miller_rabin_prime_test, prime_sieve
 
 MAX_PRIME = 20000
-primes = [x for x in range(3, MAX_PRIME, 2) if is_prime(x)]
+primes = prime_sieve(MAX_PRIME)
 primes.remove(5)  # only prime that ends in 5 is 5
 
 
 def check_prime_pair(x, y):
-    """ check whether two primes concatenate to forma nother prime """
-    return is_prime(int(str(x)+str(y))) and is_prime(int(str(y)+str(x)))
+    """ check whether two primes concatenate to form another prime """
+    return miller_rabin_prime_test(int(str(x)+str(y))) and miller_rabin_prime_test(int(str(y)+str(x)))
 
 
 def solve():
     """ solve problem 60 """
+    all_prime_pairs = list(combinations(primes, 2))
+    print(all_prime_pairs)
+    prime_pair_lookup = {x:[] for x in primes}
+    print(prime_pair_lookup)
+    for p1, p2 in all_prime_pairs:
+        if check_prime_pair(p1, p2):
+            prime_pair_lookup[p1].append(p2)
+    for k in prime_pair_lookup:
+        if len(prime_pair_lookup[k]) >= 4:
+            print(k)
+            print(prime_pair_lookup[k])
+
+    return -1
+
     p_sum = 200000
     while len(primes) > 0:
         p = primes.pop(0)
