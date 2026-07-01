@@ -16,68 +16,37 @@ Find the value of n, 1 < n < 10^7, for which f(n) is a permutation of n
 and the ratio n/f(n) produces a minimum.
 """
 import math
+from collections import Counter
+from itertools import combinations
 try:
-    from helpers import is_prime  # pylint: disable=E0611
+    from helpers import is_prime, find_divisors, prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime
-
-# Copied from problem 47
+    from local_helpers import is_prime, find_divisors, prime_sieve
 
 
-def find_next_factor(x):
-    if not isinstance(x, int) or x <= 1:
-        return -1
-    for i in range(2, int(math.sqrt(x))+1):
-        if x % i == 0:
-            return i
-    return x
 
-# Copied from problem 47 and modified
-
-
-def find_prime_factors(x):
-    factors = set()
-    f = find_next_factor(x)
-    while f > 0:
-        factors.add(f)
-        x = int(x/f)
-        f = find_next_factor(x)
-    return factors
-
-
-def calculate_totient(n):
-    prime_factors = find_prime_factors(n)
-    totient = n
-    for p in prime_factors:
-        totient *= (1 - 1/p)
-    return totient
-
-
-# the stuff above was copied from last project, this is the only new function
-# checks if int x is a permutation of int y
 def is_permutation(x, y):
-    x_digits = [d for d in str(x)]
-    y_digits = [d for d in str(y)]
-    x_digits.sort()
-    y_digits.sort()
-    if x_digits == y_digits:
-        return True
-    return False
-
-
-min_ratio = 999999
-best_n = 6
-for n in range(7, 10000001):
-    if is_prime(n):
-        # a prime will never be the answer. for prime n, f(n) = (n-1), can't be a permutation of n
-        continue
-    totient = int(calculate_totient(n))
-    if is_permutation(n, totient) and n/totient < min_ratio:
-        min_ratio = n/totient
-        best_n = n
+    """ check if int x is a permutation of int y, return True/False """
+    return Counter(str(x)) == Counter(str(y))
 
 
 def solve():
+    min_ratio = 999999
+    best_n = 6
+    primes = set(prime_sieve(10000001))
+    four_digit_primes = {p for p in primes if 999<p<10000}
+    upper_limit = 10000001
+    # can't be a prime, but is a number with a minimal amount of factors
+    # try with 2 factors first?
+    # working backwards from solution, i know factors are 4 digit primes, need to find math reason
+    for p1, p2 in combinations(four_digit_primes, 2):
+        if p1 * p2 > upper_limit:
+            continue
+        n = p1 * p2
+        totient = int(n*(1 - 1/p1)*(1-1/p2))
+        if is_permutation(n, totient) and n / totient < min_ratio:
+            min_ratio = n / totient
+            best_n = n
     return best_n
 
 
