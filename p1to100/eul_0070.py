@@ -31,10 +31,20 @@ def is_permutation(x, y):
 
 
 def solve():
+    """ solve problem 70
+    minimizing n/f(n) means maximizing f(n)
+    Intuitively, the prime factors of n should be large to minimize f(n)
+    n can't be prime because f(n) - n-1, which will never be a permutation of n
+    Start by testing product of 2 primes, n=p1*p2, f(n) = (p1-1)*(p2-1)
+    minimize f(n) is less than n, so minimize difference between n and f(n)?
+    square root of 10^7 ~= 3162
+    ideal factors are close to square root of 10^7, not more than 4 digits
+    first 5 digit prime is p1 = 10007, largest possible p2 = 997
+    continue if necessary """
     min_ratio = 999999
     best_n = 6
-    primes = set(prime_sieve(10000001))
-    four_digit_primes = {p for p in primes if 999<p<10000}
+    primes = set(prime_sieve(10000001//11))
+    four_digit_primes = {p for p in primes if p<10000}
     upper_limit = 10000001
     # can't be a prime, but is a number with a minimal amount of factors
     # try with 2 factors first?
@@ -43,8 +53,8 @@ def solve():
         if p1 * p2 > upper_limit:
             continue
         n = p1 * p2
-        totient = int(n*(1 - 1/p1)*(1-1/p2))
-        if is_permutation(n, totient) and n / totient < min_ratio:
+        totient = (p1-1)*(p2-1)
+        if n / totient < min_ratio and is_permutation(n, totient):
             min_ratio = n / totient
             best_n = n
     return best_n
