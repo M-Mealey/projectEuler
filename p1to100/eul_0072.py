@@ -22,43 +22,57 @@ fractions for d 1,000,000?
 # the number of elements it adds to the set is the number of integers >d that are relatively prime
 # aka totient
 import math
+try:
+    from helpers import prime_sieve  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import prime_sieve
 
-# Copied from problem 47
-
+primes = set(prime_sieve(1000000))
+calculated_totients = {1:1, 2:1, 3:2, 4:2, 5:4, 6:2, 7:6, 8:4}
 
 def find_next_factor(x):
-    if not isinstance(x, int) or x <= 1:
-        return -1
+    """ find the smallest factor of int n """
     for i in range(2, int(math.sqrt(x))+1):
         if x % i == 0:
             return i
     return x
 
 
-def find_prime_factors(x):
-    factors = set()
-    f = find_next_factor(x)
-    while f > 0:
-        factors.add(f)
-        x = int(x/f)
-        f = find_next_factor(x)
-    return factors
-
-
 def calculate_totient(n):
-    prime_factors = find_prime_factors(n)
-    totient = n
-    for p in prime_factors:
-        totient *= (1 - 1/p)
-    return totient
+    """ calculate the totient for int n """
+    f1 = find_next_factor(n)
+    f2 = n//f1
+    return calculated_totients[f1] * calculated_totients[f2]
 
 
-total = 21
-for d in range(9, 1000001):
-    total += calculate_totient(d)
 
 
 def solve():
+    """ solve problem 72 """
+    total = 21
+    numbers_to_visit = set(range(9,1000001))
+    # visit prime numbers and their powers first, totient is easy to calculate
+    for p in primes:
+        tot = p-1
+        calculated_totients[p] = tot
+        if p>9:
+            numbers_to_visit.remove(p)
+            total += tot
+        tot = p-1
+        next_power = p*p
+        while next_power < 1000001:
+            tot *= p
+            calculated_totients[next_power] = tot
+            if next_power > 9:
+                numbers_to_visit.remove(next_power)
+                total += tot
+            next_power *= p
+    numbers_to_visit = sorted(numbers_to_visit, reverse=True)
+    while len(numbers_to_visit) > 0:
+        d = numbers_to_visit.pop()
+        tot = calculate_totient(d)
+        calculated_totients[d] = tot
+        total += tot
     return int(total)
 
 
