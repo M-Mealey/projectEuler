@@ -23,26 +23,34 @@ fractions for d 1,000,000?
 # aka totient
 import math
 try:
-    from helpers import prime_sieve  # pylint: disable=E0611
+    from helpers import is_prime, find_divisors, prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+    from local_helpers import is_prime, find_divisors, prime_sieve
 
 primes = set(prime_sieve(1000000))
 calculated_totients = {1:1, 2:1, 3:2, 4:2, 5:4, 6:2, 7:6, 8:4}
 
 def find_next_factor(x):
-    """ find the smallest factor of int n """
+    if not isinstance(x, int) or x <= 1:
+        return -1
     for i in range(2, int(math.sqrt(x))+1):
         if x % i == 0:
             return i
     return x
 
 
+
+
 def calculate_totient(n):
-    """ calculate the totient for int n """
     f1 = find_next_factor(n)
     f2 = n//f1
-    return calculated_totients[f1] * calculated_totients[f2]
+    new_f1, new_f2 = f1, f2
+    # make sure f1 and f2 are relatively prime by dividing f2 by f1
+    while new_f2 % f1 == 0:
+        new_f1 *= f1
+        new_f2 //= f1
+    f1, f2 = new_f1, new_f2
+    return int(calculated_totients[f1] * calculated_totients[f2])
 
 
 
