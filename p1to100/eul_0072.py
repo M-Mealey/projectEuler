@@ -23,65 +23,49 @@ fractions for d 1,000,000?
 # aka totient
 import math
 try:
-    from helpers import is_prime, find_divisors, prime_sieve  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime, find_divisors, prime_sieve
+    from local_helpers import prime_sieve
 
 primes = set(prime_sieve(1000000))
-calculated_totients = {1:1, 2:1, 3:2, 4:2, 5:4, 6:2, 7:6, 8:4}
+calculated_totients = {2: 1, 3: 2, 4: 2, 5: 4, 6: 2, 7: 6, 8: 4}
+
 
 def find_next_factor(x):
-    if not isinstance(x, int) or x <= 1:
-        return -1
+    """ find the smallest factor of int n, then return the highest power of it that divides n """
     for i in range(2, int(math.sqrt(x))+1):
         if x % i == 0:
-            return i
+            factor = i
+            while (x//factor) % i == 0:
+                factor *= i
+            return factor
     return x
 
 
-
-
 def calculate_totient(n):
+    """ calculate the totient for int n"""
     f1 = find_next_factor(n)
     f2 = n//f1
-    new_f1, new_f2 = f1, f2
-    # make sure f1 and f2 are relatively prime by dividing f2 by f1
-    while new_f2 % f1 == 0:
-        new_f1 *= f1
-        new_f2 //= f1
-    f1, f2 = new_f1, new_f2
     return int(calculated_totients[f1] * calculated_totients[f2])
 
 
-
-
-def solve():
+def solve(upper_limit=1000001):
     """ solve problem 72 """
-    total = 21
-    numbers_to_visit = set(range(9,1000001))
-    # visit prime numbers and their powers first, totient is easy to calculate
-    for p in primes:
-        tot = p-1
-        calculated_totients[p] = tot
-        if p>9:
-            numbers_to_visit.remove(p)
-            total += tot
-        tot = p-1
-        next_power = p*p
-        while next_power < 1000001:
-            tot *= p
-            calculated_totients[next_power] = tot
-            if next_power > 9:
-                numbers_to_visit.remove(next_power)
-                total += tot
-            next_power *= p
-    numbers_to_visit = sorted(numbers_to_visit, reverse=True)
-    while len(numbers_to_visit) > 0:
-        d = numbers_to_visit.pop()
+
+    for d in range(2, upper_limit):
+        if d in primes:
+            tot = d - 1
+            calculated_totients[d] = tot
+            next_power = d * d
+            while next_power < upper_limit:
+                tot *= d
+                calculated_totients[next_power] = tot
+                next_power *= d
+        if d in calculated_totients:
+            continue
         tot = calculate_totient(d)
         calculated_totients[d] = tot
-        total += tot
-    return int(total)
+    return sum(calculated_totients.values())
 
 
 if __name__ == "__main__":
