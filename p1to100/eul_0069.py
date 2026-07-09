@@ -40,7 +40,6 @@ except ModuleNotFoundError:
     from local_helpers import prime_sieve
 
 primes = set(prime_sieve(1000000))
-calculated_totients = {2: 1, 3: 2, 4: 2, 5: 4, 6: 2, 7: 6, 8: 4}
 
 
 def find_next_factor(x):
@@ -54,16 +53,16 @@ def find_next_factor(x):
     return x
 
 
-def calculate_totient(n):
+def calculate_totient(n, calculated_totients):
     """ calculate the totient for int n"""
     f1 = find_next_factor(n)
     f2 = n//f1
     return int(calculated_totients[f1] * calculated_totients[f2])
 
 
-def solve(upper_limit=1000001):
-    """ solve problem 69 """
-
+def create_totient_dict(upper_limit):
+    """ creates a dictionary with integer keys up to upper limit with totient fuction as value """
+    calculated_totients = {2: 1, 3: 2, 4: 2, 5: 4, 6: 2, 7: 6, 8: 4}
     for d in range(2, upper_limit):
         if d in primes:
             tot = d - 1
@@ -75,12 +74,19 @@ def solve(upper_limit=1000001):
                 next_power *= d
         if d in calculated_totients:
             continue
-        tot = calculate_totient(d)
+        tot = calculate_totient(d, calculated_totients)
         calculated_totients[d] = tot
+    return calculated_totients
+
+
+def solve(upper_limit=1000001):
+    """ solve problem 69 """
+    tot_dict = create_totient_dict(upper_limit)
+
     max_ratio = 0
     best_n = 2
-    for n in calculated_totients:
-        ratio = n/calculated_totients[n]
+    for n, f_n in tot_dict.items():
+        ratio = n/f_n
         if ratio > max_ratio:
             max_ratio = ratio
             best_n = n
