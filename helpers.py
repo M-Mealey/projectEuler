@@ -97,3 +97,42 @@ def miller_rabin_prime_test(n, k=40):
         else:
             return False
     return True
+
+
+def create_totient_dict(upper_limit):
+    """ creates a dictionary with integer keys up to upper limit with totient fuction as value
+     Used by problems 69 and 72 """
+
+    def find_next_factor(x):
+        """ find the smallest factor of int n,
+        then return the highest power of it that divides n """
+        for i in range(2, int(math.sqrt(x)) + 1):
+            if x % i == 0:
+                factor = i
+                while (x // factor) % i == 0:
+                    factor *= i
+                return factor
+        return x
+
+    def calculate_totient(n, calculated_totients):
+        """ calculate the totient for int n"""
+        f1 = find_next_factor(n)
+        f2 = n // f1
+        return int(calculated_totients[f1] * calculated_totients[f2])
+
+    calculated_totients = {2: 1, 3: 2, 4: 2, 5: 4, 6: 2, 7: 6, 8: 4}
+    primes = set(prime_sieve(1000000))
+    for d in range(2, upper_limit):
+        if d in primes:
+            tot = d - 1
+            calculated_totients[d] = tot
+            next_power = d * d
+            while next_power < upper_limit:
+                tot *= d
+                calculated_totients[next_power] = tot
+                next_power *= d
+        if d in calculated_totients:
+            continue
+        tot = calculate_totient(d, calculated_totients)
+        calculated_totients[d] = tot
+    return calculated_totients

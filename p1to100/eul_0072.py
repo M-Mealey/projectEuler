@@ -22,11 +22,11 @@ fractions for d 1,000,000?
 # the number of elements it adds to the set is the number of integers >d that are relatively prime
 # aka totient
 
-from eul_0069 import create_totient_dict
+
 try:
-    from helpers import prime_sieve  # pylint: disable=E0611
+    from helpers import prime_sieve, create_totient_dict  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+    from local_helpers import prime_sieve, create_totient_dict
 
 primes = set(prime_sieve(1000000))
 

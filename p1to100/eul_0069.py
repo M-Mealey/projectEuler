@@ -33,50 +33,13 @@ It can be seen that n=6 produces a maximum n/f(n) for n 10.
 
 Find the value of n 1,000,000 for which n/f(n) is a maximum.
 """
-import math
+
 try:
-    from helpers import prime_sieve  # pylint: disable=E0611
+    from helpers import prime_sieve, create_totient_dict  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+    from local_helpers import prime_sieve, create_totient_dict
 
 primes = set(prime_sieve(1000000))
-
-
-def find_next_factor(x):
-    """ find the smallest factor of int n, then return the highest power of it that divides n """
-    for i in range(2, int(math.sqrt(x))+1):
-        if x % i == 0:
-            factor = i
-            while (x//factor) % i == 0:
-                factor *= i
-            return factor
-    return x
-
-
-def calculate_totient(n, calculated_totients):
-    """ calculate the totient for int n"""
-    f1 = find_next_factor(n)
-    f2 = n//f1
-    return int(calculated_totients[f1] * calculated_totients[f2])
-
-
-def create_totient_dict(upper_limit):
-    """ creates a dictionary with integer keys up to upper limit with totient fuction as value """
-    calculated_totients = {2: 1, 3: 2, 4: 2, 5: 4, 6: 2, 7: 6, 8: 4}
-    for d in range(2, upper_limit):
-        if d in primes:
-            tot = d - 1
-            calculated_totients[d] = tot
-            next_power = d * d
-            while next_power < upper_limit:
-                tot *= d
-                calculated_totients[next_power] = tot
-                next_power *= d
-        if d in calculated_totients:
-            continue
-        tot = calculate_totient(d, calculated_totients)
-        calculated_totients[d] = tot
-    return calculated_totients
 
 
 def solve(upper_limit=1000001):
