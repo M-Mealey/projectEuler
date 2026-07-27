@@ -22,6 +22,7 @@ length.
 
 
 def get_first(ls):
+    """ find the character that always appears first """
     first_digits = set()
     not_first = set()
     for i in ls:
@@ -30,23 +31,24 @@ def get_first(ls):
     solutions = first_digits - not_first
     if len(solutions) > 1:
         print("OH NO")
-    else:
-        return solutions.pop()
+    return solutions.pop()
 
 
 def remove_char(ls, ch):
+    """ remove a character from the login attempts """
     new_list = []
-    for i in range(len(ls)):
-        if ch in ls[i]:
-            if len(ls[i]) > 1:
-                new_list.append(ls[i][1:])
+    for c in ls:
+        if ch in c:
+            if len(c) > 1:
+                new_list.append(c[1:])
         else:
-            new_list.append(ls[i])
+            new_list.append(c)
     return new_list
 
 
-def solve(input_files=["resources/keylog.txt"]):
-    with open(input_files[0]) as f:
+def solve(input_files=("resources/keylog.txt",)):
+    """ solve problem 79 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read().split()
     pw = ""
     while len(data) > 0:

@@ -27,18 +27,18 @@ the left of 3/7.
 
 import math
 
-closest_fraction = (2, 5)
-for d in range(7, 1000001):
-    x = (3/7) * d
-    if math.floor(x) == x:
-        x = x-1
-    else:
-        x = math.floor(x)
-    if (3/7) - (closest_fraction[0]/closest_fraction[1]) > (3/7) - (x/d):
-        closest_fraction = (x, d)
-
 
 def solve():
+    """ solve problem 71 """
+    closest_fraction = (2, 5)
+    for d in range(7, 1000001):
+        x = (3 / 7) * d
+        if math.floor(x) == x:
+            x = x - 1
+        else:
+            x = math.floor(x)
+        if (3 / 7) - (closest_fraction[0] / closest_fraction[1]) > (3 / 7) - (x / d):
+            closest_fraction = (x, d)
     return closest_fraction[0]
 
 

@@ -24,40 +24,29 @@ Given that L is the length of the wire, for how many values of L 2,000,000
 can exactly one right angle triangle be formed?
 """
 import math
-# solve using Euclid's formula for generating Pythagorean triples, via https://en.wikipedia.org/wiki/Pythagorean_triple
-
-# copied from problem 12
-
-
-def find_factors(x):
-    result = [1]
-    for i in range(2, int(math.sqrt(x))+1):
-        if x % i == 0:
-            result.append(i)
-    return result
-
-
-solutions_found = {}
-for m in range(1, math.ceil(math.sqrt(2000000))):
-    for n in range(1, m):
-        a = m**2 - n**2
-        b = 2*m*n
-        c = m**2 + n**2
-        P = a+b+c
-        if P < 1500000 and a**2 + b**2 == c**2:
-            for k in range(1, math.ceil(1500000/P)):
-                solution_set = solutions_found.get(P*k, set())
-                solution_tuple = (min(k*a, k*b), max(k*a, k*b))
-                solution_set.add(solution_tuple)
-                solutions_found[P*k] = solution_set
-total = 0
-for k in solutions_found:
-    solution_set = solutions_found[k]
-    if len(solution_set) == 1:
-        total += 1
+# solve using Euclid's formula for generating Pythagorean triples,
+# via https://en.wikipedia.org/wiki/Pythagorean_triple
 
 
 def solve():
+    """ solve problem 75 """
+    solutions_found = {}
+    for m in range(1, math.ceil(math.sqrt(2000000))):
+        for n in range(1, m):
+            a = m ** 2 - n ** 2
+            b = 2 * m * n
+            c = m ** 2 + n ** 2
+            p = a + b + c
+            if p < 1500000 and a ** 2 + b ** 2 == c ** 2:
+                for k in range(1, math.ceil(1500000 / p)):
+                    solution_set = solutions_found.get(p * k, set())
+                    solution_tuple = (min(k * a, k * b), max(k * a, k * b))
+                    solution_set.add(solution_tuple)
+                    solutions_found[p * k] = solution_set
+    total = 0
+    for k, v in solutions_found.items():
+        if len(v) == 1:
+            total += 1
     return total
 
 

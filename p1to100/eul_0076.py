@@ -16,10 +16,11 @@ two positive integers?
 """
 
 # copied coin solving logic from problem 31, but it's inefficient
-p_amounts = [x for x in range(1, 100)]
+p_amounts = list(range(1, 100))
 
 
 def find_combinations(coins, x):
+    """ find combinations that sum to a number """
     if len(coins) == 1:  # base case 2
         return x % coins[0] == 0
     next_coin = coins[-1]
@@ -33,6 +34,7 @@ def find_combinations(coins, x):
 
 
 def solve():
+    """ solve problem 76 """
     return find_combinations(p_amounts, 100)
 
 

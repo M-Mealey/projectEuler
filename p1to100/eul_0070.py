@@ -15,14 +15,12 @@ permutation of 79180.
 Find the value of n, 1 < n < 10^7, for which f(n) is a permutation of n
 and the ratio n/f(n) produces a minimum.
 """
-import math
 from collections import Counter
 from itertools import combinations
 try:
-    from helpers import is_prime, find_divisors, prime_sieve  # pylint: disable=E0611
+    from helpers import prime_sieve  # pylint: disable=E0611
 except ModuleNotFoundError:
-    from local_helpers import is_prime, find_divisors, prime_sieve
-
+    from local_helpers import prime_sieve
 
 
 def is_permutation(x, y):
@@ -44,7 +42,7 @@ def solve():
     min_ratio = 999999
     best_n = 6
     primes = set(prime_sieve(10000001//11))
-    four_digit_primes = {p for p in primes if p<10000}
+    four_digit_primes = {p for p in primes if p < 10000}
     upper_limit = 10000001
     # can't be a prime, but is a number with a minimal amount of factors
     # try with 2 factors first?

@@ -20,27 +20,29 @@ except ModuleNotFoundError:
     from local_helpers import is_prime
 
 # highest number to search
-max_number = 1000
-primes = [p for p in range(2, max_number) if is_prime(p)]
+MAX_NUMBER = 1000
+primes = [p for p in range(2, MAX_NUMBER) if is_prime(p)]
 
 # keep list of how many prime combos there are for each number
-prime_combos = [0 for _ in range(max_number + 1)]
-
-# for each prime, iterate over indexes in solution list
-# solutions for index i += solutions for index i - (prime), like appending the prime to the sum
-# no risk of double-counting because this goes in ascending order
-for p in primes:
-    # counting prime number itself as one way to write sum
-    prime_combos[p] += 1
-    for i in range(p, max_number):
-        prime_combos[i] += prime_combos[i-p]
+prime_combos = [0 for _ in range(MAX_NUMBER + 1)]
 
 
 def solve():
+    """ solve problem 77 """
+    # for each prime, iterate over indexes in solution list
+    # solutions for index i += solutions for index i - (prime), like appending the prime to the sum
+    # no risk of double-counting because this goes in ascending order
+    for p in primes:
+        # counting prime number itself as one way to write sum
+        prime_combos[p] += 1
+        for i in range(p, MAX_NUMBER):
+            prime_combos[i] += prime_combos[i - p]
+
     # print first index with more than 5000 combos
     for pc in prime_combos:
         if pc > 5000:
             return prime_combos.index(pc)
+    return -1
 
 
 if __name__ == "__main__":

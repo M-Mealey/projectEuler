@@ -17,27 +17,19 @@ How many fractions lie between 1/3 and 1/2 in the sorted set of reduced
 proper fractions for d 12,000?
 """
 import math
-
-
-# from problem 33
-# Find GCD of 2 integers using Euclidean algorithm
-def gcd(n1, n2):
-    a, b = max(n1, n2), min(n1, n2)
-    r = a % b
-    while r != 0:
-        a, b = b, r
-        r = a % b
-    return b
-
-
-total = 3
-for d in range(9, 12001):
-    min_num = math.ceil(d/3.0)
-    max_num = math.floor(d/2.0)
-    total += len([x for x in range(min_num, max_num+1) if gcd(x, d) == 1])
+try:
+    from helpers import gcd  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import gcd
 
 
 def solve():
+    """ solve problem 73 """
+    total = 3
+    for d in range(9, 12001):
+        min_num = math.ceil(d / 3.0)
+        max_num = math.floor(d / 2.0)
+        total += len([x for x in range(min_num, max_num + 1) if gcd(x, d) == 1])
     return int(total)
 
 

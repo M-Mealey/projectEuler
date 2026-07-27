@@ -33,22 +33,22 @@ import math
 
 
 def digit_factorial_sum(x):
-    return sum([math.factorial(int(c)) for c in str(x)])
-
-
-total = 0
-for x in range(2, 1000000):
-    seen = set()
-    seen.add(x)
-    next = digit_factorial_sum(x)
-    while next not in seen and len(seen) < 60:
-        seen.add(next)
-        next = digit_factorial_sum(next)
-    if len(seen) == 60 and next in seen:
-        total += 1
+    """ get digit factorial sum for int x """
+    return sum((math.factorial(int(c)) for c in str(x)))
 
 
 def solve():
+    """ solve problem 74 """
+    total = 0
+    for x in range(2, 1000000):
+        seen = set()
+        seen.add(x)
+        next_sum = digit_factorial_sum(x)
+        while next_sum not in seen and len(seen) < 60:
+            seen.add(next_sum)
+            next_sum = digit_factorial_sum(next_sum)
+        if len(seen) == 60 and next_sum in seen:
+            total += 1
     return total
 
 
