@@ -13,22 +13,23 @@ For the first one hundred natural numbers, find the total of the digital
 sums of the first one hundred decimal digits for all the irrational square
 roots.
 """
-from decimal import *
+from decimal import Decimal, getcontext
 import math
 
 # set decimal precision to 102 places to avoid rounding
 getcontext().prec = 102
 
-digit_sum = 0
-for x in range(1, 101):
-    if math.floor(math.sqrt(x)) == math.sqrt(x):
-        continue  # skip squares
-    s = Decimal(x).sqrt()
-    decimal_digits = str(s).replace(".", "")[:100]
-    digit_sum += sum([int(x) for x in decimal_digits])
-
 
 def solve():
+    """ solve problem 80 """
+    digit_sum = 0
+    for x in range(1, 101):
+        if math.floor(math.sqrt(x)) == math.sqrt(x):
+            continue  # skip squares
+        s = Decimal(x).sqrt()
+        decimal_digits = str(s).replace(".", "")[:100]
+        digit_sum += sum(int(x) for x in decimal_digits)
+
     return digit_sum
 
 
