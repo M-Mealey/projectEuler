@@ -32,11 +32,12 @@ try:
 except ModuleNotFoundError:
     from local_helpers import find_divisors, prime_sieve
 
-# for integer n, finds the unique lengths of all ps sets that can be made for that number
-# writes the values to ps_sizes
 
 
-def find_ps_set_sizes(n, ps_sizes, ps_set=[], the_sum=0, the_prod=1):
+
+def find_ps_set_sizes(n, ps_sizes, ps_set, the_sum=0, the_prod=1):
+    """ for integer n, finds the unique lengths of all ps sets that can be made for that number
+    writes the values to ps_sizes"""
     if the_sum > n or the_prod > n:
         return
     if the_sum == n and the_prod == n:
@@ -56,24 +57,28 @@ def find_ps_set_sizes(n, ps_sizes, ps_set=[], the_sum=0, the_prod=1):
         find_ps_set_sizes(n, ps_sizes, new_set, the_sum+div, the_prod*div)
 
 
-ps_minimums = [0 for _ in range(12001)]
 
-# no set is possible for primes because only factors are 1 and self, so sum of factors is always greater than the number
-primes_to_24k = set(prime_sieve(24001))
-
-for x in range(2, 24001):
-    if x in primes_to_24k:
-        continue
-    ps_sizes = set()
-    find_ps_set_sizes(x, ps_sizes)
-    for s in ps_sizes:
-        if s > 12000:
-            continue
-        if ps_minimums[s] == 0:
-            ps_minimums[s] = x
 
 
 def solve():
+    """ solve problem 88 """
+    ps_minimums = [0 for _ in range(12001)]
+
+    # no set is possible for primes because only factors are 1 and self,
+    # so sum of factors is always greater than the number
+    primes_to_24k = set(prime_sieve(24001))
+
+    for x in range(2, 24001):
+        if x in primes_to_24k:
+            continue
+        ps_sizes = set()
+        find_ps_set_sizes(x, ps_sizes, [])
+        for s in ps_sizes:
+            if s > 12000:
+                continue
+            if ps_minimums[s] == 0:
+                ps_minimums[s] = x
+
     return sum(set(ps_minimums))
 
 
