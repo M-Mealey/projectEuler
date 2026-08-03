@@ -20,14 +20,16 @@ Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by
 and down.
 """
 import bisect
+try:
+    from helpers import read_mtx  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import read_mtx
 
 
-# calculates minimum path from top left corner to each square in an array going only right or down
-# inputs: costs, a matrix of costs for each square
-#         path, a matrix the same size as costs for minimum path lengths to be written to
 
 
-def calculate_min_paths(costs, path):
+def calculate_min_paths_83(costs, path):
+    """ calculate the shortest path to each square, moving in any direction """
     path_candidates = []
     # first path candidate is starting point
     path_candidates.append((costs[0][0], 0))
@@ -54,14 +56,12 @@ def calculate_min_paths(costs, path):
             bisect.insort(path_candidates, path_right)
 
 
-def solve(input_files=["resources/matrix.txt"]):
-    with open(input_files[0]) as f:
-        rows = f.read().strip().split("\n")
-        data = [r.split(",") for r in rows]
-        data = [[int(x) for x in r] for r in data]
+def solve(input_files=("resources/matrix.txt",)):
+    """ solve problem 83 """
+    data = read_mtx(input_files[0])
 
     paths = [[0 for _ in range(80)] for __ in range(80)]
-    calculate_min_paths(data, paths)
+    calculate_min_paths_83(data, paths)
     return paths[79][79]
 
 

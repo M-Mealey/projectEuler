@@ -17,6 +17,7 @@ million rectangles, find the area of the grid with the nearest solution.
 
 
 def find_rectangles(l, w):
+    """ find number of rectangles in a l x w rectangle """
     total = 0
     for l0 in range(1, l+1):
         for w0 in range(1, w+1):
@@ -24,17 +25,19 @@ def find_rectangles(l, w):
     return total
 
 
-closest_rectangle_count = 0
-best_solution = [0, 0]
-for x in range(1, 100):
-    for y in range(1, x+1):
-        rec_count = find_rectangles(x, y)
-        if abs(closest_rectangle_count - 2000000) > abs(rec_count - 2000000):
-            closest_rectangle_count = rec_count
-            best_solution = [x, y]
+
 
 
 def solve():
+    """ solve problem 85 """
+    closest_rectangle_count = 0
+    best_solution = [0, 0]
+    for x in range(1, 100):
+        for y in range(1, x + 1):
+            rec_count = find_rectangles(x, y)
+            if abs(closest_rectangle_count - 2000000) > abs(rec_count - 2000000):
+                closest_rectangle_count = rec_count
+                best_solution = [x, y]
     return best_solution[0] * best_solution[1]
 
 

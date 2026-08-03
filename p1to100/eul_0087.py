@@ -20,22 +20,24 @@ try:
 except ModuleNotFoundError:
     from local_helpers import prime_sieve
 
-max_sum = 50000000
-prime_squares = prime_sieve(math.ceil(max_sum**0.5))
-prime_cubes = prime_sieve(math.ceil(max_sum**(1/3)))
-prime_quads = prime_sieve(math.ceil(max_sum**0.25))
 
-numbers = set()
-
-for x in prime_squares:
-    for y in prime_cubes:
-        for z in prime_quads:
-            sums = x**2 + y**3 + z**4
-            if sums < 50000000:
-                numbers.add(sums)
 
 
 def solve():
+    """ solve problem 87 """
+    max_sum = 50000000
+    prime_squares = prime_sieve(math.ceil(max_sum ** 0.5))
+    prime_cubes = prime_sieve(math.ceil(max_sum ** (1 / 3)))
+    prime_quads = prime_sieve(math.ceil(max_sum ** 0.25))
+
+    numbers = set()
+
+    for x in prime_squares:
+        for y in prime_cubes:
+            for z in prime_quads:
+                sums = x ** 2 + y ** 3 + z ** 4
+                if sums < 50000000:
+                    numbers.add(sums)
     return len(numbers)
 
 

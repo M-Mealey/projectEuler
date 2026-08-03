@@ -81,11 +81,12 @@ import itertools
 
 # Can solve with Markov chains, each square is a state, 40 x 40 state space
 
-# go to jail: if landing on 30, go to 10
-# so for each column take value in row 30 and add it to row 10, set row 30 to 0
+
 
 
 def go_to_jail_transition(tm):
+    """ go to jail: if landing on 30, go to 10
+    so for each column take value in row 30 and add it to row 10, set row 30 to 0"""
     for c in range(40):
         tm[10][c] += tm[30][c]
         tm[30][c] = 0
@@ -99,9 +100,9 @@ chance_destinations = {7: [0, 10, 11, 24, 39, 5, 15, 15, 12, 4],
 
 
 def chance_transition(tm):
+    """ add the chance destinations to the transition matrix """
     for c in range(40):
-        for ch in chance_destinations:
-            dest_list = chance_destinations[ch]
+        for ch, dest_list in chance_destinations.items():
             for dest in dest_list:
                 tm[dest][c] += (1/16) * tm[ch][c]
             tm[ch][c] = (6/16) * tm[ch][c]
@@ -112,6 +113,7 @@ comm_chest = [2, 17, 33]
 
 
 def cc_transition(tm):
+    """ add community chest to transition matrix """
     for c in range(40):
         for cc in comm_chest:
             tm[0][c] += (1/16) * tm[cc][c]
@@ -125,9 +127,10 @@ def cc_transition(tm):
 #        print(f"ERROR: sum of column {c} is {sum_of_column}")
 
 
-# a generic create transition matrix, input is d1 and d2, each is a list that represents
-# possible rolls for a die
+
 def create_transition_matrix(d1, d2):
+    """ a generic create transition matrix, input is d1 and d2, each is a list that represents
+    possible rolls for a die"""
     outcomes = list(itertools.product(d1, d2))
     doubles = len([x for x in outcomes if x[0] == x[1]])
     # probability of rolling 3 doubles
@@ -150,27 +153,31 @@ def create_transition_matrix(d1, d2):
     return transition_matrix
 
 
-# finds steady state of a transition matrix
-# input: tm, a transition matrix
-# returns: np.array
-def find_steady_state(tm):
-    T = np.array(tm)
-    for i in range(1000):
-        T = T @ tm
-    return T
 
-# returns index of top 3 most common states based on steady state matrix
-# input: tm, a transition matrix
-# returns: list with 3 indices
+def find_steady_state(tm):
+    """
+    finds steady state of a transition matrix
+    input: tm, a transition matrix
+    returns: np.array """
+    t = np.array(tm)
+    for i in range(1000):
+        t = t @ tm
+    return t
+
+
 
 
 def get_top_3(tm):
+    """ returns index of top 3 most common states based on steady state matrix
+    input: tm, a transition matrix
+    returns: list with 3 indices"""
     states = list(tm[:, 0])
     top_3 = sorted(states)[-3:]
     return [states.index(top_3[x]) for x in [2, 1, 0]]
 
 
 def solve():
+    """ solve problem 84 """
     d4 = [1, 2, 3, 4]
     trans_mtx = create_transition_matrix(d4, d4)
     steady_state = find_steady_state(trans_mtx)

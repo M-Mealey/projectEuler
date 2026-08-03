@@ -18,6 +18,10 @@ Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by
 80 matrix, from the left column to the right column.
 """
 import bisect
+try:
+    from helpers import read_mtx  # pylint: disable=E0611
+except ModuleNotFoundError:
+    from local_helpers import read_mtx
 
 # shortest path to any square in left column = square itself
 # for each of the next column, create queue of path lengths, fill with path from left to each square
@@ -25,20 +29,21 @@ import bisect
 #     repeat until every square filled in column
 
 
-# calculates minimum path from top left corner to each square in an array going only right or down
-# inputs: costs, a matrix of costs for each square
-#         path, a matrix the same size as costs for minimum path lengths to be written to
-
 
 def calculate_min_paths(costs, path):
+    """ calculates minimum path from top left corner to each square in an array
+    going only right or down
+    inputs: costs, a matrix of costs for each square
+    path, a matrix the same size as costs for minimum path lengths to be written to
+    """
     # first column
-    for r in range(len(costs)):
+    for r, _ in enumerate(costs):
         path[r][0] = costs[r][0]
     # other columns
     for c in range(1, len(costs[0])):
         path_candidates = []
-        for r in range(len(costs)):
-            path_len = path[r][c-1] + costs[r][c]
+        for r, row in enumerate(costs):
+            path_len = path[r][c-1] + row[c]
             path_candidates.append((path_len, r))
         path_candidates.sort()
         squares_filled = set()
@@ -57,15 +62,13 @@ def calculate_min_paths(costs, path):
                 bisect.insort(path_candidates, path_down)
 
 
-def solve(input_files=["resources/matrix.txt"]):
-    with open(input_files[0]) as f:
-        rows = f.read().strip().split("\n")
-        data = [r.split(",") for r in rows]
-        data = [[int(x) for x in r] for r in data]
+def solve(input_files=("resources/matrix.txt",)):
+    """ solve problem 82 """
+    data = read_mtx(input_files[0])
 
     paths = [[0 for _ in range(80)] for __ in range(80)]
     calculate_min_paths(data, paths)
-    min_path = min([r[79] for r in paths])
+    min_path = min(r[79] for r in paths)
     return min_path
 
 
