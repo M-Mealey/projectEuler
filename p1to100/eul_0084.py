@@ -76,8 +76,9 @@ with the six-digit modal string: 102400.
 If, instead of using two 6-sided dice, two 4-sided dice are used, find the
 six-digit modal string.
 """
-import numpy as np  # pylint: disable=E0401
 import itertools
+import numpy as np  # pylint: disable=E0401
+
 
 # Can solve with Markov chains, each square is a state, 40 x 40 state space
 
@@ -121,12 +122,6 @@ def cc_transition(tm):
             tm[cc][c] = (14/16) * tm[cc][c]
 
 
-# for c in range(40):
-#    sum_of_column = np.sum(transition_matrix[:,c])
-#    if sum_of_column != 1.0:
-#        print(f"ERROR: sum of column {c} is {sum_of_column}")
-
-
 
 def create_transition_matrix(d1, d2):
     """ a generic create transition matrix, input is d1 and d2, each is a list that represents
@@ -135,7 +130,7 @@ def create_transition_matrix(d1, d2):
     doubles = len([x for x in outcomes if x[0] == x[1]])
     # probability of rolling 3 doubles
     p_3_doubles = (doubles/len(outcomes))**3
-    max_roll = max([x[0]+x[1] for x in outcomes])
+    max_roll = max(x[0]+x[1] for x in outcomes)
     rolls = [0 for _ in range(max_roll+1)]
     for r in outcomes:
         roll = r[0]+r[1]
@@ -144,8 +139,8 @@ def create_transition_matrix(d1, d2):
 
     transition_matrix = np.zeros((40, 40))
     for c in range(40):
-        for i in range(len(rolls)):
-            transition_matrix[(i+c) % 40][c] = rolls[i] * (1-p_3_doubles)
+        for i, roll in enumerate(rolls):
+            transition_matrix[(i+c) % 40][c] = roll * (1-p_3_doubles)
         transition_matrix[10][c] += p_3_doubles
     go_to_jail_transition(transition_matrix)
     chance_transition(transition_matrix)
@@ -160,7 +155,7 @@ def find_steady_state(tm):
     input: tm, a transition matrix
     returns: np.array """
     t = np.array(tm)
-    for i in range(1000):
+    for _ in range(1000):
         t = t @ tm
     return t
 
