@@ -19,6 +19,7 @@ import math
 
 
 def solve():
+    """ solve problem 100 """
     t_min = 1000000000000
     # solve with pell equations
     c, d = 5, 7
