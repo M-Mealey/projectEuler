@@ -18,8 +18,11 @@ What is the largest square number formed by any member of such a pair?
 
 NOTE: All anagrams formed must be contained in the given text file.
 """
+# Should redo this, might be faster to start with squares and anagrams by number of digits,
+# then scan for words that fit those pairs instead of trying every digit combination
 
-# start by making set of all anagrams: dict with key of letters in order, value is set(?) of words with those letters
+# start by making set of all anagrams: dict with key of letters in order,
+# value is set(?) of words with those letters
 # then go through dict, for each key:
 # if only one value, skip this (no anagrams)
 #   find all unique letter to digit mappings, for each:
@@ -30,13 +33,14 @@ import itertools
 import math
 
 
-max_square = 9876543210
+MAX_SQUARE = 9876543210
 square_lookup = set()
-for i in range(1, math.isqrt(max_square)+1):
+for i in range(1, math.isqrt(MAX_SQUARE)+1):
     square_lookup.add(i*i)
 
 
 def is_square(x):
+    """ check if an int is square, returns True/False """
     return x in square_lookup
 
 
@@ -45,7 +49,8 @@ digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 
 def find_largest_anagram_square(k, ls):
-    unique_letters = sorted(list(set([ch for ch in k])))
+    """ find the largest anagram square, checking all possible letter to digit assignments """
+    unique_letters = sorted(list(set(ch for ch in k)))
     # print(unique_letters)
     largest_square = 0
     possible_digit_assignments = itertools.permutations(
@@ -59,12 +64,14 @@ def find_largest_anagram_square(k, ls):
                 numbers.append(int(num_word))
         square_numbers = [n for n in numbers if is_square(n)]
         if len(square_numbers) > 1:
-            largest_square = max(largest_square, max(square_numbers))
+            max_sq = max(square_numbers)
+            largest_square = max(largest_square, max_sq)
     return largest_square
 
 
-def solve(input_files=["resources/words.txt"]):
-    with open(input_files[0]) as f:
+def solve(input_files=("resources/words.txt",)):
+    """ solve problem 98 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         word_list = f.read()[1:-1].split('","')
 
     anagrams = {}
@@ -78,10 +85,10 @@ def solve(input_files=["resources/words.txt"]):
             anagrams[alpha_word] = an_list
 
     largest_square = 0
-    for k in anagrams:
-        if len(anagrams[k]) > 1:
+    for k, an_k in anagrams.items():
+        if len(an_k) > 1:
             largest_square = max(
-                largest_square, find_largest_anagram_square(k, anagrams[k]))
+                largest_square, find_largest_anagram_square(k, an_k))
     return largest_square
 
 

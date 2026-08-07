@@ -18,15 +18,15 @@ given above.
 import math
 
 
-def solve(input_files=["resources/base_exp.txt"]):
-    with open(input_files[0]) as f:
+def solve(input_files=("resources/base_exp.txt",)):
+    """ solve problem 99 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read().split()
 
     # list of list, each list contains base, exponent, and power when converted to base 2
     data_with_estimates = []
     largest_exponent = 0
-    for i in range(len(data)):
-        r = data[i]
+    for r in data:
         values = r.split(',')
         data_entry = [int(values[0]), int(values[1]),
                       math.log2(int(values[0])) * int(values[1])]
@@ -37,6 +37,7 @@ def solve(input_files=["resources/base_exp.txt"]):
     for row in data_with_estimates:
         if row[2] == largest_exponent:
             return 1 + data.index(str(row[0]) + "," + str(row[1]))
+    return -1
 
 
 if __name__ == "__main__":

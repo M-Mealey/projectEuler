@@ -15,6 +15,7 @@ Find the last ten digits of this prime number.
 
 
 def solve():
+    """ solve problem 97 """
     return (28433 * (2**7830457)+1) % 10000000000
 
 
