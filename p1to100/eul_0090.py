@@ -49,32 +49,33 @@ import itertools
 # start with case where only one 0 appears? die with 0 is d0
 # (1, x, x, x, x, x) + (x, x, x, x, x, x)
 
-# checks if dieA is lower than dieB
-# returns boolean, on tie returns True
 
 
-def is_lower_die(dieA, dieB, index=0):
+
+def is_lower_die(die_a, die_b, index=0):
+    """ checks if die_a is lower than die_b
+    returns boolean, on tie returns True"""
     if index > 5:  # tie
         return True
-    if dieA[index] != dieB[index]:
-        return dieA[index] < dieB[index]
-    else:
-        return is_lower_die(dieA, dieB, index+1)
-
-# adds a pair of dice to the set
+    if die_a[index] != die_b[index]:
+        return die_a[index] < die_b[index]
+    return is_lower_die(die_a, die_b, index+1)
 
 
-def add_dice_pair_to_set(dieA, dieB, the_set):
+
+def add_dice_pair_to_set(die_a, die_b, the_set):
+    """ adds a pair of dice to the set """
     # determine which is d0, d1
-    d0, d1 = dieA, dieB
-    if is_lower_die(dieB, dieA):
-        d0, d1 = dieB, dieA
+    d0, d1 = die_a, die_b
+    if is_lower_die(die_b, die_a):
+        d0, d1 = die_b, die_a
     the_set.add(tuple(d0 + d1))
 
-# checks if dice are valid and can create all squares
+
 
 
 def check_dice(d0, d1):
+    """ checks if dice are valid and can create all squares """
     squares = [(0, 1), (0, 4), (0, 9), (1, 6), (2, 5),
                (3, 6), (4, 9), (6, 4), (8, 1)]
     if len(d0) != 6 or len(d1) != 6:
@@ -91,12 +92,14 @@ def check_dice(d0, d1):
     if 9 in d1:
         d1_numbers.append(6)
     for sq in squares:
-        if (sq[0] not in d0_numbers or sq[1] not in d1_numbers) and (sq[1] not in d0_numbers or sq[0] not in d1_numbers):
+        if ((sq[0] not in d0_numbers or sq[1] not in d1_numbers)
+                and (sq[1] not in d0_numbers or sq[0] not in d1_numbers)):
             return False
     return True
 
 
 def simple_build_dice():
+    """ build all possible dice pairs, and check if all squares can be displayed """
     dice_pairs = set()
     available_digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     possible_dice_0 = list(itertools.combinations(available_digits, 6))
@@ -109,6 +112,7 @@ def simple_build_dice():
 
 
 def solve():
+    """ solve problem 90 """
     return simple_build_dice()
 
 

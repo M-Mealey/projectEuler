@@ -22,39 +22,41 @@ goes_to_1.add(1)
 goes_to_89 = set()
 goes_to_89.add(89)
 
-# computes sum of squares of digits in integer x
 
 
 def sum_square_digits(x):
+    """ computes sum of squares of digits in integer x """
     digits_squared = [int(c)**2 for c in str(x)]
     return sum(digits_squared)
 
 
-upper_bound = 10000000
-count = 0
-for i in range(1, upper_bound):
-    if i in goes_to_89:
-        count += 1
-    elif i in goes_to_1:
-        continue
-    else:
-        chain = set()
-        chain.add(i)
-        current_i = i
-        end = False
-        while not end:
-            current_i = sum_square_digits(current_i)
-            chain.add(current_i)
-            if current_i in goes_to_89:
-                count += 1
-                goes_to_89.update(chain)
-                end = True
-            elif current_i in goes_to_1:
-                goes_to_1.update(chain)
-                end = True
+
 
 
 def solve():
+    """ solve problem 92 """
+    upper_bound = 10000000
+    count = 0
+    for i in range(1, upper_bound):
+        if i in goes_to_89:
+            count += 1
+        elif i in goes_to_1:
+            continue
+        else:
+            chain = set()
+            chain.add(i)
+            current_i = i
+            end = False
+            while not end:
+                current_i = sum_square_digits(current_i)
+                chain.add(current_i)
+                if current_i in goes_to_89:
+                    count += 1
+                    goes_to_89.update(chain)
+                    end = True
+                elif current_i in goes_to_1:
+                    goes_to_1.update(chain)
+                    end = True
     return count
 
 

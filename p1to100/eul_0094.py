@@ -25,11 +25,11 @@ from math import sqrt, isqrt
 # get area with heron's formula: A = root(s(s-a)(s-b)(s-c))
 # semiperimeter = s = a+b+c/2
 
-max_perimeter = 1000000000
-tol = 0.000000001
-
+MAX_PERIMETER = 1000000000
 
 def calculate_tri_area_from_sides(a, b, c):
+    """ find area with heron's formula: A = root(s(s-a)(s-b)(s-c))
+    semiperimeter = s = a+b+c/2"""
     s = (a+b+c)/2
     return sqrt(s*(s-a)*(s-b)*(s-c))
 
@@ -40,12 +40,13 @@ def calculate_tri_area_from_sides(a, b, c):
 
 
 def solve():
+    """ solve problem 94"""
     perimeter_sum = 0
-    for c in range(4, max_perimeter // 3 + 2, 2):
+    for c in range(4, MAX_PERIMETER // 3 + 2, 2):
         for a in (c - 1, c + 1):
-            A_sq = (4 * a * a - c * c) // 4
-            A_rt = isqrt(A_sq)
-            if A_rt * A_rt == A_sq:
+            a_sq = (4 * a * a - c * c) // 4
+            a_rt = isqrt(a_sq)
+            if a_rt * a_rt == a_sq:
                 perimeter_sum += a + a + c
     return perimeter_sum
 

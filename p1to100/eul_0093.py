@@ -29,6 +29,7 @@ from itertools import combinations
 
 
 def apply_ops(st, x):
+    """ apply all four operations (+,-,*,/) to a set of numbers """
     results = set()
     for s in st:
         results.add(s+x)
@@ -43,15 +44,16 @@ def apply_ops(st, x):
 
 
 def get_possible_targets(t):
+    """ get possible target numbers for a set of four numbers """
     possible_targets = set()
     list_perms = itertools.permutations(t)
     for p in list_perms:
         im_set = set()
         im_set.add(p[0])
-        im_set_2 = apply_ops(im_set, p[1])
-        im_set_3 = apply_ops(im_set_2, p[2])
-        im_set_4 = apply_ops(im_set_3, p[3])
-        for i in im_set_4:
+        im_set = apply_ops(im_set, p[1])
+        im_set = apply_ops(im_set, p[2])
+        im_set = apply_ops(im_set, p[3])
+        for i in im_set:
             if i > 0 and abs(i - round(i)) < 0.00001:
                 possible_targets.add(i)
         # 2 and 2
@@ -69,32 +71,35 @@ def get_possible_targets(t):
             if i > 0 and abs(i - round(i)) < 0.00001:
                 possible_targets.add(i)
     # find all the solutions :)
-    # all of the operations can be thought of as pairwise, so start with 2 from set, apply all operations b/t
-    # them to get intermediate set, then apply operations between each in intermediate set and 3rd number to get
+    # all of the operations can be thought of as pairwise,
+    # so start with 2 from set, apply all operations b/t them to get intermediate set,
+    # then apply operations between each in intermediate set and 3rd number to get
     # another intermediate set, then 4th number, then switch 3rd and 4th number
     # repeat for every initial 2 numbers
     return possible_targets
 
 
 def find_longest_sequence(s):
+    """ find the longest sequence in a set, starting with 1 """
     n = 1
     while n in s:
         n += 1
     return n-1
 
 
-combos = combinations(range(10), 4)
-longest_sequence = 0
-best_combo = (0, 0, 0, 0)
-for c in combos:
-    res = get_possible_targets(c)
-    s_len = find_longest_sequence(res)
-    if s_len > longest_sequence:
-        longest_sequence = s_len
-        best_combo = c
-
 
 def solve():
+    """ solve problem 93 """
+    combos = combinations(range(10), 4)
+    longest_sequence = 0
+    best_combo = (0, 0, 0, 0)
+    for c in combos:
+        res = get_possible_targets(c)
+        s_len = find_longest_sequence(res)
+        if s_len > longest_sequence:
+            longest_sequence = s_len
+            best_combo = c
+
     return f"{best_combo[0]}{best_combo[1]}{best_combo[2]}{best_combo[3]}"
 
 

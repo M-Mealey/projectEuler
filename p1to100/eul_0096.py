@@ -44,23 +44,26 @@ number found in the top left corner of the solution grid above.
 # most basic way to solve is by trying numbers and backtracking when a conflict arises
 # feels inefficient but the puzzle is only 9x9
 
-# returns coordinates of next zero in grid, two ints: row, column. zero-indexed
-# returns -1, -1 if none found
+
 def next_zero(gr):
-    for r in range(len(gr)):
-        if '0' in gr[r]:
-            c = gr[r].index('0')
+    """ returns coordinates of next zero in grid, two ints: row, column. zero-indexed
+    returns -1, -1 if none found"""
+    for r, gr_r in enumerate(gr):
+        if '0' in gr_r:
+            c = gr_r.index('0')
             return r, c
     return -1, -1
 
 # recursive function, try to solve given grid by
 # 1) finding next empty square (read left to right, top to bottom)
-# 1.5) optional step for efficiency: check rest of row/column/square for which numbers are used, make list of candidates
+# 1.5) optional step for efficiency: check rest of row/column/square for which numbers are used,
+# make list of candidates
 # 2) copy grid, insert candidate, call self with new copy
 #    if no candidates, return None (backtrack)
 
 
 def try_solve(gr):
+    """ try the next brute force solution """
     r, c = next_zero(gr)
     if r == -1 or c == -1:  # no zeros, grid is complete
         return gr
@@ -83,8 +86,9 @@ def try_solve(gr):
     return None
 
 
-def solve(input_files=["resources/sudoku.txt"]):
-    with open(input_files[0]) as f:
+def solve(input_files=("resources/sudoku.txt",)):
+    """ solve problem 96 """
+    with open(input_files[0], 'r', encoding='utf-8') as f:
         data = f.read().split()
 
     grids = []

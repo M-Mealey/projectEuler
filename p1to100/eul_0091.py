@@ -14,15 +14,16 @@ formed?
 """
 import itertools
 
-size = 50
-tol = 0.000001  # tolerance
+SIZE = 50
+TOL = 0.000001  # TOLerance
 # get all possible points (x,y) where 0 <= x,y <= 50
 points = list(itertools.product(
-    [x for x in range(size+1)], [y for y in range(size+1)]))
+    list(range(SIZE+1)), list(range(SIZE+1))))
 points.remove((0, 0))
 
 
 def points_collinear(x, y, z):
+    """ check if three points are collinear by comparing slopes """
     if x[0] == y[0] or y[0] == z[0] or x[0] == z[0]:  # there's an undefined slope here
         # points are collinear if all are undefined
         return x[0] == y[0] == z[0]
@@ -31,38 +32,42 @@ def points_collinear(x, y, z):
     return s0 == s1 == s2
 
 
-count = 0
-for i in range(len(points)):
-    for j in range(i+1, len(points)):
-        p0 = (0, 0)
-        p1 = points[i]
-        p2 = points[j]
-        is_right = False
-        if points_collinear(p0, p1, p2):
-            continue
-        if 0 == p1[0] or p1[0] == p2[0] or 0 == p2[0]:  # there's an undefined slope
-            # reassign points to a0, a1, a2 so that undefined slope is between a0 and a1
-            a0, a1, a2 = p0, p1, p2
-            if p1[0] == p2[0]:
-                a0, a1, a2 = p1, p2, p0
-            elif p0[0] == p2[0]:
-                a0, a1, a2 = p0, p2, p1
-            # now look for zero slope between a2 and other points OR line a0a2 perpendicular to line a1a2
-            if a2[1] == a0[1] or a2[1] == a1[1]:  # This is a right triangle?
-                count += 1
-            else:
-                s1 = (a2[1]-a0[1])/(a2[0] - a0[0])
-                s2 = (a2[1]-a1[1])/(a2[0] - a1[0])
-                if s1 * s2 == -1:
-                    count += 1
-        else:
-            s0, s1, s2 = (p0[1] - p1[1]) / (p0[0] - p1[0]), (p1[1] -
-                                                             p2[1]) / (p1[0] - p2[0]), (p0[1] - p2[1]) / (p0[0] - p2[0])
-            if -1-tol <= s0 * s1 <= -1+tol or -1-tol <= s1*s2 <= -1+tol or -1-tol <= s0 * s2 <= -1+tol:
-                count += 1
 
 
 def solve():
+    """ solve problem 91 """
+    count = 0
+    for i, pt_i in enumerate(points):
+        for j in range(i + 1, len(points)):
+            p0 = (0, 0)
+            p1 = pt_i
+            p2 = points[j]
+            if points_collinear(p0, p1, p2):
+                continue
+            if 0 == p1[0] or p1[0] == p2[0] or 0 == p2[0]:  # there's an undefined slope
+                # reassign points to a0, a1, a2 so that undefined slope is between a0 and a1
+                a0, a1, a2 = p0, p1, p2
+                if p1[0] == p2[0]:
+                    a0, a1, a2 = p1, p2, p0
+                elif p0[0] == p2[0]:
+                    a0, a1, a2 = p0, p2, p1
+                # now look for zero slope between a2 and other points
+                # OR line a0a2 perpendicular to line a1a2
+                if a2[1] == a0[1] or a2[1] == a1[1]:  # This is a right triangle?
+                    count += 1
+                else:
+                    s1 = (a2[1] - a0[1]) / (a2[0] - a0[0])
+                    s2 = (a2[1] - a1[1]) / (a2[0] - a1[0])
+                    if s1 * s2 == -1:
+                        count += 1
+            else:
+                s0, s1, s2 = (p0[1] - p1[1]) / (p0[0] - p1[0]), (p1[1] -
+                        p2[1]) / (p1[0] - p2[0]), (p0[1] - p2[1]) / (
+                        p0[0] - p2[0])
+                if (-1 - TOL <= s0 * s1 <= -1 + TOL or -1 - TOL <= s1 * s2 <= -1 + TOL
+                        or -1 - TOL <= s0 * s2 <= -1 + TOL):
+                    count += 1
+
     return count
 
 
