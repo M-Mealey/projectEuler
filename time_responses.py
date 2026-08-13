@@ -77,7 +77,7 @@ def run_problem(x):
 
 
 if __name__ == '__main__':
-    problems = range(100, 108)
+    problems = range(1, 108)
     results = {}
 
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:

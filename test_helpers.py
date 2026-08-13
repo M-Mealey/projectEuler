@@ -1,15 +1,18 @@
+""" Tests for the helper functions """
 from helpers import is_prime, find_divisors, prime_sieve
 import pytest  # pylint: disable=E0401
 
 
 def test_is_prime():
-    assert is_prime(7) == True
-    assert is_prime(8) == False
-    assert is_prime(689461) == True
-    assert is_prime(1939) == False
+    """ Test the is_prime function with several values """
+    assert is_prime(7) is True
+    assert is_prime(8) is False
+    assert is_prime(689461) is True
+    assert is_prime(1939) is False
 
 
 def test_find_divisors():
+    """ Test find_divisors """
     assert find_divisors(20) == [1, 2, 4, 5, 10]
     assert find_divisors(1) == [1]
     assert find_divisors(0) == [1]
@@ -17,6 +20,7 @@ def test_find_divisors():
 
 
 def test_prime_sieve():
+    """ Test prime_sieve """
     assert prime_sieve(5) == [2, 3]
     assert prime_sieve(15) == [2, 3, 5, 7, 11, 13]
     assert prime_sieve(66) == [2, 3, 5, 7, 11, 13,

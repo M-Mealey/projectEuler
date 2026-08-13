@@ -136,3 +136,11 @@ def create_totient_dict(upper_limit):
         tot = calculate_totient(d, calculated_totients)
         calculated_totients[d] = tot
     return calculated_totients
+
+def read_mtx(input_file):
+    """ read a matrix input file """
+    with open(input_file, 'r', encoding='utf-8') as f:
+        rows = f.read().strip().split("\n")
+        data = [r.split(",") for r in rows]
+        data = [[int(x) for x in r] for r in data]
+    return data
