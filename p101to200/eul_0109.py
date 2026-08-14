@@ -65,4 +65,29 @@ Incredibly there are 42336 distinct ways of checking out in total.
 How many distinct ways can a player checkout with a score less than 100?
 """
 
+# number of way to checkout is number of possible final targets and
+# for each final target, the number of ways to checkout with 2 or less?
+TARGETS = {"S1": 1, "S2": 2, "S3": 3, "S4": 4, "S5": 5, "S6": 6, "S7": 7, "S8": 8, "S9": 9,
+           "S10": 10, "S11": 11, "S12": 12, "S13": 13, "S14": 14, "S15": 15, "S16": 16, "S17": 17,
+           "S18": 18, "S19": 19, "S20": 20, "S25": 25,
+           "D1": 2, "D2": 4, "D3": 6, "D4": 8, "D5": 10, "D6": 12, "D7": 14, "D8": 16, "D9": 18,
+           "D10": 20, "D11": 22, "D12": 24, "D13": 26, "D14": 28, "D15": 30, "D16": 32, "D17": 34,
+           "D18": 36, "D19": 38, "D20": 40, "D25": 50,
+           "T1": 3, "T2": 6, "T3": 9, "T4": 12, "T5": 15, "T6": 18, "T7": 21, "T8": 24, "T9": 27,
+           "T10": 30, "T11": 33, "T12": 36, "T13": 39, "T14": 42, "T15": 45, "T16": 48, "T17": 51,
+           "T18": 54, "T19": 57, "T20": 60
+           }
 
+def ways_to_checkout(x):
+    """ find the number of ways to checkout with a score of x """
+    final_targets = {t for t in TARGETS if t[0]=='D' and TARGETS[t] <= x }
+    print(final_targets)
+
+
+def solve():
+    """ solve problem 109 """
+    return -1
+
+if __name__ == "__main__":
+    print(solve())
+    print(ways_to_checkout(6))
