@@ -1,6 +1,7 @@
 import time
 import importlib.util
 import os
+import sys
 import multiprocessing
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -37,6 +38,9 @@ def get_mod_folder(x):
 
 def _worker(queue, module_name, module_path, args):
     """Run solve() in a child process and put (elapsed, result) on queue."""
+    module_dir = os.path.dirname(os.path.abspath(module_path))
+    if module_dir not in sys.path:
+        sys.path.append(module_dir)
     spec = importlib.util.spec_from_file_location(module_name, module_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

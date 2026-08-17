@@ -17,10 +17,7 @@ Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by
 """
 # go row by row,
 # minimal path sum for this square = min(path sum to left, path sum of square above) + square
-try:
-    from helpers import read_mtx  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import read_mtx
+from local_helpers import read_mtx
 
 
 

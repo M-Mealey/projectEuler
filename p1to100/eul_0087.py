@@ -15,10 +15,7 @@ How many numbers below fifty million can be expressed as the sum of a
 prime square, prime cube, and prime fourth power?
 """
 import math
-try:
-    from helpers import prime_sieve  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+from local_helpers import prime_sieve
 
 
 

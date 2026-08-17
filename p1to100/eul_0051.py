@@ -16,10 +16,7 @@ necessarily adjacent digits) with the same digit, is part of an eight
 prime value family.
 """
 
-try:
-    from helpers import is_prime  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import is_prime
+from local_helpers import is_prime
 import itertools
 
 

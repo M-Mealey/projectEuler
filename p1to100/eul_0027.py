@@ -26,10 +26,7 @@ Find the product of the coefficients, a and b, for the quadratic
 expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
-try:
-    from helpers import prime_sieve  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+from local_helpers import prime_sieve
 
 
 prime_set = set(prime_sieve(1000000))

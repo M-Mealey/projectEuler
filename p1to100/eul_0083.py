@@ -20,10 +20,7 @@ Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by
 and down.
 """
 import bisect
-try:
-    from helpers import read_mtx  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import read_mtx
+from local_helpers import read_mtx
 
 
 

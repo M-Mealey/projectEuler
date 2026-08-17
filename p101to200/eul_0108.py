@@ -22,10 +22,7 @@ exceeds one-thousand?
 NOTE: This problem is an easier version of problem 110; it is strongly
 advised that you solve this one first.
 """
-try:
-    from helpers import prime_sieve  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+from local_helpers import prime_sieve
 import math
 import itertools
 

@@ -17,10 +17,7 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as the sum of a
 prime and twice a square?
 """
-try:
-    from helpers import prime_sieve  # pylint: disable=E0611
-except ModuleNotFoundError:
-    from local_helpers import prime_sieve
+from local_helpers import prime_sieve
 
 
 def solve():
