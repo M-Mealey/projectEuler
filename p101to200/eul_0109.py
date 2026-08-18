@@ -64,6 +64,7 @@ Incredibly there are 42336 distinct ways of checking out in total.
 
 How many distinct ways can a player checkout with a score less than 100?
 """
+import itertools
 
 # number of way to checkout is number of possible final targets and
 # for each final target, the number of ways to checkout with 2 or less?
@@ -78,16 +79,40 @@ TARGETS = {"S1": 1, "S2": 2, "S3": 3, "S4": 4, "S5": 5, "S6": 6, "S7": 7, "S8": 
            "T18": 54, "T19": 57, "T20": 60
            }
 
+
 def ways_to_checkout(x):
     """ find the number of ways to checkout with a score of x """
-    final_targets = {t for t in TARGETS if t[0]=='D' and TARGETS[t] <= x }
+    final_targets = {t for t, v in TARGETS.items() if t[0] == 'D' and v <= x}
     print(final_targets)
 
 
 def solve():
-    """ solve problem 109 """
-    return -1
+    """ solve problem 109
+    find all ways to checkout, then count how many have a total less than 100 """
+    double_targets = {t: v for t, v in TARGETS.items() if t[0] == 'D'}
+
+    # Case 1: one dart (21 ways)
+    total = 21  # there are 21 doubles, each is less than 100
+
+    # Case 2: two darts (1302 ways)
+    combinations = itertools.product(TARGETS.keys(), double_targets.keys())
+    for c in combinations:
+        score = TARGETS[c[0]] + TARGETS[c[1]]
+        if score < 100:
+            total += 1
+
+    # Case 3: three darts (41013 ways)
+    # first 2 darts are chosen from all combinations of 2 TARGETS with replacement (1953)
+    # then for each combo, pair with every double to complete checkout (1953 * 21 = 41013)
+    first_2_darts = itertools.combinations_with_replacement(TARGETS.keys(), 2)
+    for f in first_2_darts:
+        score = TARGETS[f[0]] + TARGETS[f[1]]
+        for v in double_targets.values():
+            if score + v < 100:
+                total += 1
+
+    return total
+
 
 if __name__ == "__main__":
     print(solve())
-    print(ways_to_checkout(6))
