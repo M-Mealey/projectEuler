@@ -48,6 +48,35 @@ def solve():
     """ solve problem 110
     similar to 108, but I need to make it more efficient for this problem
     """
+    target_n = 4_000_000
+    target_n_sq = 2*target_n
+    # start by finding factors if all primes are to first power, this creates an upper bound
+    # because if any prime number was used 0 times and there was a bigger prime used x times,
+    # then another number could be created by dividing by big prime x times and multiplying
+    # by smaller prime x times, and it would have the same number of factors and be smaller
+    upper_bound_powers = [2]
+    while math.prod(x+1 for x in upper_bound_powers) < target_n_sq:
+        upper_bound_powers.append(2)
+    print("upper bound")
+    print(upper_bound_powers)
+    upper_bound = get_number_from_pf_array(upper_bound_powers)
+    print(upper_bound)
+    # try to optimize, starting from end. ? can get rid of biggest prime and increase other
+    # exponents so that there are still over 8M factors
+    # also, exponent list will always be in order greatest to least, otherwise you could
+    # make a smaller number with the same amount of factors
+    upper_bound_powers = [8]
+    while math.prod(x+1 for x in upper_bound_powers) < target_n_sq and get_number_from_pf_array(upper_bound_powers) < upper_bound:
+        upper_bound_powers.append(8)
+    print("upper bound")
+    print(upper_bound_powers)
+    print(get_number_from_pf_array(upper_bound_powers))
+
+    # we know the shortest list with all 2s, now try adding 4s? find shortest list with 1 4,
+    # then 2, etc? knowing that the highest power is 6, this would be easy to solve iteratively,
+    # but I want a solution that works without that knowledge
+
+
     # could optimize further by stopping iteration when remaining permutations
     # are bigger than current?
     powers = {0, 2, 4, 6}
@@ -60,6 +89,7 @@ def solve():
     for i in perms:
         if math.prod(x+1 for x in i) > 8000000:
             min_n_squared = min(min_n_squared, get_number_from_pf_array(i))
+            print(i)
     return int(math.sqrt(min_n_squared))
 
 
