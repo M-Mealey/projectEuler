@@ -57,40 +57,46 @@ def solve():
     upper_bound_powers = [2]
     while math.prod(x+1 for x in upper_bound_powers) < target_n_sq:
         upper_bound_powers.append(2)
-    print("upper bound")
-    print(upper_bound_powers)
     upper_bound = get_number_from_pf_array(upper_bound_powers)
-    print(upper_bound)
-    # try to optimize, starting from end. ? can get rid of biggest prime and increase other
-    # exponents so that there are still over 8M factors
-    # also, exponent list will always be in order greatest to least, otherwise you could
-    # make a smaller number with the same amount of factors
-    upper_bound_powers = [8]
-    while math.prod(x+1 for x in upper_bound_powers) < target_n_sq and get_number_from_pf_array(upper_bound_powers) < upper_bound:
-        upper_bound_powers.append(8)
-    print("upper bound")
-    print(upper_bound_powers)
-    print(get_number_from_pf_array(upper_bound_powers))
-
-    # we know the shortest list with all 2s, now try adding 4s? find shortest list with 1 4,
-    # then 2, etc? knowing that the highest power is 6, this would be easy to solve iteratively,
-    # but I want a solution that works without that knowledge
 
 
-    # could optimize further by stopping iteration when remaining permutations
-    # are bigger than current?
-    powers = {0, 2, 4, 6}
-    # looked at answer, these are the factors
-    prime_factors = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
-    # everything after 7 is only to first power
-    possible_powers = get_possible_powers(prime_factors)
-    perms = list(itertools.product(*possible_powers))
-    min_n_squared = float('inf')
-    for i in perms:
-        if math.prod(x+1 for x in i) > 8000000:
-            min_n_squared = min(min_n_squared, get_number_from_pf_array(i))
-            print(i)
-    return int(math.sqrt(min_n_squared))
+    # now we know the maximum number of primes being considered here
+    prime_candidates = PRIMES[:len(upper_bound_powers)]
+    # get a simple upper bound on what the exponent can be: log(base prime x)upper_bound
+    def build_list(primes, num_factors, max_pow, current_n):
+        # for each possible power (pp): is current n_sq * primes[0]**pp > upper_bound?
+        # if true, pp is too large
+        # written differently, the largest possible power is min(max_pow, math.floor(log(primes[0]) upper_bound/current_n))
+        if len(primes) == 0:
+            return []
+        max_pow = min(max_pow, math.ceil(math.log(upper_bound/current_n, primes[0])))
+        if max_pow < 2:
+            return []
+
+        power_candidates = list(range(2, max_pow+1, 2))
+        candidate_lists = []
+        for p in power_candidates:
+            if num_factors * (p+1) > target_n_sq: # list is done
+                candidate_lists.append([p])
+            elif len(primes) > 1:
+                found_list = [p] + build_list(primes[1:], num_factors * (p+1), p, current_n * primes[0]**p)
+                if num_factors * math.prod(x+1 for x in found_list) > target_n_sq:
+                    candidate_lists.append(found_list)
+
+        if len(candidate_lists) == 0:
+            return []
+        candidate_list_values = [math.prod(p**e for e,p in zip(arr,primes)) for arr in candidate_lists]
+        min_candidate_list_value = min(candidate_list_values)
+        index_of_best_candidate_list = candidate_list_values.index(min_candidate_list_value)
+        best_candidate_list = candidate_lists[index_of_best_candidate_list]
+
+        return best_candidate_list
+
+    power_of_2_upper_bound = math.floor(math.log(upper_bound, 2))
+    sol_list = build_list(prime_candidates, 1, power_of_2_upper_bound, 1)
+
+    return int(math.sqrt(get_number_from_pf_array(sol_list)))
+
 
 
 if __name__ == "__main__":
