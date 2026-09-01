@@ -28,21 +28,7 @@ def get_number_from_pf_array(arr):
     """ calculate an int from the array representing the powers of its prime factorization """
     return math.prod(p**e for e,p in zip(arr,PRIMES))
 
-def get_possible_powers(p_f):
-    """ right now I'm cheating and using the solution to know that all factors greater than 7
-    in prime factorization of n have an exponent of 1, = exponent of 2 in p.f. of n^2
-    using logic from this blog post:
-    https://www.ivl-projecteuler.com/overview-of-problems/40-difficulty/problem-110
-    exponent of 2 is no more than 60, exp of 3 is less than 23, exp of 5 is less than 12,
-    exp of 7 is less than 5, all other exponents are 0 or 1 """
-    possible_powers = []
-    max_exp = {2: 60, 3: 23, 5:12, 7:5}
-    for p in p_f:
-        if p < 8:
-            possible_powers.append([0,2,4,6])
-        else:
-            possible_powers.append([0,2])
-    return possible_powers
+
 
 def solve():
     """ solve problem 110
