@@ -51,27 +51,45 @@ Find the sum of all S(10, d).
 
 def get_int(d_list, d, wc):
     total = 0
+    wc_iter = iter(wc)
     for p in d_list:
         total *= 10
         if p=='d':
             total += d
         elif p=='*':
-            total += wc
+            total += next(wc_iter)
     return total
 
-from local_helpers import miller_rabin_prime_test
+from local_helpers import miller_rabin_prime_test, prime_sieve
 import itertools
+from sympy import isprime
 
 # check if M(10, d) == 9
 # won't be the case for d=0
 # create permutations of d, *
-number_templates = ['d'] * 9 + ['*'] * 1
-unique_perms = set(itertools.permutations(number_templates))
-print(unique_perms)
-wildcard_digits = {0, 2, 3, 4, 5, 6, 7, 8, 9}
-d = 1
-for p in unique_perms:
-    print(p)
-    results = [get_int(p, d, w) for w in wildcard_digits]
-    prime_results = [x for x in results if miller_rabin_prime_test(x)]
-    print(prime_results)
+
+m_dict = {}
+s_dict = {}
+digits_completed = set()
+m_candidate = 9
+while m_candidate > 1 and len(digits_completed) < 10:
+    number_templates = ['d'] * m_candidate + ['*'] * (10-m_candidate)
+    unique_perms = set(itertools.permutations(number_templates))
+    for d in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        if d in digits_completed:
+            continue
+        print(f"d={d}")
+        wildcard_digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+        wildcard_digits.remove(d)
+        wildcard_combos = itertools.product(wildcard_digits, repeat=10-m_candidate)
+        results = [[get_int(p, d, w) for w in wildcard_combos] for p in unique_perms]
+        prime_results = [x for l in results for x in l if x > 999999999 and isprime(x)]
+        if len(prime_results) > 0:
+            digits_completed.add(d)
+            m_dict[d] = m_candidate
+            s_dict[d] = sum(prime_results)
+    m_candidate -= 1
+print(m_dict)
+print(s_dict)
+
+
