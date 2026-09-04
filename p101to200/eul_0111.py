@@ -78,10 +78,9 @@ while m_candidate > 1 and len(digits_completed) < 10:
     for d in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
         if d in digits_completed:
             continue
-        print(f"d={d}")
         wildcard_digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
         wildcard_digits.remove(d)
-        wildcard_combos = itertools.product(wildcard_digits, repeat=10-m_candidate)
+        wildcard_combos = set(itertools.product(wildcard_digits, repeat=10-m_candidate))
         results = [[get_int(p, d, w) for w in wildcard_combos] for p in unique_perms]
         prime_results = [x for l in results for x in l if x > 999999999 and isprime(x)]
         if len(prime_results) > 0:
@@ -89,7 +88,8 @@ while m_candidate > 1 and len(digits_completed) < 10:
             m_dict[d] = m_candidate
             s_dict[d] = sum(prime_results)
     m_candidate -= 1
-print(m_dict)
-print(s_dict)
+
+
+print(sum(s_dict.values()))
 
 
