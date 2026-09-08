@@ -49,7 +49,14 @@ For d = 0 to 9, the sum of all S(4, d) is 273700.
 Find the sum of all S(10, d).
 """
 
+import itertools
+from local_helpers import miller_rabin_prime_test # pylint: disable=E0611
+
 def get_int(d_list, d, wc):
+    """
+    get integer from list of 'd' and '*' where d is an int, * represents wildcard
+    wildcard digits are given as a tuple and inserted in order
+    """
     total = 0
     wc_iter = iter(wc)
     for p in d_list:
@@ -60,36 +67,31 @@ def get_int(d_list, d, wc):
             total += next(wc_iter)
     return total
 
-from local_helpers import miller_rabin_prime_test, prime_sieve
-import itertools
-from sympy import isprime
+def solve():
+    """ solve problem 111 """
+    total = 0
+    digits_completed = set()
+    m_candidate = 9
+    # Iterate over values of m, starting with 9 and decreasing, until M(10, d) is found for all d
+    while m_candidate > 1 and len(digits_completed) < 10:
+        number_templates = ['d'] * m_candidate + ['*'] * (10-m_candidate)
+        unique_perms = set(itertools.permutations(number_templates))
+        for d in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            if d in digits_completed:
+                continue
+            wildcard_digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+            wildcard_digits.remove(d)
+            wildcard_combos = set(itertools.product(wildcard_digits, repeat=10-m_candidate))
+            results = [[get_int(p, d, w) for w in wildcard_combos] for p in unique_perms]
+            prime_results = [x for l in results for x in l
+                             if x > 999999999 and miller_rabin_prime_test(x)]
+            if len(prime_results) > 0:
+                digits_completed.add(d)
+                total += sum(prime_results)
+        m_candidate -= 1
 
-# check if M(10, d) == 9
-# won't be the case for d=0
-# create permutations of d, *
-
-m_dict = {}
-s_dict = {}
-digits_completed = set()
-m_candidate = 9
-while m_candidate > 1 and len(digits_completed) < 10:
-    number_templates = ['d'] * m_candidate + ['*'] * (10-m_candidate)
-    unique_perms = set(itertools.permutations(number_templates))
-    for d in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        if d in digits_completed:
-            continue
-        wildcard_digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-        wildcard_digits.remove(d)
-        wildcard_combos = set(itertools.product(wildcard_digits, repeat=10-m_candidate))
-        results = [[get_int(p, d, w) for w in wildcard_combos] for p in unique_perms]
-        prime_results = [x for l in results for x in l if x > 999999999 and isprime(x)]
-        if len(prime_results) > 0:
-            digits_completed.add(d)
-            m_dict[d] = m_candidate
-            s_dict[d] = sum(prime_results)
-    m_candidate -= 1
+    return total
 
 
-print(sum(s_dict.values()))
-
-
+if __name__ == "__main__":
+    print(solve())
