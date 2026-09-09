@@ -18,7 +18,7 @@ Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by
 80 matrix, from the left column to the right column.
 """
 import bisect
-from local_helpers import read_mtx
+from local_helpers import read_mtx # pylint: disable=E0611
 
 # shortest path to any square in left column = square itself
 # for each of the next column, create queue of path lengths, fill with path from left to each square

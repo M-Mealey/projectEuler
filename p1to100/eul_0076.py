@@ -14,27 +14,17 @@ It is possible to write five as a sum in exactly six different ways:
 How many different ways can one hundred be written as a sum of at least
 two positive integers?
 """
+import os
+import sys
 
-# copied coin solving logic from problem 31, but it's inefficient
-p_amounts = list(range(1, 100))
-
-
-def find_combinations(coins, x):
-    """ find combinations that sum to a number """
-    if len(coins) == 1:  # base case 2
-        return x % coins[0] == 0
-    next_coin = coins[-1]
-    remaining_coins = coins[:-1]
-    ways = 0
-    remaining_amt = x
-    while remaining_amt >= 0:
-        ways += find_combinations(remaining_coins, remaining_amt)
-        remaining_amt -= next_coin
-    return ways
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+from eul_0031 import find_combinations_dynamic as find_combinations   # pylint: disable=C0413
 
 
 def solve():
     """ solve problem 76 """
+    # copied coin solving logic from problem 31, but it's inefficient
+    p_amounts = list(range(1, 100))
     return find_combinations(p_amounts, 100)
 
 

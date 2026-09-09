@@ -22,6 +22,12 @@ would take over twenty billion years to check them all. There is an
 efficient algorithm to solve it. ;o)
 """
 
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+from eul_0018 import find_max_path_sum   # pylint: disable=C0413
+
 
 def solve(input_files=("resources/triangle.txt",)):
     """ solve problem 67 """
@@ -34,21 +40,7 @@ def solve(input_files=("resources/triangle.txt",)):
     pyramid = [[int(x) for x in row.strip().split()]
                for row in pyramid_input.strip().splitlines()]
 
-    sums = pyramid[0]
-    # Iterate over rows, tracking the largest sum up to each entry in the pyramid
-    for r in pyramid[1:]:
-        new_sums = []
-        for i, r_i in enumerate(r):
-            if i == 0:  # first in row, can only be reached from right
-                new_sums.append(sums[i] + r_i)
-            elif i < len(r) - 1:  # entry in the middle, pick max of the two points leading there
-                new_sums.append(max(sums[i - 1] + r_i, sums[i] + r_i))
-            else:  # last in row, can only be reached from left
-                new_sums.append(sums[i - 1] + r_i)
-        sums = new_sums
-    # end with row of sums representing the maximum sum for path ending at each index in bottom row
-    # print the largest sum
-    return max(sums)
+    return find_max_path_sum(pyramid)
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ fractions for d 1,000,000?
 # aka totient
 
 
-from local_helpers import prime_sieve, create_totient_dict
+from local_helpers import prime_sieve, create_totient_dict # pylint: disable=E0611
 
 primes = set(prime_sieve(1000000))
 

@@ -17,7 +17,7 @@ How many fractions lie between 1/3 and 1/2 in the sorted set of reduced
 proper fractions for d 12,000?
 """
 import math
-from local_helpers import gcd
+from local_helpers import gcd # pylint: disable=E0611
 
 
 def solve():

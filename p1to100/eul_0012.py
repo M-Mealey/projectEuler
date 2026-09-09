@@ -24,8 +24,8 @@ divisors.
 What is the value of the first triangle number to have over five hundred
 divisors?
 """
-import time
-from local_helpers import find_divisors
+
+from local_helpers import find_divisors # pylint: disable=E0611
 
 
 def triangle_num_n(n):
@@ -54,8 +54,4 @@ def solve(num_divisors=500):
 
 
 if __name__ == "__main__":
-    start_time = time.perf_counter()
     print(solve())
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    # print(elapsed_time)

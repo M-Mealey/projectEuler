@@ -34,7 +34,7 @@ It can be seen that n=6 produces a maximum n/f(n) for n 10.
 Find the value of n 1,000,000 for which n/f(n) is a maximum.
 """
 
-from local_helpers import prime_sieve, create_totient_dict
+from local_helpers import prime_sieve, create_totient_dict # pylint: disable=E0611
 
 primes = set(prime_sieve(1000000))
 

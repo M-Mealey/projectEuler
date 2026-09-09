@@ -16,8 +16,8 @@ necessarily adjacent digits) with the same digit, is part of an eight
 prime value family.
 """
 
-from local_helpers import is_prime
 import itertools
+from local_helpers import is_prime # pylint: disable=E0611
 
 
 def int_to_tup(n):

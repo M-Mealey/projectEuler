@@ -8,7 +8,7 @@ that the 6th prime is 13.
 What is the 10001st prime number?
 """
 
-from local_helpers import prime_sieve
+from local_helpers import prime_sieve # pylint: disable=E0611
 
 
 def solve():

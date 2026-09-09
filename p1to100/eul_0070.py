@@ -17,7 +17,7 @@ and the ratio n/f(n) produces a minimum.
 """
 from collections import Counter
 from itertools import combinations
-from local_helpers import prime_sieve
+from local_helpers import prime_sieve # pylint: disable=E0611
 
 
 def is_permutation(x, y):

@@ -8,7 +8,7 @@ Find the sum of all the primes below two million.
 """
 
 
-from local_helpers import prime_sieve
+from local_helpers import prime_sieve # pylint: disable=E0611
 
 
 def solve():

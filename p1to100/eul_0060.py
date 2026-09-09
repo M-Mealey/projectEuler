@@ -12,7 +12,7 @@ Find the lowest sum for a set of five primes for which any two primes
 concatenate to produce another prime.
 """
 from itertools import combinations
-from local_helpers import miller_rabin_prime_test, prime_sieve
+from local_helpers import miller_rabin_prime_test, prime_sieve # pylint: disable=E0611
 
 MAX_PRIME = 2000000
 prime_list = prime_sieve(MAX_PRIME)

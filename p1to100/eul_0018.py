@@ -54,14 +54,8 @@ PYRAMID_INPUT = """
                04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 """
 
-
-def solve():
-    """ solve problem 18 """
-    # copied from problem 11
-    # convert string to array of ints
-    pyramid = [[int(x) for x in row.strip().split()]
-               for row in PYRAMID_INPUT.strip().splitlines()]
-
+def find_max_path_sum(pyramid):
+    """ find the max path sum from the top of the pyramid to the bottom """
     sums = pyramid[0]
     # Iterate over rows, tracking the largest sum up to each entry in the pyramid
     for r in pyramid[1:]:
@@ -77,6 +71,17 @@ def solve():
     # end with row of sums representing the maximum sum for a path ending at that index
     # print the largest sum
     return max(sums)
+
+def solve():
+    """ solve problem 18 """
+    # copied from problem 11
+    # convert string to array of ints
+    pyramid = [[int(x) for x in row.strip().split()]
+               for row in PYRAMID_INPUT.strip().splitlines()]
+
+    return find_max_path_sum(pyramid)
+
+
 
 
 if __name__ == "__main__":
