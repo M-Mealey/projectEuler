@@ -18,9 +18,8 @@ NOTE: This problem is a much more difficult version of problem 108 and
 as it is well beyond the limitations of a brute force approach it requires
 a clever implementation.
 """
-from local_helpers import prime_sieve
 import math
-import itertools
+from local_helpers import prime_sieve # pylint: disable=E0611
 
 PRIMES = prime_sieve(100)
 
@@ -34,14 +33,14 @@ def solve():
     """ solve problem 110
     similar to 108, but I need to make it more efficient for this problem
     """
-    target_n = 4_000_000
-    target_n_sq = 2*target_n
+    target_n_factors = 4_000_000
+    target_n_sq_factors = 2*target_n_factors
     # start by finding factors if all primes are to first power, this creates an upper bound
     # because if any prime number was used 0 times and there was a bigger prime used x times,
     # then another number could be created by dividing by big prime x times and multiplying
     # by smaller prime x times, and it would have the same number of factors and be smaller
     upper_bound_powers = [2]
-    while math.prod(x+1 for x in upper_bound_powers) < target_n_sq:
+    while math.prod(x+1 for x in upper_bound_powers) < target_n_sq_factors:
         upper_bound_powers.append(2)
     upper_bound = get_number_from_pf_array(upper_bound_powers)
 
@@ -52,7 +51,8 @@ def solve():
     def build_list(primes, num_factors, max_pow, current_n):
         # for each possible power (pp): is current n_sq * primes[0]**pp > upper_bound?
         # if true, pp is too large
-        # written differently, the largest possible power is min(max_pow, math.floor(log(primes[0]) upper_bound/current_n))
+        # written differently, the largest possible power is
+        # min(max_pow, math.floor(log(primes[0]) upper_bound/current_n))
         if len(primes) == 0:
             return []
         max_pow = min(max_pow, math.ceil(math.log(upper_bound/current_n, primes[0])))
@@ -62,16 +62,18 @@ def solve():
         power_candidates = list(range(2, max_pow+1, 2))
         candidate_lists = []
         for p in power_candidates:
-            if num_factors * (p+1) > target_n_sq: # list is done
+            if num_factors * (p+1) > target_n_sq_factors: # list is done
                 candidate_lists.append([p])
             elif len(primes) > 1:
-                found_list = [p] + build_list(primes[1:], num_factors * (p+1), p, current_n * primes[0]**p)
-                if num_factors * math.prod(x+1 for x in found_list) > target_n_sq:
+                found_list = [p] + build_list(primes[1:], num_factors * (p+1), p,
+                                              current_n * primes[0]**p)
+                if num_factors * math.prod(x+1 for x in found_list) > target_n_sq_factors:
                     candidate_lists.append(found_list)
 
         if len(candidate_lists) == 0:
             return []
-        candidate_list_values = [math.prod(p**e for e,p in zip(arr,primes)) for arr in candidate_lists]
+        candidate_list_values = [math.prod(p**e for e,p in zip(arr,primes))
+                                 for arr in candidate_lists]
         min_candidate_list_value = min(candidate_list_values)
         index_of_best_candidate_list = candidate_list_values.index(min_candidate_list_value)
         best_candidate_list = candidate_lists[index_of_best_candidate_list]
@@ -87,5 +89,3 @@ def solve():
 
 if __name__ == "__main__":
     print(solve())
-
-

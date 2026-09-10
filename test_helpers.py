@@ -1,6 +1,5 @@
 """ Tests for the helper functions """
 from helpers import is_prime, find_divisors, prime_sieve
-import pytest  # pylint: disable=E0401
 
 
 def test_is_prime():

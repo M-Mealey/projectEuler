@@ -1,3 +1,6 @@
+"""
+run all the problems and time how long it takes to run
+"""
 import time
 import importlib.util
 import os
@@ -28,10 +31,11 @@ TIMEOUT_SECONDS = 5
 
 
 
-def get_mod_folder(x):
-    if 0 < x <= 100:
+def get_mod_folder(p):
+    """ get the folder that a problem solution is in """
+    if 0 < p <= 100:
         return "p1to100"
-    if 100 < x <= 200:
+    if 100 < p <= 200:
         return "p101to200"
     return None
 
@@ -50,20 +54,20 @@ def _worker(queue, module_name, module_path, args):
     queue.put((elapsed, result))
 
 
-def run_problem(x):
+def run_problem(n):
     """Run problem x and return a result string."""
-    fmt_x = f"{x:04d}"
-    module_folder = get_mod_folder(x)
+    fmt_x = f"{n:04d}"
+    module_folder = get_mod_folder(n)
     if not module_folder:
-        return f"problem {x}: module folder not found"
+        return f"problem {n}: module folder not found"
 
     module_path = os.path.join(module_folder, f"eul_{fmt_x}.py")
     if not os.path.exists(module_path):
         return None
 
     args = ()
-    if x in resource_files:
-        full_file_paths = [module_folder + "/" + f for f in resource_files[x]]
+    if n in resource_files:
+        full_file_paths = [module_folder + "/" + f for f in resource_files[n]]
         args = (full_file_paths,)
 
     queue = multiprocessing.Queue()
@@ -75,9 +79,9 @@ def run_problem(x):
     if p.is_alive():
         p.terminate()
         p.join()
-        return f"\033[31mproblem {x}: timed out (>{TIMEOUT_SECONDS}s)\033[0m"
+        return f"\033[31mproblem {n}: timed out (>{TIMEOUT_SECONDS}s)\033[0m"
     elapsed, result = queue.get()
-    return f"problem {x}: {result} ({elapsed:.4f}s)"
+    return f"problem {n}: {result} ({elapsed:.4f}s)"
 
 
 if __name__ == '__main__':
@@ -85,7 +89,7 @@ if __name__ == '__main__':
     results = {}
 
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
-        future_to_x = {executor.submit(run_problem, x): x for x in problems}
+        future_to_x = {executor.submit(run_problem, p_x): p_x for p_x in problems}
         for future in as_completed(future_to_x):
             results[future_to_x[future]] = future.result()
 

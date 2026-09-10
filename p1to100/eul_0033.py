@@ -15,16 +15,8 @@ denominator.
 If the product of these four fractions is given in its lowest common
 terms, find the value of the denominator.
 """
+from local_helpers import gcd # pylint: disable=E0611
 
-
-def gcd(n1, n2):
-    """ Find GCD of 2 integers using Euclidean algorithm """
-    a, b = max(n1, n2), min(n1, n2)
-    r = a % b
-    while r != 0:
-        a, b = b, r
-        r = a % b
-    return b
 
 
 def solve():
