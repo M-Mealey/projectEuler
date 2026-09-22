@@ -1,0 +1,60 @@
+"""
+Project Euler Problem 116
+=========================
+
+A row of five black square tiles is to have a number of its tiles replaced
+with coloured oblong tiles chosen from red (length two), green (length
+three), or blue (length four).
+
+If red tiles are chosen there are exactly seven ways this can be done.
+
+                      +----+  +----+  +----+  +----+
+                      +----+  +----+  +----+  +----+
+
+                      +----+  +----+  +----+
+                      +----+  +----+  +----+
+
+If green tiles are chosen there are three ways.
+
+                        +----+  +----+  +----+
+                        +----+  +----+  +----+
+
+And if blue tiles are chosen there are two ways.
+
+                              +----+  +----+
+                              +----+  +----+
+
+Assuming that colours cannot be mixed there are 7 + 3 + 2 = 12 ways of
+replacing the black tiles in a row measuring five units in length.
+
+How many different ways can the black tiles in a row measuring fifty units
+in length be replaced if colours cannot be mixed and at least one coloured
+tile must be used?
+
+NOTE: This is related to problem 117.
+"""
+
+def solve():
+    """ solve problem 116 """
+
+    def ways(max_n, m):
+        ways = {}
+        for i in range(m):
+            ways[i] = 0
+        ways[m] = 1
+        ways[m + 1] = 2
+        n = m + 2
+        while n < max_n + 1:
+            ways_for_n = ways[n - 1] + ways[n - 3]  # first block grey + first block red
+            ways[n] = ways_for_n
+            if ways_for_n > 1000000:
+                break
+            n += 1
+        return ways[n]
+
+    return ways(50, 2) + ways(50, 3) + ways(50,4)
+
+
+
+if __name__ == "__main__":
+    print(solve())
