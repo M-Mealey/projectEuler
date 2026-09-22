@@ -45,12 +45,11 @@ def solve():
         ways[m + 1] = 2
         n = m + 2
         while n < max_n + 1:
-            ways_for_n = ways[n - 1] + ways[n - 3]  # first block grey + first block red
+            ways_for_n = ways[n - 1] + ways[n - m]  # first block grey + first block red
+            ways_for_n += 1 # one color tile + all grey
             ways[n] = ways_for_n
-            if ways_for_n > 1000000:
-                break
             n += 1
-        return ways[n]
+        return ways[max_n]
 
     return ways(50, 2) + ways(50, 3) + ways(50,4)
 
