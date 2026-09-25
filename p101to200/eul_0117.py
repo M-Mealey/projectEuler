@@ -28,21 +28,23 @@ NOTE: This is related to problem 116.
 def solve():
     """ solve problem 117 """
 
-    def ways(max_n):
+    def ways(max_n, tiles):
         ways = {}
-        ways[0] = 1
-        ways[1] = 1
-        ways[2] = 2
-        ways[3] = 4
-        n = 4
+        for l in range(-max(tiles), 0):
+            ways[l] = 0
+        for l in range(min(tiles)+1):
+            ways[l] = 1
+        n = min(tiles) + 1
         while n < max_n + 1:
-            ways_for_n = ways[n - 1] + ways[n - 2] + ways[n - 3] + ways[n-4]
+            ways_for_n = 0
+            for t in tiles:
+                ways_for_n += ways[n-t]
 
             ways[n] = ways_for_n
             n += 1
         return ways[max_n]
 
-    return ways(50)
+    return ways(50, (1,2,3,4))
 
 
 
