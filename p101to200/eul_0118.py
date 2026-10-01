@@ -48,6 +48,26 @@ def solve():
                 set_count += 1
     print(set_count)
 
+    for single_pair in itertools.combinations([2,3,5,7], 2):
+        if single_pair in candidate_prime_dict:
+            candidate_prime_dict[single_pair].append(list(single_pair))
+        else:
+            candidate_prime_dict[single_pair] = list(single_pair)
+
+    two_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 2}
+
+    # 7 digit prime: must be paired with 2 other digits
+    print(two_digit_primes)
+
+    for k,v in two_digit_primes.items():
+        remaining_digits = {1,2,3,4,5,6,7,8,9} - set(k)
+        possible = itertools.permutations(remaining_digits)
+        for p in possible:
+            p_int = reduce(lambda total, digit: total * 10 + digit, p)
+            if miller_rabin_prime_test(p_int):
+                set_count += len(v)
+
+    print(set_count)
     # dict is ordered, iterate in order removing explored keys to prevent duplicates
     #for k, v in candidate_prime_dict.items():
     #    print(k)
