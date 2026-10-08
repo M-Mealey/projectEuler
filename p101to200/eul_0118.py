@@ -30,9 +30,9 @@ def solve():
             candidate_primes.add(p)
             digit_tup = tuple(digits)
             if digit_tup in candidate_prime_dict:
-                candidate_prime_dict[digit_tup].append(p)
+                candidate_prime_dict[digit_tup].append([p])
             else:
-                candidate_prime_dict[digit_tup] = [p]
+                candidate_prime_dict[digit_tup] = [[p]]
     print(candidate_prime_dict)
 
     # sets with an 8 digit prime: the other prime is 1 digit
@@ -52,7 +52,7 @@ def solve():
         if single_pair in candidate_prime_dict:
             candidate_prime_dict[single_pair].append(list(single_pair))
         else:
-            candidate_prime_dict[single_pair] = list(single_pair)
+            candidate_prime_dict[single_pair] = [list(single_pair)]
 
     two_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 2}
 
@@ -72,6 +72,25 @@ def solve():
     #for k, v in candidate_prime_dict.items():
     #    print(k)
     #    print(v)
+    def combine_dicts(d1, d2):
+        combined_d = {}
+        for k1, v1 in d1.items():
+            for k2, v2 in d2.items():
+                intersection = tuple(set(k1) & set(k2))
+                if len(intersection) > 0:
+                    continue
+                d_set = set(k1) | set(k2)
+                d_tup = tuple(sorted(d_set))
+                values = []
+                for l1 in v1:
+                    for l2 in v2:
+                        values.append(l1+l2)
+                combined_d[d_tup] = values
+        return combined_d
+    one_digit_primes = {(2,): [[2]], (3,): [[3]], (5,): [[5]], (7,):[[7]]}
+    print(combine_dicts(one_digit_primes, two_digit_primes))
+
+
 
     return -1
 
