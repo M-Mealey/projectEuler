@@ -46,7 +46,7 @@ def solve(): # pylint: disable=R0914, R0912, R0915
             p_int = reduce(lambda total, digit: total * 10 + digit, p)
             if miller_rabin_prime_test(p_int):
                 set_count += 1
-    #print(set_count)
+    print(f"set count after 8+1: {set_count}")
 
 
 
@@ -59,8 +59,6 @@ def solve(): # pylint: disable=R0914, R0912, R0915
         combined_d = {}
         for k1, v1 in d1.items():
             for k2, v2 in d2.items():
-                if k1 == (1,3,5,6,8,9) and k2 == (2,5,7):
-                    print("@TODO see whats up with this")
                 intersection = tuple(set(k1) & set(k2))
                 if len(intersection) > 0:
                     continue
@@ -70,7 +68,12 @@ def solve(): # pylint: disable=R0914, R0912, R0915
                 for l1 in v1:
                     for l2 in v2:
                         values.add(tuple(sorted(l1+l2)))
-                combined_d[d_tup] = values
+                if d_tup not in combined_d:
+                    combined_d[d_tup] = values
+                else:
+                    old_values = combined_d[d_tup]
+                    new_values = old_values | values
+                    combined_d[d_tup] = new_values
         return combined_d
 
 
@@ -86,6 +89,7 @@ def solve(): # pylint: disable=R0914, R0912, R0915
         return combined_d
 
     one_digit_primes = {(2,): {(2,)}, (3,): {(3,)}, (5,): {(5,)}, (7,): {(7,)}}
+    print("HERE")
     print(combine_dicts_mult(one_digit_primes, one_digit_primes))
 
     two_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 2}
@@ -142,20 +146,18 @@ def solve(): # pylint: disable=R0914, R0912, R0915
     six_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 6}
     six_digit_combos = combine_dicts_add(six_digit_primes, composite_sixes)
 
-
+    set_count_6a=0
     for k, v in three_digit_combos.items():
-        print(k)
+        #print(k)
         remaining_digits = {1, 2, 3, 4, 5, 6, 7, 8, 9} - set(k)
         possible = itertools.permutations(remaining_digits)
         for p in possible:
             p_int = reduce(lambda total, digit: total * 10 + digit, p)
             if p_int in candidate_primes:
-                print(f"\t{p_int}")
-                set_count += len(v)
+                #print(f"\t{p_int}")
+                #set_count += len(v)
+                set_count_6a += len(v)
     print(f"set count after 6: {set_count}")
-
-    print((1,3,5,6,8,9) in six_digit_primes)
-    print((2,4,7) in three_digit_combos)
 
 
 
@@ -164,14 +166,19 @@ def solve(): # pylint: disable=R0914, R0912, R0915
     sbt1 = combine_dicts_mult(six_digit_primes, three_digit_combos)
     print(sbt1)
     six_by_three = combine_dicts_mult(six_digit_combos, three_digit_combos)
+    print("six digit cobmos")
+    print(six_digit_combos)
+    print("six by three")
     print(six_by_three)
-    for i in six_by_three.values():
-        set_count += len(i)
+
 
     five_by_four = combine_dicts_mult(five_digit_combos, four_digit_combos)
-    for i in five_by_four.values():
-        #print(i)
-        set_count += len(i)
+
+    big_one = combine_dicts_add(six_by_three, five_by_four)
+    big_count = 0
+    for i in big_one.values():
+        set_count+=len(i)
+    print(f"big count: {big_count}")
 
 
 
