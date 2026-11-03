@@ -34,6 +34,39 @@ def solve(): # pylint: disable=R0914, R0912, R0915
             else:
                 candidate_prime_dict[digit_tup] = {(p,)}
 
+
+
+
+    def combine_dicts_mult(d1, d2):
+        combined_d = {}
+        d1_keys, d2_keys = set(d1.keys()), set(d2.keys())
+        product_set = itertools.product(d1_keys, d2_keys)
+        for prod in product_set:
+            intersection = tuple(set(prod[0]) & set(prod[1]))
+            if len(intersection) > 0:
+                continue
+            d_set = set(prod[0]) | set(prod[1])
+            d_tup = tuple(sorted(d_set))
+            values = set()
+            for v in itertools.product(d1[prod[0]], d2[prod[1]]):
+                values.add(tuple(sorted(v[0] + v[1])))
+            combined_d[d_tup] = combined_d.get(d_tup, set()) | values
+        return combined_d
+
+
+    def combine_dicts_add(d1, d2):
+        combined_d = d1
+        for k, v in d2.items():
+            combined_d[k] = combined_d.get(k, set()) | v
+        return combined_d
+
+    one_digit_primes = {(2,): {(2,)}, (3,): {(3,)}, (5,): {(5,)}, (7,): {(7,)}}
+
+    two_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 2}
+    two_digit_combos = combine_dicts_add(two_digit_primes,
+                                         combine_dicts_mult(one_digit_primes, one_digit_primes))
+
+
     # sets with an 8 digit prime: the other prime is 1 digit
     # can't be 3 b/c digits of 8-digit num would add to 42
     set_count = 0
@@ -45,47 +78,6 @@ def solve(): # pylint: disable=R0914, R0912, R0915
             p_int = reduce(lambda total, digit: total * 10 + digit, p)
             if miller_rabin_prime_test(p_int):
                 set_count += 1
-
-    def combine_dicts_mult(d1, d2):
-        combined_d = {}
-        for k1, v1 in d1.items():
-            for k2, v2 in d2.items():
-                intersection = tuple(set(k1) & set(k2))
-                if len(intersection) > 0:
-                    continue
-                d_set = set(k1) | set(k2)
-                d_tup = tuple(sorted(d_set))
-                values = set()
-                for l1 in v1:
-                    for l2 in v2:
-                        values.add(tuple(sorted(l1+l2)))
-                if d_tup not in combined_d:
-                    combined_d[d_tup] = values
-                else:
-                    old_values = combined_d[d_tup]
-                    new_values = old_values | values
-                    combined_d[d_tup] = new_values
-        return combined_d
-
-
-
-    def combine_dicts_add(d1, d2):
-        combined_d = dict(d1) # this makes a deep copy, maybe shallow copy would work?
-        for k, v in d2.items():
-            if k in combined_d:
-                combined_d[k] = combined_d[k] | v
-            else:
-                combined_d[k] = v
-
-        return combined_d
-
-    one_digit_primes = {(2,): {(2,)}, (3,): {(3,)}, (5,): {(5,)}, (7,): {(7,)}}
-
-    two_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 2}
-    two_digit_combos = combine_dicts_add(two_digit_primes,
-                                         combine_dicts_mult(one_digit_primes, one_digit_primes))
-
-
 
     # 7 digit prime: must be paired with 2 other digits
     for k, v in two_digit_combos.items():
@@ -138,7 +130,7 @@ def solve(): # pylint: disable=R0914, R0912, R0915
     for i in combine_dicts_add(six_by_three, five_by_four).values():
         set_count+=len(i)
 
-
+    #combine_dicts_mult(one_digit_primes, one_digit_primes)
 
     return set_count
 
