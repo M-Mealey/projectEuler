@@ -19,6 +19,8 @@ PRIMES = set(prime_sieve(1000000))
 
 def solve(): # pylint: disable=R0914, R0912, R0915
     """ solve problem 118 """
+    set_count = 0
+
     # no 9-digit prime because digits add to 45, 45%3 = 0
     candidate_primes = set()
     candidate_prime_dict = {}
@@ -33,8 +35,6 @@ def solve(): # pylint: disable=R0914, R0912, R0915
                 candidate_prime_dict[digit_tup].add((p,))
             else:
                 candidate_prime_dict[digit_tup] = {(p,)}
-
-
 
 
     def combine_dicts_mult(d1, d2):
@@ -66,13 +66,21 @@ def solve(): # pylint: disable=R0914, R0912, R0915
     two_digit_combos = combine_dicts_add(two_digit_primes,
                                          combine_dicts_mult(one_digit_primes, one_digit_primes))
 
+    combo_dicts = [one_digit_primes, two_digit_combos]
+    for x in range(3,7):
+        x_digit_combos = {}
+        x_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == x}
+        x_digit_combos = x_digit_primes #if it works fix this
+        for i in range(1, (x//2)+1):
+            combos = combine_dicts_mult(combo_dicts[i-1], combo_dicts[x-i-1])
+            x_digit_combos = combine_dicts_add(x_digit_combos, combos)
+        combo_dicts.append(x_digit_combos)
+
 
     # sets with an 8 digit prime: the other prime is 1 digit
     # can't be 3 b/c digits of 8-digit num would add to 42
-    set_count = 0
-    ds = {1,2,3,4,5,6,7,8,9}
     for i in (2,5,7):
-        remaining_digits = ds - {i}
+        remaining_digits = {1,2,3,4,5,6,7,8,9} - {i}
         possible = itertools.permutations(remaining_digits)
         for p in possible:
             p_int = reduce(lambda total, digit: total * 10 + digit, p)
@@ -88,49 +96,12 @@ def solve(): # pylint: disable=R0914, R0912, R0915
             if miller_rabin_prime_test(p_int):
                 set_count += len(v)
 
-    three_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 3}
-    three_digit_combos = combine_dicts_add(three_digit_primes,
-                                           combine_dicts_mult(one_digit_primes, two_digit_combos))
-
-
-    # to get four you can do 1+3 or 2+2
-    one_by_three = combine_dicts_mult(one_digit_primes, three_digit_combos)
-    two_by_two = combine_dicts_mult(two_digit_combos, two_digit_combos)
-    composite_fours = combine_dicts_add(one_by_three, two_by_two)
-
-    four_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 4}
-    four_digit_combos = combine_dicts_add(four_digit_primes, composite_fours)
-
-    # five is 1+4 or 2+3
-    one_by_four = combine_dicts_mult(one_digit_primes, four_digit_combos)
-    two_by_three = combine_dicts_mult(two_digit_combos, three_digit_combos)
-    composite_fives = combine_dicts_add(one_by_four, two_by_three)
-
-    five_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 5}
-    five_digit_combos = combine_dicts_add(five_digit_primes, composite_fives)
-
-
-    # six is 1+5, 2+4, or 3+3
-    one_by_five = combine_dicts_mult(one_digit_primes, five_digit_combos)
-    two_by_four = combine_dicts_mult(two_digit_combos, four_digit_combos)
-    three_by_three = combine_dicts_mult(three_digit_combos, three_digit_combos)
-    composite_sixes = combine_dicts_add(one_by_five, combine_dicts_add(two_by_four, three_by_three))
-
-    six_digit_primes = {k: v for k, v in candidate_prime_dict.items() if len(k) == 6}
-    six_digit_combos = combine_dicts_add(six_digit_primes, composite_sixes)
-
-
-
-
-
-    # now add to get 9. 8+1 and 7+2 are already done
-    six_by_three = combine_dicts_mult(six_digit_combos, three_digit_combos)
-    five_by_four = combine_dicts_mult(five_digit_combos, four_digit_combos)
+    # now add 6+3 and 4+5 to get combos for 9
+    six_by_three = combine_dicts_mult(combo_dicts[5], combo_dicts[2])
+    five_by_four = combine_dicts_mult(combo_dicts[4], combo_dicts[3])
 
     for i in combine_dicts_add(six_by_three, five_by_four).values():
         set_count+=len(i)
-
-    #combine_dicts_mult(one_digit_primes, one_digit_primes)
 
     return set_count
 
