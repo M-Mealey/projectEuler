@@ -13,17 +13,20 @@ You are given that a[2] = 512 and a[10] = 614656.
 
 Find a[30].
 """
+import math
 
 def solve():
     """ solve problem 119 """
-    max_search = 2_000_000
-    for i in range(11, max_search):
-        digit_sum = sum(int(digit) for digit in str(i))
-        c = digit_sum
-        while c < i and digit_sum > 1:
-            c *= digit_sum
-        if c==i:
-            print(i)
+    max_search = 100_000_000_000
+    found = set()
+    for i in range(2, int(math.sqrt(max_search))):
+        c = i * i
+        while c < max_search:
+            digit_sum = sum(int(digit) for digit in str(c))
+            if digit_sum == i:
+                found.add(c)
+            c *= i
+    print(found)
     return -1
 
 if __name__ == "__main__":
