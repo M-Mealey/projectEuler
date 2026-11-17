@@ -17,7 +17,7 @@ import math
 
 def solve():
     """ solve problem 119 """
-    max_search = 100_000_000_000
+    max_search = 500_000_000_000_000
     found = set()
     for i in range(2, int(math.sqrt(max_search))):
         c = i * i
@@ -26,8 +26,11 @@ def solve():
             if digit_sum == i:
                 found.add(c)
             c *= i
-    print(found)
-    return -1
+    fls = list(found)
+    fls.sort()
+    #print(fls[29])
+    #print(len(found))
+    return fls[29]
 
 if __name__ == "__main__":
     print(solve())
